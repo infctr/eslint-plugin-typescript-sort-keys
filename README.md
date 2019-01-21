@@ -29,6 +29,7 @@ Add `typescript-sort-keys` to the plugins section of your `.eslintrc` configurat
 
 ```json
 {
+  "parser": "@typescript-eslint/parser",
   "plugins": ["typescript-sort-keys"]
 }
 ```

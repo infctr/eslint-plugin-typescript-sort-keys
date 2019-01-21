@@ -79,13 +79,6 @@ interface U {
   ['b']: T;
   c: T;
 }
-
-// This rule ignores computed properties which have a non-simple name.
-interface U {
-  a: T;
-  b: T;
-  ['cd']: T;
-}
 ```
 
 ## Options
