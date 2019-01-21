@@ -1,18 +1,18 @@
 # eslint-plugin-typescript-sort-keys
 
-Sort interface keys
+Sort interface and string enum keys
 
 ## Installation
 
 You'll first need to install [ESLint](http://eslint.org):
 
-```
+```sh
 $ npm i eslint --save-dev
 ```
 
 Next, install `eslint-plugin-typescript-sort-keys`:
 
-```
+```sh
 $ npm install eslint-plugin-typescript-sort-keys --save-dev
 ```
 
@@ -33,11 +33,20 @@ Then configure the rules you want to use under the rules section.
 ```json
 {
   "rules": {
-    "typescript-sort-keys/rule-name": 2
+    "typescript-sort-keys/interface": 2
   }
 }
 ```
 
 ## Supported Rules
 
-- Fill in provided rules here
+<!-- begin rule list -->
+
+**Key**: :heavy_check_mark: = recommended, :wrench: = fixable
+
+<!-- prettier-ignore -->
+| Name | Description | :heavy_check_mark: | :wrench: |
+| ---- | ----------- | ------------------ | -------- |
+| [`typescript-sort-keys/interface`](./docs/rules/interface.md) | require interface keys to be sorted |  |  |
+
+<!-- end rule list -->
