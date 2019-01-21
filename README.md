@@ -2,20 +2,20 @@
 
 Sort interface and string enum keys
 
-A forked version of [eslint/sort-keys](https://github.com/eslint/eslint/blob/master/docs/rules/sort-keys.md)
+Inspired by and forked from [eslint/sort-keys](https://github.com/eslint/eslint/blob/master/docs/rules/sort-keys.md)
 
 ## Installation
 
-You'll first need to install [ESLint](http://eslint.org):
+You'll first need to install [ESLint](http://eslint.org), [typescript](http://www.typescriptlang.org/) and [@typescript-eslint/parser](https://github.com/typescript-eslint/typescript-eslint/tree/master/packages/parser)
 
 ```sh
-$ npm i eslint --save-dev
+yarn add -D eslint typescript @typescript-eslint/parser
 ```
 
 Next, install `eslint-plugin-typescript-sort-keys`:
 
 ```sh
-$ npm install eslint-plugin-typescript-sort-keys --save-dev
+yarn add -D eslint-plugin-typescript-sort-keys
 ```
 
 **Note:** If you installed ESLint globally (using the `-g` flag) then you must also install `eslint-plugin-typescript-sort-keys` globally.

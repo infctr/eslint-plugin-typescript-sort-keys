@@ -26,6 +26,7 @@
     "requireindex": "~1.2.0"
   },
   "devDependencies": {
+    "@typescript-eslint/parser": "~1.0.0",
     "eslint": "~5.12.1",
     "eslint-config-airbnb-base": "~13.1.0",
     "eslint-config-prettier": "~3.5.0",
@@ -37,8 +38,12 @@
     "lint-staged": "~8.1.0",
     "mocha": "~5.2.0",
     "prettier": "~1.15.3",
-    "typescript": "^3.2.4",
-    "typescript-eslint-parser": "^22.0.0"
+    "typescript": "~3.2.4"
+  },
+  "peerDependencies": {
+    "@typescript-eslint/parser": "~1.0.0",
+    "eslint": "~5.12.1",
+    "typescript": "~3.2.4"
   },
   "engines": {
     "node": ">=8.0.0"
