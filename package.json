@@ -7,8 +7,9 @@
     "eslintplugin",
     "eslint-plugin"
   ],
-  "author": "infctr",
+  "author": "infctr <infctr@gmail.com>",
   "main": "lib/index.js",
+  "repository": "git@github.com:infctr/eslint-plugin-typescript-sort-keys.git",
   "scripts": {
     "lint": "eslint lib/ tests/",
     "lint:fix": "eslint lib/ tests/ --fix",
