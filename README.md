@@ -2,6 +2,8 @@
 
 Sort interface and string enum keys
 
+A forked version of [eslint/sort-keys](https://github.com/eslint/eslint/blob/master/docs/rules/sort-keys.md)
+
 ## Installation
 
 You'll first need to install [ESLint](http://eslint.org):
