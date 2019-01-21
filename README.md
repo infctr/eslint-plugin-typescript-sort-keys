@@ -6,7 +6,10 @@ Inspired by and forked from [eslint/sort-keys](https://github.com/eslint/eslint/
 
 ## Installation
 
-You'll first need to install [ESLint](http://eslint.org), [typescript](http://www.typescriptlang.org/) and [@typescript-eslint/parser](https://github.com/typescript-eslint/typescript-eslint/tree/master/packages/parser)
+You'll first need to install
+- [eslint](http://eslint.org)
+- [typescript](http://www.typescriptlang.org/)
+- [@typescript-eslint/parser](https://github.com/typescript-eslint/typescript-eslint/tree/master/packages/parser)
 
 ```sh
 yarn add -D eslint typescript @typescript-eslint/parser
@@ -18,7 +21,7 @@ Next, install `eslint-plugin-typescript-sort-keys`:
 yarn add -D eslint-plugin-typescript-sort-keys
 ```
 
-**Note:** If you installed ESLint globally (using the `-g` flag) then you must also install `eslint-plugin-typescript-sort-keys` globally.
+**Note:** If you installed ESLint globally then you must also install `eslint-plugin-typescript-sort-keys` globally.
 
 ## Usage
 
@@ -52,3 +55,8 @@ Then configure the rules you want to use under the rules section.
 | [`typescript-sort-keys/interface`](./docs/rules/interface.md) | require interface keys to be sorted |  |  |
 
 <!-- end rule list -->
+
+## Roadmap
+
+- Add autofix
+- Add string enums keys sorting
