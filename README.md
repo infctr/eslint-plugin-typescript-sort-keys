@@ -62,8 +62,8 @@ Then configure the rules you want to use under the rules section.
 <!-- prettier-ignore -->
 | Name | Description | :heavy_check_mark: | :wrench: |
 | ---- | ----------- | ------------------ | -------- |
-| [`typescript-sort-keys/interface`](./docs/rules/interface.md) | require interface keys to be sorted |  |  |
-| [`typescript-sort-keys/string-enum`](./docs/rules/string-enum.md) | require string enum members to be sorted |  |  |
+| [`typescript-sort-keys/interface`](./docs/rules/interface.md) | require interface keys to be sorted | :heavy_check_mark: |  |
+| [`typescript-sort-keys/string-enum`](./docs/rules/string-enum.md) | require string enum members to be sorted | :heavy_check_mark: |  |
 
 <!-- end rule list -->
 
