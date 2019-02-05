@@ -19,13 +19,13 @@ ruleTester.run('interface', rule, {
     { code: "interface U {1:T; '11':T; 2:T; A:T;}" },
     { code: "interface U {'#':T; 'Z':T; À:T; è:T;}" },
 
-    { code: 'interface U {a:T; ["ab"]:T; b:T; c:T;}', options: [] },
+    { code: 'interface U {a:T; ["ab"]:T; b:T; c:T;}' },
 
     // nested
-    { code: 'interface U {a:T; b:{x:T; y:T;}; c:T;} // nested', options: [] },
-    { code: 'interface U {a:T; b:{x:T; y:T; z:{i:T; j:T;};}; c:T;}', options: [] },
-    { code: 'type U = {a:T; b:{x:T; y:T;}; c:T;}', options: [] },
-    { code: 'type U = {a:T; b:{x:T; y:T; z:{i:T; j:T;};}; c:T;}', options: [] },
+    { code: 'interface U {a:T; b:{x:T; y:T;}; c:T;} // nested' },
+    { code: 'interface U {a:T; b:{x:T; y:T; z:{i:T; j:T;};}; c:T;}' },
+    { code: 'type U = {a:T; b:{x:T; y:T;}; c:T;}' },
+    { code: 'type U = {a:T; b:{x:T; y:T; z:{i:T; j:T;};}; c:T;}' },
 
     // asc
     { code: 'interface U {_:T; a:T; b:T;} // asc', options: ['asc'] },

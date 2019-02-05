@@ -7,6 +7,7 @@ Inspired by and forked from [eslint/sort-keys](https://github.com/eslint/eslint/
 ## Installation
 
 You'll first need to install
+
 - [eslint](http://eslint.org)
 - [typescript](http://www.typescriptlang.org/)
 - [@typescript-eslint/parser](https://github.com/typescript-eslint/typescript-eslint/tree/master/packages/parser)
@@ -25,11 +26,18 @@ yarn add -D eslint-plugin-typescript-sort-keys
 
 ## Usage
 
-Add `typescript-sort-keys` to the plugins section of your `.eslintrc` configuration file. You can omit the `eslint-plugin-` prefix:
+Specify the parser for typescript files in your `.eslintrc` configuration file:
 
 ```json
 {
-  "parser": "@typescript-eslint/parser",
+  "parser": "@typescript-eslint/parser"
+}
+```
+
+Add `typescript-sort-keys` to the plugins section. You can omit the `eslint-plugin-` prefix:
+
+```json
+{
   "plugins": ["typescript-sort-keys"]
 }
 ```
@@ -39,7 +47,8 @@ Then configure the rules you want to use under the rules section.
 ```json
 {
   "rules": {
-    "typescript-sort-keys/interface": 2
+    "typescript-sort-keys/interface": 2,
+    "typescript-sort-keys/string-enum": 2
   }
 }
 ```
@@ -54,10 +63,10 @@ Then configure the rules you want to use under the rules section.
 | Name | Description | :heavy_check_mark: | :wrench: |
 | ---- | ----------- | ------------------ | -------- |
 | [`typescript-sort-keys/interface`](./docs/rules/interface.md) | require interface keys to be sorted |  |  |
+| [`typescript-sort-keys/string-enum`](./docs/rules/string-enum.md) | require string enum members to be sorted |  |  |
 
 <!-- end rule list -->
 
 ## Roadmap
 
 - Add autofix
-- Add string enums keys sorting
