@@ -1,11 +1,9 @@
-'use strict';
-
 const { RuleTester } = require('eslint');
 
 const rule = require('../../../lib/rules/interface');
 
 const ruleTester = new RuleTester({
-  parser: '@typescript-eslint/parser',
+  parser: require.resolve('@typescript-eslint/parser'),
 });
 
 ruleTester.run('interface', rule, {

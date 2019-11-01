@@ -1,6 +1,6 @@
 module.exports = {
   parserOptions: {
-    sourceType: 'script',
+    sourceType: 'module',
   },
   extends: [
     'airbnb-base',
