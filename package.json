@@ -46,7 +46,7 @@
     "typescript": "^3"
   },
   "engines": {
-    "node": ">=8.0.0"
+    "node": ">=8.3.0"
   },
   "files": [
     "lib"
