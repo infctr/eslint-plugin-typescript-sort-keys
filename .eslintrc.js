@@ -11,4 +11,12 @@ module.exports = {
   rules: {
     'object-shorthand': 0,
   },
+  overrides: [
+    {
+      files: ['tests/**'],
+      env: {
+        mocha: true,
+      },
+    },
+  ],
 };
