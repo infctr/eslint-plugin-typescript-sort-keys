@@ -158,12 +158,12 @@ ruleTester.run('interface', rule, {
     {
       code: 'interface U {a:T; c:{y:T; x:T;}, b:T;}',
       errors: ["Expected interface keys to be in ascending order. 'x' should be before 'y'.", "Expected interface keys to be in ascending order. 'b' should be before 'c'."],
-      output: 'interface U {a:T; b:T; c:{y:T; x:T;},}',
+      output: 'interface U {a:T; b:T; c:{y:T; x:T;}}',
     },
     {
       code: 'type U = {a:T; c:{y:T; x:T;}, b:T;}',
       errors: ["Expected interface keys to be in ascending order. 'x' should be before 'y'.", "Expected interface keys to be in ascending order. 'b' should be before 'c'."],
-      output: 'type U = {a:T; b:T; c:{y:T; x:T;},}',
+      output: 'type U = {a:T; b:T; c:{y:T; x:T;}}',
     },
 
     // asc

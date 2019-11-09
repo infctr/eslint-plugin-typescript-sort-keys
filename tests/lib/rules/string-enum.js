@@ -111,7 +111,7 @@ ruleTester.run('string-enum', rule, {
     {
       code: 'enum U {b_="T", c="T", C="T"}',
       errors: ["Expected string enum members to be in ascending order. 'C' should be before 'c'."],
-      output: 'enum U {C="T", c="T", b_="T"}',
+      output: 'enum U {C="T", c="T", b_="T",}',
     },
     {
       code: 'enum U {$="T", _="T", A="T", a="T"}',
@@ -154,7 +154,7 @@ ruleTester.run('string-enum', rule, {
       code: 'enum U {b_="T", c="T", C="T"}',
       options: ['asc'],
       errors: ["Expected string enum members to be in ascending order. 'C' should be before 'c'."],
-      output: 'enum U {C="T", c="T", b_="T"}',
+      output: 'enum U {C="T", c="T", b_="T",}',
     },
     {
       code: 'enum U {$="T", _="T", A="T", a="T"}',
@@ -224,7 +224,7 @@ ruleTester.run('string-enum', rule, {
       code: 'enum U {b_="T", c="T", C="T"}',
       options: ['asc', { natural: true }],
       errors: ["Expected string enum members to be in natural ascending order. 'C' should be before 'c'."],
-      output: 'enum U {C="T", c="T", b_="T"}',
+      output: 'enum U {C="T", c="T", b_="T",}',
     },
     {
       code: 'enum U {$="T", A="T", _="T", a="T"}',
@@ -276,7 +276,7 @@ ruleTester.run('string-enum', rule, {
       code: 'enum U {a="T", _="T", b="T"} // desc',
       options: ['desc'],
       errors: ["Expected string enum members to be in descending order. 'b' should be before '_'."],
-      output: 'enum U {b="T", _="T", a="T"} // desc',
+      output: 'enum U {b="T", _="T", a="T",} // desc',
     },
     {
       code: 'enum U {a="T", c="T", b="T"}',
@@ -314,7 +314,7 @@ ruleTester.run('string-enum', rule, {
       code: 'enum U {a="T", _="T", b="T"} // desc, insensitive',
       options: ['desc', { caseSensitive: false }],
       errors: ["Expected string enum members to be in insensitive descending order. 'b' should be before '_'."],
-      output: 'enum U {b="T", _="T", a="T"} // desc, insensitive',
+      output: 'enum U {b="T", _="T", a="T",} // desc, insensitive',
     },
     {
       code: 'enum U {a="T", c="T", b="T"}',
@@ -358,7 +358,7 @@ ruleTester.run('string-enum', rule, {
       code: 'enum U {a="T", _="T", b="T"} // desc, natural',
       options: ['desc', { natural: true }],
       errors: ["Expected string enum members to be in natural descending order. 'b' should be before '_'."],
-      output: 'enum U {b="T", _="T", a="T"} // desc, natural',
+      output: 'enum U {b="T", _="T", a="T",} // desc, natural',
     },
     {
       code: 'enum U {a="T", c="T", b="T"}',
@@ -403,7 +403,7 @@ ruleTester.run('string-enum', rule, {
       code: 'enum U {a="T", _="T", b="T"} // desc, natural, insensitive',
       options: ['desc', { natural: true, caseSensitive: false }],
       errors: ["Expected string enum members to be in natural insensitive descending order. 'b' should be before '_'."],
-      output: 'enum U {b="T", _="T", a="T"} // desc, natural, insensitive',
+      output: 'enum U {b="T", _="T", a="T",} // desc, natural, insensitive',
     },
     {
       code: 'enum U {a="T", c="T", b="T"}',
