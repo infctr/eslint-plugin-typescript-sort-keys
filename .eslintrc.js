@@ -1,6 +1,6 @@
 module.exports = {
   parserOptions: {
-    sourceType: 'script',
+    sourceType: 'module',
   },
   extends: [
     'airbnb-base',
@@ -11,4 +11,12 @@ module.exports = {
   rules: {
     'object-shorthand': 0,
   },
+  overrides: [
+    {
+      files: ['tests/**'],
+      env: {
+        mocha: true,
+      },
+    },
+  ],
 };
