@@ -1,10 +1,7 @@
+const prettier = require('./.prettierrc');
+
 module.exports = {
   rules: {
-    'prettier/prettier': [
-      2,
-      {
-        printWidth: 200,
-      },
-    ],
+    'prettier/prettier': [2, prettier],
   },
 };

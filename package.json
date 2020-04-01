@@ -5,7 +5,8 @@
   "keywords": [
     "eslint",
     "eslintplugin",
-    "eslint-plugin"
+    "eslint-plugin",
+    "typescript"
   ],
   "author": "infctr <infctr@gmail.com>",
   "main": "lib/index.js",
@@ -16,9 +17,8 @@
     "docs": "eslint-docs",
     "docs:check": "eslint-docs check",
     "format": "prettier --write lib/**/*.js tests/**/*.js",
-    "mocha": "mocha tests --recursive --reporter=dot",
     "pretest": "yarn lint",
-    "test": "mocha tests --recursive --reporter=dot",
+    "test": "jest --silent --runInBand",
     "posttest": "yarn docs:check"
   },
   "dependencies": {
@@ -37,8 +37,8 @@
     "eslint-plugin-node": "~11.1.0",
     "eslint-plugin-prettier": "~3.1.2",
     "husky": "~4.2.3",
+    "jest": "~25.2.4",
     "lint-staged": "~10.1.1",
-    "mocha": "~7.1.1",
     "prettier": "~2.0.2",
     "tmp": "^0.1.0",
     "typescript": "~3.8.3"
@@ -51,9 +51,9 @@
   "engines": {
     "node": ">=8.3.0"
   },
-  "files": [
-    "lib"
-  ],
+  "jest": {
+    "testRegex": "tests/.*\\.spec\\.(js|ts)$"
+  },
   "license": "ISC",
   "husky": {
     "hooks": {
