@@ -2,7 +2,7 @@
 
 Sort interface and string enum keys
 
-Inspired by and forked from [eslint/sort-keys](https://github.com/eslint/eslint/blob/master/docs/rules/sort-keys.md)
+Inspired by and sourced from [eslint/sort-keys](https://github.com/eslint/eslint/blob/master/docs/rules/sort-keys.md)
 
 ## Installation
 
