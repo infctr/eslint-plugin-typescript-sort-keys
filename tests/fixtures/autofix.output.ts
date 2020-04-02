@@ -101,3 +101,12 @@ type Type2 = {
   /* %foo */
   foo: boolean;
 }
+
+interface ClockConstructor {
+  new (hour: number, minute: number): ClockInterface;
+  new (hour: number): ClockInterface;
+}
+
+interface ClockInterface {
+  tick(): void;
+}
