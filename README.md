@@ -1,3 +1,5 @@
+![Tests](https://github.com/infctr/eslint-plugin-typescript-sort-keys/workflows/Node.js%20CI/badge.svg?branch=master)
+
 # eslint-plugin-typescript-sort-keys
 
 Sort interface and string enum keys
