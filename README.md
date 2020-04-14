@@ -1,4 +1,4 @@
-![Tests](https://github.com/infctr/eslint-plugin-typescript-sort-keys/workflows/Node.js%20CI/badge.svg?branch=master)
+![Tests](https://github.com/infctr/eslint-plugin-typescript-sort-keys/workflows/Tests/badge.svg?branch=master)
 
 # eslint-plugin-typescript-sort-keys
 
