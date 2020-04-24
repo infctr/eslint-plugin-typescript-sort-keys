@@ -10,7 +10,7 @@
 const requireIndex = require('requireindex');
 const path = require('path');
 
-const recommended = require('../config/recommended'); // eslint-disable-line node/no-unpublished-require
+const recommended = require('./config/recommended'); // eslint-disable-line node/no-unpublished-require
 
 //------------------------------------------------------------------------------
 // Plugin Definition

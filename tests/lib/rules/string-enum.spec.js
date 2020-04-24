@@ -1,6 +1,6 @@
 const { RuleTester } = require('eslint');
 
-const rule = require('../../../lib/rules/string-enum');
+const rule = require('../../../src/rules/string-enum');
 
 const ruleTester = new RuleTester({
   parser: require.resolve('@typescript-eslint/parser'),

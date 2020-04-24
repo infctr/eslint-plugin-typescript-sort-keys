@@ -1,4 +1,4 @@
-const plugin = require('../lib/index');
+const plugin = require('../src/index');
 
 const RULE_NAME_PREFIX = 'typescript-sort-keys/';
 

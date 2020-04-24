@@ -9,14 +9,16 @@
     "typescript"
   ],
   "author": "infctr <infctr@gmail.com>",
-  "main": "lib/index.js",
+  "main": "dist/index.js",
   "repository": "git@github.com:infctr/eslint-plugin-typescript-sort-keys.git",
   "scripts": {
-    "lint": "eslint lib/ tests/",
-    "lint:fix": "eslint lib/ tests/ --fix",
+    "prebuild": "yarn test",
+    "build": "rimraf dist && tsc --project ./tsconfig.prod.json",
+    "lint": "eslint src/ tests/",
+    "lint:fix": "eslint src/ tests/ --fix",
     "docs": "eslint-docs",
     "docs:check": "eslint-docs check",
-    "format": "prettier --write lib/**/*.js tests/**/*.js",
+    "format": "prettier --write src/**/*.{js,ts} tests/**/*.{js,ts}",
     "pretest": "yarn lint",
     "test": "jest --silent --runInBand",
     "posttest": "yarn docs:check"
@@ -26,13 +28,13 @@
     "requireindex": "~1.2.0"
   },
   "devDependencies": {
-    "@typescript-eslint/eslint-plugin": "^2.26.0",
+    "@infctr/eslint-docs": "~0.4.0",
+    "@typescript-eslint/eslint-plugin": "~2.26.0",
     "@typescript-eslint/parser": "~2.26.0",
-    "cross-spawn": "^7.0.1",
+    "cross-spawn": "~7.0.1",
     "eslint": "~6.8.0",
     "eslint-config-airbnb-base": "~14.1.0",
     "eslint-config-prettier": "~6.10.1",
-    "eslint-docs": "~0.4.0",
     "eslint-plugin-import": "~2.20.2",
     "eslint-plugin-node": "~11.1.0",
     "eslint-plugin-prettier": "~3.1.2",
@@ -40,7 +42,8 @@
     "jest": "~25.2.4",
     "lint-staged": "~10.1.1",
     "prettier": "~2.0.2",
-    "tmp": "^0.1.0",
+    "rimraf": "~3.0.2",
+    "tmp": "~0.1.0",
     "typescript": "~3.8.3"
   },
   "peerDependencies": {

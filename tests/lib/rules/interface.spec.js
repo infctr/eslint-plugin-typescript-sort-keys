@@ -1,6 +1,6 @@
 const { RuleTester } = require('eslint');
 
-const rule = require('../../../lib/rules/interface');
+const rule = require('../../../src/rules/interface');
 
 const ruleTester = new RuleTester({
   parser: require.resolve('@typescript-eslint/parser'),
