@@ -81,5 +81,10 @@ typings/
 # DynamoDB Local files
 .dynamodb/
 
-# Misc
+# IDE
+.vscode
+
+# Build artifacts
 dist
+build
+lib

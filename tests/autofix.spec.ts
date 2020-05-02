@@ -1,13 +1,15 @@
-const assert = require('assert');
-const Path = require('path');
-const fs = require('fs');
+import assert from 'assert';
+import Path from 'path';
+import fs from 'fs';
 
-const spawn = require('cross-spawn');
-const tmp = require('tmp');
-
-tmp.setGracefulCleanup();
+import spawn from 'cross-spawn';
+import tmp from 'tmp';
 
 describe('autofix', () => {
+  beforeEach(() => {
+    tmp.setGracefulCleanup();
+  });
+
   it('should properly format comments and indent level', () => {
     const { name: tmpDir } = tmp.dirSync({
       prefix: 'typescript-sort-keys-',
@@ -15,13 +17,8 @@ describe('autofix', () => {
     });
 
     const testFilePath = Path.join(tmpDir, 'autofix.ts');
-
     const input = fs.readFileSync('tests/fixtures/autofix.input.ts', 'utf8');
-
-    const expected = fs.readFileSync(
-      'tests/fixtures/autofix.output.ts',
-      'utf8',
-    );
+    const expected = fs.readFileSync('tests/fixtures/autofix.output.ts', 'utf8');
 
     fs.writeFileSync(testFilePath, input);
 
@@ -31,15 +28,14 @@ describe('autofix', () => {
         '--ext',
         '.ts',
         '--rulesdir',
-        'src/rules',
+        // 'src/rules',
+        'dist/rules',
         '--config',
         require.resolve('./fixtures/.eslintrc.js'),
         testFilePath,
         '--fix',
       ],
-      {
-        encoding: 'utf8',
-      },
+      { encoding: 'utf8' },
     );
 
     if (result.status !== 0) {

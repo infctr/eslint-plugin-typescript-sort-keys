@@ -1,7 +1,7 @@
-const assert = require('assert');
+import assert from 'assert';
 
-const { getPropertyName } = require('./utils/ast');
-const { compareFunctions } = require('./utils/compareFunctions');
+import { getPropertyName } from './ast';
+import { compareFunctions } from './compare';
 
 function createNodeSwapper(context) {
   const sourceCode = context.getSourceCode();
@@ -66,9 +66,7 @@ function createNodeSwapper(context) {
     }
     // Check the punctuator value outside of filter because we
     // want to stop traversal on any terminating punctuator
-    return punctuator && /^[,;]$/.test(punctuator.value)
-      ? punctuator
-      : undefined;
+    return punctuator && /^[,;]$/.test(punctuator.value) ? punctuator : undefined;
   }
 
   return (fixer, nodePositions, currentNode, replaceNode) =>
@@ -80,9 +78,9 @@ function createNodeSwapper(context) {
         nodePositions.get(node).final === nodePositions.size - 1 &&
         nodePositions.get(node).final === nodePositions.get(otherNode).initial;
 
-      let text = `${
-        comments.length ? getIndentText(node) : ''
-      }${sourceCode.getText(node)}`;
+      let text = `${comments.length ? getIndentText(node) : ''}${sourceCode.getText(
+        node,
+      )}`;
 
       // If nextSibling is the node punctuator, remove it
       if (nextSibling === getNodePunctuator(node)) {
@@ -125,7 +123,7 @@ function createNodeSwapper(context) {
     }, []);
 }
 
-module.exports = function createReporter(context, createReportObject) {
+export function createReporter(context, createReportObject) {
   // Parse options.
   const order = context.options[0] || 'asc';
   const options = context.options[1];
@@ -144,10 +142,7 @@ module.exports = function createReporter(context, createReportObject) {
     });
 
     const nodePositions = new Map(
-      body.map(n => [
-        n,
-        { initial: body.indexOf(n), final: sortedBody.indexOf(n) },
-      ]),
+      body.map(n => [n, { initial: body.indexOf(n), final: sortedBody.indexOf(n) }]),
     );
 
     for (let i = 1; i < body.length; i += 1) {
@@ -162,12 +157,9 @@ module.exports = function createReporter(context, createReportObject) {
         const { data, ...rest } = createReportObject(currentNode, replaceNode);
 
         // Sanity check
+        assert(rest.loc, 'createReportObject return value must include a node location');
         assert(
-          rest.loc,
-          'createReportObject return value must include a node location',
-        );
-        assert(
-          rest.message,
+          rest.messageId,
           'createReportObject return value must include a problem message',
         );
 
@@ -192,4 +184,4 @@ module.exports = function createReporter(context, createReportObject) {
       }
     }
   };
-};
+}

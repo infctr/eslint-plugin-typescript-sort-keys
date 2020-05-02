@@ -1,4 +1,4 @@
-module.exports = {
+export default {
   plugins: ['typescript-sort-keys'],
   rules: {
     'typescript-sort-keys/interface': 'error',

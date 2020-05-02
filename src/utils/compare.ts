@@ -1,26 +1,34 @@
-const naturalCompare = require('natural-compare-lite');
+import naturalCompare from 'natural-compare-lite';
 
-function charCompare(a, b) {
+import { indexSignature } from './common';
+
+function charCompare(a: string, b: string) {
   if (a < b) {
     return -1;
   }
+
   if (b < a) {
     return 1;
   }
+
   return 0;
 }
 
-function getWeight(value) {
+function getWeight(value: string) {
   switch (true) {
-    // Index signature
-    case /^\[index:/.test(value):
+    // Custom name for index signature used here
+    case indexSignature.regex.test(value):
       return 100;
     default:
       return 0;
   }
 }
 
-function weightedCompare(a, b, compareFn) {
+function weightedCompare(
+  a: string,
+  b: string,
+  compareFn: (a: string, b: string) => number,
+) {
   return compareFn(a, b) - getWeight(a) + getWeight(b);
 }
 
@@ -30,31 +38,29 @@ function weightedCompare(a, b, compareFn) {
  * Postfix `I` is meant insensitive.
  * Postfix `N` is meant natural.
  */
-const compareFunctions = {
-  asc(a, b) {
+export const compareFunctions = {
+  asc(a: string, b: string) {
     return weightedCompare(a, b, charCompare);
   },
-  ascI(a, b) {
+  ascI(a: string, b: string) {
     return weightedCompare(a.toLowerCase(), b.toLowerCase(), charCompare);
   },
-  ascN(a, b) {
+  ascN(a: string, b: string) {
     return weightedCompare(a, b, naturalCompare);
   },
-  ascIN(a, b) {
+  ascIN(a: string, b: string) {
     return weightedCompare(a.toLowerCase(), b.toLowerCase(), naturalCompare);
   },
-  desc(a, b) {
+  desc(a: string, b: string) {
     return compareFunctions.asc(b, a);
   },
-  descI(a, b) {
+  descI(a: string, b: string) {
     return compareFunctions.ascI(b, a);
   },
-  descN(a, b) {
+  descN(a: string, b: string) {
     return compareFunctions.ascN(b, a);
   },
-  descIN(a, b) {
+  descIN(a: string, b: string) {
     return compareFunctions.ascIN(b, a);
   },
 };
-
-exports.compareFunctions = compareFunctions;
