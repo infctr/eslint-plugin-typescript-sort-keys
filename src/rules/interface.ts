@@ -1,8 +1,8 @@
 import { JSONSchema4 } from 'json-schema';
 
-import { getObjectBody } from '../utils/ast';
-import { createReporter } from '../utils/plugin';
-import { createRule, RuleMetaData } from '../utils/rule';
+import { getObjectBody } from 'utils/ast';
+import { createReporter } from 'utils/plugin';
+import { createRule, RuleMetaData } from 'utils/rule';
 import {
   sortingOrderOptionSchema,
   sortingParamsOptionSchema,
@@ -10,7 +10,7 @@ import {
   SortingParamsOption,
   SortingOrderOption,
   ErrorMessage,
-} from '../common/options';
+} from 'common/options';
 
 // The name of this rule.
 export const name = 'interface' as const;

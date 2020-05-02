@@ -1,2 +1,4 @@
 tests/fixtures/**
 dist
+lib
+build

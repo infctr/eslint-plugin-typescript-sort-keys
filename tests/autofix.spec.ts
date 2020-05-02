@@ -1,7 +1,6 @@
 import assert from 'assert';
 import Path from 'path';
 import fs from 'fs';
-
 import spawn from 'cross-spawn';
 import tmp from 'tmp';
 
@@ -28,8 +27,7 @@ describe('autofix', () => {
         '--ext',
         '.ts',
         '--rulesdir',
-        // 'src/rules',
-        'dist/rules',
+        'build/rules',
         '--config',
         require.resolve('./fixtures/.eslintrc.js'),
         testFilePath,

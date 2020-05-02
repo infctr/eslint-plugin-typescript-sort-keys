@@ -5,9 +5,9 @@ import plugin from '../src';
 const RULE_NAME_PREFIX = 'typescript-sort-keys/';
 
 function entriesToObject<T = unknown>(value: readonly [string, T][]): Record<string, T> {
-  return value.reduce<Record<string, T>>((accum, [k, v]) => {
-    accum[k] = v;
-    return accum;
+  return value.reduce<Record<string, T>>((memo, [k, v]) => {
+    memo[k] = v;
+    return memo;
   }, {});
 }
 

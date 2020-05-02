@@ -5,5 +5,3 @@ export const rules = {
   [interfaceName]: interfaceRule,
   [stringEnumName]: stringEnumRule,
 };
-
-// export default rules;

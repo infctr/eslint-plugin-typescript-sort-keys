@@ -12,21 +12,24 @@
   "main": "dist/index.js",
   "repository": "git@github.com:infctr/eslint-plugin-typescript-sort-keys.git",
   "scripts": {
-    "prebuild": "yarn test",
-    "build": "rimraf dist && tsc --project ./tsconfig.prod.json",
-    "lint": "eslint --ext .js,.ts src/ tests/",
-    "lint:fix": "eslint src/ tests/ --fix",
+    "build": "yarn rimraf lib && yarn compile",
+    "build-tests": "yarn rimraf build && yarn compile-tests",
+    "compile": "yarn rollup -c",
+    "compile-tests": "yarn babel --extensions .ts src --out-dir build",
     "docs": "eslint-docs",
     "docs:check": "eslint-docs check",
+    "lint": "eslint --ext .js,.ts src/ tests/",
+    "postlint": "yarn docs:check",
     "format": "prettier --write src/**/*.{js,ts} tests/**/*.{js,ts}",
-    "pretest": "yarn lint",
-    "test": "jest --silent --runInBand",
-    "posttest": "yarn docs:check"
+    "test": "yarn jest --runInBand",
+    "test-compiled": "mv build/rules build/source && cp -r tests/fixtures/rulesdir build/rules && USE_COMPILED=1 yarn test",
+    "verify": "yarn build && yarn lint && yarn build-tests && yarn test-compiled && rimraf build"
   },
   "dependencies": {
     "natural-compare-lite": "~1.4.0"
   },
   "devDependencies": {
+    "@babel/cli": "~7.8.4",
     "@babel/core": "~7.9.6",
     "@babel/preset-env": "~7.9.6",
     "@babel/preset-typescript": "~7.9.0",
@@ -44,6 +47,7 @@
     "@typescript-eslint/experimental-utils": "~2.29.0",
     "@typescript-eslint/parser": "~2.26.0",
     "babel-jest": "~25.5.1",
+    "babel-plugin-module-resolver": "~4.0.0",
     "cross-spawn": "~7.0.1",
     "eslint": "~6.8.0",
     "eslint-config-prettier": "~6.10.1",
@@ -53,10 +57,12 @@
     "eslint-plugin-prettier": "~3.1.2",
     "husky": "~4.2.3",
     "jest": "~25.2.4",
+    "jsonc": "~2.0.0",
     "lint-staged": "~10.1.1",
     "prettier": "~2.0.2",
     "rimraf": "~3.0.2",
     "tmp": "~0.1.0",
+    "tsconfig": "~7.0.0",
     "typescript": "~3.8.3"
   },
   "peerDependencies": {
