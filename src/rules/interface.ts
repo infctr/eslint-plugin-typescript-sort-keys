@@ -12,27 +12,39 @@ import {
   ErrorMessage,
 } from 'common/options';
 
-// The name of this rule.
+/**
+ * The name of this rule.
+ */
 export const name = 'interface' as const;
 
-// The options this rule can take.
+/**
+ * The options this rule can take.
+ */
 type Options = [SortingOrderOption] | [SortingOrderOption, Partial<SortingParamsOption>];
 
-// The schema for the rule options.
+/**
+ * The schema for the rule options.
+ */
 const schema: JSONSchema4 = [sortingOrderOptionSchema, sortingParamsOptionSchema];
 
-// The default options for the rule.
+/**
+ * The default options for the rule.
+ */
 const defaultOptions: Options = [
   SortingOrder.Ascending,
   { caseSensitive: true, natural: false },
 ];
 
-// The possible error messages.
+/**
+ * The possible error messages.
+ */
 const errorMessages = {
   invalidOrder: ErrorMessage.InterfaceInvalidOrder,
 } as const;
 
-// The meta data for this rule.
+/**
+ * The meta data for this rule.
+ */
 const meta: RuleMetaData<keyof typeof errorMessages> = {
   type: 'suggestion',
   docs: {
@@ -45,7 +57,9 @@ const meta: RuleMetaData<keyof typeof errorMessages> = {
   schema,
 };
 
-// Create the rule.
+/**
+ * Create the rule.
+ */
 export const rule = createRule<keyof typeof errorMessages, Options>({
   name,
   meta,
