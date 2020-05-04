@@ -37,10 +37,9 @@ describe('autofix', () => {
     );
 
     if (result.status !== 0) {
-      // eslint-disable-next-line no-console
-      console.error(result.stdout);
-      // eslint-disable-next-line no-console
-      console.error(result.stderr);
+      console.error(result.stdout); // eslint-disable-line no-console
+      console.error(result.stderr); // eslint-disable-line no-console
+
       throw new Error(`Process exited with status ${result.status}`);
     }
 

@@ -20,7 +20,9 @@ export const name = 'interface' as const;
 /**
  * The options this rule can take.
  */
-type Options = [SortingOrderOption] | [SortingOrderOption, Partial<SortingParamsOption>];
+export type Options =
+  | [SortingOrderOption]
+  | [SortingOrderOption, Partial<SortingParamsOption>];
 
 /**
  * The schema for the rule options.

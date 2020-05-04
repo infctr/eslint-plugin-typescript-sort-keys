@@ -2,22 +2,23 @@ import { readdirSync } from 'fs';
 
 import plugin from '../src';
 
-const RULE_NAME_PREFIX = 'typescript-sort-keys/';
-
-function entriesToObject<T = unknown>(value: readonly [string, T][]): Record<string, T> {
-  return value.reduce<Record<string, T>>((memo, [k, v]) => {
-    memo[k] = v;
-    return memo;
-  }, {});
-}
-
 describe('recommended config', () => {
+  const RULE_NAME_PREFIX = 'typescript-sort-keys/';
   const {
     rules,
     configs: {
       recommended: { rules: configRules },
     },
   } = plugin;
+
+  const entriesToObject = <T = unknown>(
+    value: readonly [string, T][],
+  ): Record<string, T> => {
+    return value.reduce<Record<string, T>>((memo, [k, v]) => {
+      memo[k] = v;
+      return memo;
+    }, {});
+  };
 
   const ruleConfigs = Object.entries(rules)
     .filter(([, rule]) => rule.meta.docs && rule.meta.docs.recommended !== false)
@@ -32,11 +33,11 @@ describe('recommended config', () => {
 });
 
 describe('plugin', () => {
-  const ruleFiles: ReadonlyArray<string> = readdirSync('./src/rules').filter(
+  const ruleFiles: readonly string[] = readdirSync('./src/rules').filter(
     file => file !== 'index.ts' && file.endsWith('.ts'),
   );
 
-  const configFiles: ReadonlyArray<string> = readdirSync('./src/config').filter(
+  const configFiles: readonly string[] = readdirSync('./src/config').filter(
     file => file !== 'index.ts' && file.endsWith('.ts'),
   );
 

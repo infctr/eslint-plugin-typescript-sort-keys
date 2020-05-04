@@ -20,7 +20,7 @@ export type RuleMetaData<MessageIds extends string> = {
 
 export type RuleResult<MessageIds extends string, Options extends BaseOptions> = {
   readonly context: UtilRuleContext<MessageIds, Options>;
-  readonly descriptors: ReadonlyArray<ReportDescriptor<MessageIds>>;
+  readonly descriptors: readonly ReportDescriptor<MessageIds>[];
 };
 
 type Mutable<T> = {
