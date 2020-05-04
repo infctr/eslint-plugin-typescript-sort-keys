@@ -13,7 +13,7 @@ module.exports = {
     'plugin:import/typescript',
     'plugin:@typescript-eslint/eslint-recommended',
     'plugin:@typescript-eslint/recommended',
-    'plugin:eslint-plugin/recommended',
+    'plugin:eslint-plugin/all',
     'plugin:prettier/recommended',
     'prettier/@typescript-eslint',
   ],
@@ -23,35 +23,11 @@ module.exports = {
     sourceType: 'module',
   },
   rules: {
-    // Built in.
     'no-console': 'warn',
-    // 'no-param-reassign': 'error',
-    // 'no-var': 'error',
-    // Typescript eslint.
-    // '@typescript-eslint/array-type': ['error', { default: 'generic' }],
-    '@typescript-eslint/explicit-function-return-type': ['off'],
-    // '@typescript-eslint/prefer-interface': 'off',
-    // '@typescript-eslint/no-non-null-assertion': 'off',
-    // '@typescript-eslint/no-require-imports': 'error',
-    // '@typescript-eslint/no-unused-vars': [
-    //   'error',
-    //   {
-    //     args: 'after-used',
-    //     argsIgnorePattern: '^_',
-    //     caughtErrors: 'none',
-    //     ignoreRestSiblings: true,
-    //     vars: 'all',
-    //   },
-    // ],
-    // '@typescript-eslint/no-use-before-define': [
-    //   'error',
-    //   {
-    //     functions: true,
-    //     classes: true,
-    //     variables: true,
-    //     typedefs: true,
-    //   },
-    // ],
+
+    '@typescript-eslint/explicit-function-return-type': 'off',
+    '@typescript-eslint/ban-ts-ignore': 'off',
+    '@typescript-eslint/no-explicit-any': 'off',
   },
   overrides: [
     {
@@ -76,6 +52,10 @@ module.exports = {
     },
   ],
   settings: {
-    'import/ignore': ['escape-string-regexp'],
+    'import/resolver': {
+      node: {
+        moduleDirectory: ['node_modules', 'src'],
+      },
+    },
   },
 };
