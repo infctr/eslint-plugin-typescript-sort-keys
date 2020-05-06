@@ -7,9 +7,8 @@ import {
   sortingOrderOptionSchema,
   sortingParamsOptionSchema,
   SortingOrder,
-  SortingParamsOption,
-  SortingOrderOption,
   ErrorMessage,
+  RuleOptions,
 } from 'common/options';
 
 /**
@@ -20,9 +19,7 @@ export const name = 'interface' as const;
 /**
  * The options this rule can take.
  */
-export type Options =
-  | [SortingOrderOption]
-  | [SortingOrderOption, Partial<SortingParamsOption>];
+export type Options = RuleOptions;
 
 /**
  * The schema for the rule options.
@@ -68,19 +65,21 @@ export const rule = createRule<keyof typeof errorMessages, Options>({
   defaultOptions,
 
   create(context) {
-    const compareNodeListAndReport = createReporter(context, currentNode => ({
-      loc: currentNode.key ? currentNode.key.loc : currentNode.loc,
+    const compareNodeListAndReport = createReporter(context, ({ loc }) => ({
+      loc,
       messageId: 'invalidOrder',
     }));
 
     return {
       TSInterfaceDeclaration(node) {
         const body = getObjectBody(node);
+
         return compareNodeListAndReport(body);
       },
 
       TSTypeLiteral(node) {
         const body = getObjectBody(node);
+
         return compareNodeListAndReport(body);
       },
     };

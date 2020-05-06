@@ -49,12 +49,12 @@ function getProperty(node: TSESTree.Node) {
 }
 
 /**
- * Gets the property name of a given node.
- * The node can be a TSPropertySignature, or a TSMethodSignature.
+ * Gets the property name of the given `Property` node.
  *
- * If the name is dynamic, this returns `null`.
- *
- * For examples:
+ * - If the property's key is an `Identifier` node, this returns the key's name
+ *   whether it's a computed property or not.
+ * - If the property has a static name, this returns the static name.
+ * - Otherwise, this returns null.
  *
  *     a.b           // => "b"
  *     a["b"]        // => "b"
@@ -76,10 +76,16 @@ function getProperty(node: TSESTree.Node) {
  *     let a = {[tag`b`]: 1}     // => null
  *     let a = {[`${b}`]: 1}     // => null
  */
-export function getStaticPropertyName(node: TSESTree.Node): string | null {
+export function getPropertyName(node: TSESTree.Node): string | null {
+  if (!node.type) {
+    return null;
+  }
+
   const property = getProperty(node);
 
-  if (!property) return null;
+  if (!property) {
+    return null;
+  }
 
   switch (property.type) {
     case AST_NODE_TYPES.Literal:
@@ -98,27 +104,4 @@ export function getStaticPropertyName(node: TSESTree.Node): string | null {
     default:
       return null;
   }
-}
-
-/**
- * Gets the property name of the given `Property` node.
- *
- * - If the property's key is an `Identifier` node, this returns the key's name
- *   whether it's a computed property or not.
- * - If the property has a static name, this returns the static name.
- * - Otherwise, this returns null.
- */
-export function getPropertyName(node: TSESTree.Node): string | null {
-  if (node.type) {
-    return getStaticPropertyName(node);
-  }
-
-  // if (node.key) {
-  //   console.log('node.key', node.key);
-  //   return node.key.name;
-  // }
-
-  return null;
-
-  // return getStaticPropertyName(node) || (node.key && node.key.name) || null;
 }

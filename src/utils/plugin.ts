@@ -1,30 +1,39 @@
+import { TSESTree, AST_TOKEN_TYPES } from '@typescript-eslint/experimental-utils';
+import {
+  RuleContext as UtilRuleContext,
+  RuleFixer,
+  RuleFix,
+  SourceCode,
+} from '@typescript-eslint/experimental-utils/dist/ts-eslint';
 import assert from 'assert';
 
+import { RuleOptions, SortingOrder } from 'common/options';
 import { getPropertyName } from './ast';
 import { compareFunctions } from './compare';
 
-function createNodeSwapper(context) {
-  const sourceCode = context.getSourceCode();
+type TSType = TSESTree.TypeElement | TSESTree.TSEnumMember;
+
+function createNodeSwapper(context: UtilRuleContext<string, RuleOptions>) {
+  const sourceCode = context.getSourceCode() as SourceCode & {
+    lineStartIndices: number[];
+  };
 
   /**
    * Returns the indent range of a node if it's the first on its line.
    * Otherwise, returns a range starting immediately after the previous sibling.
    */
-  function getIndentRange(node) {
+  function getIndentRange(node: TSESTree.Node | TSESTree.Comment): TSESTree.Range {
     const prevSibling = sourceCode.getTokenBefore(node);
     const end = node.range[0];
-    let start;
-
-    if (prevSibling.loc.start.line === node.loc.start.line) {
-      start = prevSibling.range[1] + 1;
-    } else {
-      start = node.range[0] - node.loc.start.column;
-    }
+    const start =
+      prevSibling.loc.start.line === node.loc.start.line
+        ? prevSibling.range[1] + 1
+        : node.range[0] - node.loc.start.column;
 
     return [start, end];
   }
 
-  function getRangeWithIndent(node) {
+  function getRangeWithIndent(node: TSESTree.Comment) {
     return [getIndentRange(node)[0], node.range[1]];
   }
 
@@ -32,8 +41,9 @@ function createNodeSwapper(context) {
    * Returns the range for the entire line, including EOL, if node is the only
    * token on its lines. Otherwise, returns the node range.
    */
-  function getLineRange(node) {
+  function getLineRange(node: TSESTree.Comment): TSESTree.Range {
     const [start] = getRangeWithIndent(node);
+    // TODO check SourceCode own methods
     const index = sourceCode.lineStartIndices.findIndex(n => start === n);
 
     if (index < 0) {
@@ -49,27 +59,30 @@ function createNodeSwapper(context) {
     ];
   }
 
-  function getIndentText(node) {
+  function getIndentText(node: TSESTree.Node) {
     return sourceCode.text.slice(...getIndentRange(node));
   }
 
-  function getNodePunctuator(node) {
-    let punctuator;
+  function getNodePunctuator(token: TSESTree.Token) {
+    const punctuator =
+      token.type === AST_TOKEN_TYPES.Punctuator
+        ? token
+        : sourceCode.getTokenAfter(token, {
+            filter: n => n.type === AST_TOKEN_TYPES.Punctuator && n.value !== ':',
+            includeComments: false,
+          });
 
-    if (node.type === 'Punctuator') {
-      punctuator = node;
-    } else {
-      punctuator = sourceCode.getTokenAfter(node, {
-        filter: n => n.type === 'Punctuator' && n.value !== ':',
-        includeComments: false,
-      });
-    }
     // Check the punctuator value outside of filter because we
     // want to stop traversal on any terminating punctuator
     return punctuator && /^[,;]$/.test(punctuator.value) ? punctuator : undefined;
   }
 
-  return (fixer, nodePositions, currentNode, replaceNode) =>
+  return (
+    fixer: RuleFixer,
+    nodePositions: Map<TSType, { initial: number; final: number }>,
+    currentNode: TSType,
+    replaceNode: TSType,
+  ) =>
     [currentNode, replaceNode].reduce((acc, node) => {
       const otherNode = node === currentNode ? replaceNode : currentNode;
       const comments = sourceCode.getCommentsBefore(node);
@@ -120,12 +133,17 @@ function createNodeSwapper(context) {
       );
 
       return acc;
-    }, []);
+    }, [] as RuleFix[]);
 }
 
-export function createReporter(context, createReportObject) {
+export function createReporter<MessageIds extends string>(
+  context: UtilRuleContext<MessageIds, RuleOptions>,
+  createReportObject: (
+    node: TSESTree.Node,
+  ) => { readonly loc: TSESTree.SourceLocation; readonly messageId: MessageIds },
+) {
   // Parse options.
-  const order = context.options[0] || 'asc';
+  const order = context.options[0] || SortingOrder.Ascending;
   const options = context.options[1];
   const insensitive = (options && options.caseSensitive) === false;
   const natural = Boolean(options && options.natural);
@@ -136,7 +154,7 @@ export function createReporter(context, createReportObject) {
   const compareFn = compareFunctions[computedOrder];
   const swapNodes = createNodeSwapper(context);
 
-  return body => {
+  return (body: TSType[]) => {
     const sortedBody = [...body].sort((a, b) => {
       return compareFn(getPropertyName(a), getPropertyName(b));
     });
@@ -154,16 +172,18 @@ export function createReporter(context, createReportObject) {
       if (compareFn(prevNodeName, currentNodeName) > 0) {
         const targetPosition = sortedBody.indexOf(currentNode);
         const replaceNode = body[targetPosition];
-        const { data, ...rest } = createReportObject(currentNode, replaceNode);
+        const { loc, messageId } = createReportObject(currentNode);
 
         // Sanity check
-        assert(rest.loc, 'createReportObject return value must include a node location');
+        assert(loc, 'createReportObject return value must include a node location');
         assert(
-          rest.messageId,
+          messageId,
           'createReportObject return value must include a problem message',
         );
 
         context.report({
+          loc,
+          messageId,
           node: currentNode,
           data: {
             thisName: currentNodeName,
@@ -171,15 +191,15 @@ export function createReporter(context, createReportObject) {
             order,
             insensitive: insensitive ? 'insensitive ' : '',
             natural: natural ? 'natural ' : '',
-            ...data,
           },
+
           fix: fixer => {
             if (currentNode !== replaceNode) {
               return swapNodes(fixer, nodePositions, currentNode, replaceNode);
             }
+
             return undefined;
           },
-          ...rest,
         });
       }
     }

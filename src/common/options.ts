@@ -29,6 +29,10 @@ export interface SortingParamsOption {
   readonly natural: boolean;
 }
 
+export type RuleOptions =
+  | [SortingOrderOption]
+  | [SortingOrderOption, Partial<SortingParamsOption>];
+
 export enum ErrorMessage {
   InterfaceInvalidOrder = `Expected interface keys to be in {{ natural }}{{ insensitive }}{{ order }}ending order. '{{ thisName }}' should be before '{{ prevName }}'.`,
   StringEnumInvalidOrder = `Expected string enum members to be in {{ natural }}{{ insensitive }}{{ order }}ending order. '{{ thisName }}' should be before '{{ prevName }}'.`,
