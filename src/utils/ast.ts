@@ -14,8 +14,6 @@ export function getObjectBody(
     case AST_NODE_TYPES.TSEnumDeclaration:
     case AST_NODE_TYPES.TSTypeLiteral:
       return node.members;
-    default:
-      return null;
   }
 }
 

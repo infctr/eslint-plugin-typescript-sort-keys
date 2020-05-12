@@ -1,4 +1,5 @@
 import { JSONSchema4 } from 'json-schema';
+import { TSESTree, AST_NODE_TYPES } from '@typescript-eslint/experimental-utils';
 
 import { getObjectBody } from 'utils/ast';
 import { createReporter } from 'utils/plugin';
@@ -72,11 +73,11 @@ export const rule = createRule<keyof typeof errorMessages, Options>({
 
     return {
       TSEnumDeclaration(node) {
-        const body = getObjectBody(node);
+        const body = getObjectBody(node) as TSESTree.TSEnumMember[];
         const isStringEnum = body.every(
-          member =>
+          (member: TSESTree.TSEnumMember) =>
             member.initializer &&
-            member.initializer.type === 'Literal' &&
+            member.initializer.type === AST_NODE_TYPES.Literal &&
             typeof member.initializer.value === 'string',
         );
 

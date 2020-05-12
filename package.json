@@ -13,16 +13,16 @@
   "repository": "git@github.com:infctr/eslint-plugin-typescript-sort-keys.git",
   "scripts": {
     "build": "yarn rimraf lib && yarn compile",
-    "build-tests": "yarn rimraf build && yarn compile-tests",
+    "build-tests": "yarn rimraf build && yarn compile-tests && mv build/rules build/source && cp -r tests/fixtures/rulesdir build/rules",
     "compile": "yarn rollup -c",
     "compile-tests": "yarn babel --extensions .ts src --out-dir build",
     "docs": "eslint-docs",
     "docs:check": "eslint-docs check",
     "lint": "eslint --ext .js,.ts src/ tests/",
-    "postlint": "yarn docs:check",
     "format": "prettier --write src/**/*.{js,ts} tests/**/*.{js,ts}",
-    "test": "yarn jest --runInBand",
-    "test-compiled": "mv build/rules build/source && cp -r tests/fixtures/rulesdir build/rules && USE_COMPILED=1 yarn test",
+    "test": "yarn jest",
+    "test-compiled": "USE_COMPILED=1 yarn test",
+    "test-coverage": "yarn test-compiled --coverage --watchAll=false --coverageReporters=lcov,text-summary",
     "verify": "yarn build && yarn lint && yarn build-tests && yarn test-compiled && rimraf build"
   },
   "dependencies": {

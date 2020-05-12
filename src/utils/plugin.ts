@@ -43,7 +43,6 @@ function createNodeSwapper(context: UtilRuleContext<string, RuleOptions>) {
    */
   function getLineRange(node: TSESTree.Comment): TSESTree.Range {
     const [start] = getRangeWithIndent(node);
-    // TODO check SourceCode own methods
     const index = sourceCode.lineStartIndices.findIndex(n => start === n);
 
     if (index < 0) {
@@ -63,14 +62,11 @@ function createNodeSwapper(context: UtilRuleContext<string, RuleOptions>) {
     return sourceCode.text.slice(...getIndentRange(node));
   }
 
-  function getNodePunctuator(token: TSESTree.Token) {
-    const punctuator =
-      token.type === AST_TOKEN_TYPES.Punctuator
-        ? token
-        : sourceCode.getTokenAfter(token, {
-            filter: n => n.type === AST_TOKEN_TYPES.Punctuator && n.value !== ':',
-            includeComments: false,
-          });
+  function getNodePunctuator(node: TSESTree.Node) {
+    const punctuator = sourceCode.getTokenAfter(node, {
+      filter: n => n.type === AST_TOKEN_TYPES.Punctuator && n.value !== ':',
+      includeComments: false,
+    });
 
     // Check the punctuator value outside of filter because we
     // want to stop traversal on any terminating punctuator
@@ -83,7 +79,7 @@ function createNodeSwapper(context: UtilRuleContext<string, RuleOptions>) {
     currentNode: TSType,
     replaceNode: TSType,
   ) =>
-    [currentNode, replaceNode].reduce((acc, node) => {
+    [currentNode, replaceNode].reduce<RuleFix[]>((acc, node) => {
       const otherNode = node === currentNode ? replaceNode : currentNode;
       const comments = sourceCode.getCommentsBefore(node);
       const nextSibling = sourceCode.getTokenAfter(node);
@@ -91,9 +87,10 @@ function createNodeSwapper(context: UtilRuleContext<string, RuleOptions>) {
         nodePositions.get(node).final === nodePositions.size - 1 &&
         nodePositions.get(node).final === nodePositions.get(otherNode).initial;
 
-      let text = `${comments.length ? getIndentText(node) : ''}${sourceCode.getText(
-        node,
-      )}`;
+      let text = [
+        comments.length ? getIndentText(node) : '',
+        sourceCode.getText(node),
+      ].join('');
 
       // If nextSibling is the node punctuator, remove it
       if (nextSibling === getNodePunctuator(node)) {
@@ -116,7 +113,7 @@ function createNodeSwapper(context: UtilRuleContext<string, RuleOptions>) {
           fixer.insertTextBefore(
             otherNode,
             comments
-              .map(c => sourceCode.getText(c))
+              .map(comment => sourceCode.getText(comment as any))
               .concat('')
               .join('\n'),
           ),
@@ -133,7 +130,7 @@ function createNodeSwapper(context: UtilRuleContext<string, RuleOptions>) {
       );
 
       return acc;
-    }, [] as RuleFix[]);
+    }, []);
 }
 
 export function createReporter<MessageIds extends string>(
