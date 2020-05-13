@@ -38,9 +38,9 @@ interface U {
 
 // Non-required first order by default.
 interface U {
+  b?: T;
   a: T;
   c: T;
-  b?: T;
 }
 
 interface U {
@@ -199,8 +199,8 @@ interface U {
 
 // Non-required first order by default.
 interface U {
-  b?: T;
   c: T;
+  b?: T;
   a: T;
 }
 
