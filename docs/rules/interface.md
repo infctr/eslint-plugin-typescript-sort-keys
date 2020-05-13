@@ -116,7 +116,7 @@ The 2nd option is an object which has 3 properties.
 
 - `caseSensitive` - if `true`, enforce properties to be in case-sensitive order. Default is `true`.
 - `natural` - if `true`, enforce properties to be in natural order. Default is `false`. Natural Order compares strings containing combination of letters and numbers in the way a human being would sort. It basically sorts numerically, instead of sorting alphabetically. So the number 10 comes after the number 3 in Natural Sorting.
-- `requiredFirst` - if `true`, enforce properties optional properties to come after required ones.
+- `requiredFirst` - if `true`, enforce optional properties to come after required ones.
 
 Example for a list:
 
