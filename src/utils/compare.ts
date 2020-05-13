@@ -32,35 +32,51 @@ function weightedCompare(
   return compareFn(a, b) - getWeight(a) + getWeight(b);
 }
 
+const ascending = (a: string, b: string) => {
+  return weightedCompare(a, b, charCompare);
+};
+
+const ascendingInsensitive = (a: string, b: string) => {
+  return weightedCompare(a.toLowerCase(), b.toLowerCase(), charCompare);
+};
+
+const ascendingNatural = (a: string, b: string) => {
+  return weightedCompare(a, b, naturalCompare);
+};
+
+const ascendingInsensitiveNatural = (a: string, b: string) => {
+  return weightedCompare(a.toLowerCase(), b.toLowerCase(), naturalCompare);
+};
+
 /**
  * Functions which check that the given 2 names are in specific order.
- *
- * Postfix `I` is meant insensitive.
- * Postfix `N` is meant natural.
  */
-export const compareFunctions = {
-  asc(a: string, b: string) {
-    return weightedCompare(a, b, charCompare);
-  },
-  ascI(a: string, b: string) {
-    return weightedCompare(a.toLowerCase(), b.toLowerCase(), charCompare);
-  },
-  ascN(a: string, b: string) {
-    return weightedCompare(a, b, naturalCompare);
-  },
-  ascIN(a: string, b: string) {
-    return weightedCompare(a.toLowerCase(), b.toLowerCase(), naturalCompare);
-  },
-  desc(a: string, b: string) {
-    return compareFunctions.asc(b, a);
-  },
-  descI(a: string, b: string) {
-    return compareFunctions.ascI(b, a);
-  },
-  descN(a: string, b: string) {
-    return compareFunctions.ascN(b, a);
-  },
-  descIN(a: string, b: string) {
-    return compareFunctions.ascIN(b, a);
-  },
+export const compareFn = (
+  isAscending: boolean,
+  isInsensitive: boolean,
+  isNatural: boolean,
+) => (...args: [string?, string?]) => {
+  if (args.filter(Boolean).length !== 2) {
+    return 0;
+  }
+
+  const input = (isAscending ? args : args.reverse()) as [string, string];
+
+  if (isInsensitive && isNatural) {
+    return ascendingInsensitiveNatural(...input);
+  }
+
+  if (!isInsensitive && isNatural) {
+    return ascendingNatural(...input);
+  }
+
+  if (isInsensitive && !isNatural) {
+    return ascendingInsensitive(...input);
+  }
+
+  if (!isInsensitive && !isNatural) {
+    return ascending(...input);
+  }
+
+  return 0;
 };

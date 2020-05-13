@@ -9,7 +9,7 @@ import assert from 'assert';
 
 import { RuleOptions, SortingOrder } from 'common/options';
 import { getPropertyName } from './ast';
-import { compareFunctions } from './compare';
+import { compareFn } from './compare';
 
 type TSType = TSESTree.TypeElement | TSESTree.TSEnumMember;
 
@@ -26,7 +26,7 @@ function createNodeSwapper(context: UtilRuleContext<string, RuleOptions>) {
     const prevSibling = sourceCode.getTokenBefore(node);
     const end = node.range[0];
     const start =
-      prevSibling.loc.start.line === node.loc.start.line
+      prevSibling && prevSibling.loc.start.line === node.loc.start.line
         ? prevSibling.range[1] + 1
         : node.range[0] - node.loc.start.column;
 
@@ -84,8 +84,8 @@ function createNodeSwapper(context: UtilRuleContext<string, RuleOptions>) {
       const comments = sourceCode.getCommentsBefore(node);
       const nextSibling = sourceCode.getTokenAfter(node);
       const isLastReplacingLast =
-        nodePositions.get(node).final === nodePositions.size - 1 &&
-        nodePositions.get(node).final === nodePositions.get(otherNode).initial;
+        nodePositions.get(node)?.final === nodePositions.size - 1 &&
+        nodePositions.get(node)?.final === nodePositions.get(otherNode)?.initial;
 
       let text = [
         comments.length ? getIndentText(node) : '',
@@ -142,19 +142,17 @@ export function createReporter<MessageIds extends string>(
   // Parse options.
   const order = context.options[0] || SortingOrder.Ascending;
   const options = context.options[1];
-  const insensitive = (options && options.caseSensitive) === false;
-  const natural = Boolean(options && options.natural);
-  const computedOrder = [order, insensitive && 'I', natural && 'N']
-    .filter(Boolean)
-    .join('');
+  const isAscending = order === SortingOrder.Ascending;
+  const isInsensitive = (options && options.caseSensitive) === false;
+  const isNatural = Boolean(options && options.natural);
 
-  const compareFn = compareFunctions[computedOrder];
+  const compare = compareFn(isAscending, isInsensitive, isNatural);
   const swapNodes = createNodeSwapper(context);
 
   return (body: TSType[]) => {
-    const sortedBody = [...body].sort((a, b) => {
-      return compareFn(getPropertyName(a), getPropertyName(b));
-    });
+    const sortedBody = [...body].sort((a, b) =>
+      compare(getPropertyName(a), getPropertyName(b)),
+    );
 
     const nodePositions = new Map(
       body.map(n => [n, { initial: body.indexOf(n), final: sortedBody.indexOf(n) }]),
@@ -166,7 +164,7 @@ export function createReporter<MessageIds extends string>(
       const prevNodeName = getPropertyName(prevNode);
       const currentNodeName = getPropertyName(currentNode);
 
-      if (compareFn(prevNodeName, currentNodeName) > 0) {
+      if (compare(prevNodeName, currentNodeName) > 0) {
         const targetPosition = sortedBody.indexOf(currentNode);
         const replaceNode = body[targetPosition];
         const { loc, messageId } = createReportObject(currentNode);
@@ -186,8 +184,8 @@ export function createReporter<MessageIds extends string>(
             thisName: currentNodeName,
             prevName: prevNodeName,
             order,
-            insensitive: insensitive ? 'insensitive ' : '',
-            natural: natural ? 'natural ' : '',
+            insensitive: isInsensitive ? 'insensitive ' : '',
+            natural: isNatural ? 'natural ' : '',
           },
 
           fix: fixer => {
@@ -195,7 +193,7 @@ export function createReporter<MessageIds extends string>(
               return swapNodes(fixer, nodePositions, currentNode, replaceNode);
             }
 
-            return undefined;
+            return null;
           },
         });
       }

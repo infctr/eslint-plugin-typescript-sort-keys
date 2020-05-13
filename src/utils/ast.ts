@@ -32,7 +32,7 @@ function getProperty(node: TSESTree.Node) {
         };
       }
 
-      return null;
+      return undefined;
 
     case AST_NODE_TYPES.TSPropertySignature:
     case AST_NODE_TYPES.TSMethodSignature:
@@ -42,7 +42,7 @@ function getProperty(node: TSESTree.Node) {
       return node.id;
 
     default:
-      return null;
+      return undefined;
   }
 }
 
@@ -52,37 +52,37 @@ function getProperty(node: TSESTree.Node) {
  * - If the property's key is an `Identifier` node, this returns the key's name
  *   whether it's a computed property or not.
  * - If the property has a static name, this returns the static name.
- * - Otherwise, this returns null.
+ * - Otherwise, this returns undefined.
  *
  *     a.b           // => "b"
  *     a["b"]        // => "b"
  *     a['b']        // => "b"
  *     a[`b`]        // => "b"
  *     a[100]        // => "100"
- *     a[b]          // => null
- *     a["a" + "b"]  // => null
- *     a[tag`b`]     // => null
- *     a[`${b}`]     // => null
+ *     a[b]          // => undefined
+ *     a["a" + "b"]  // => undefined
+ *     a[tag`b`]     // => undefined
+ *     a[`${b}`]     // => undefined
  *
  *     let a = {b: 1}            // => "b"
  *     let a = {["b"]: 1}        // => "b"
  *     let a = {['b']: 1}        // => "b"
  *     let a = {[`b`]: 1}        // => "b"
  *     let a = {[100]: 1}        // => "100"
- *     let a = {[b]: 1}          // => null
- *     let a = {["a" + "b"]: 1}  // => null
- *     let a = {[tag`b`]: 1}     // => null
- *     let a = {[`${b}`]: 1}     // => null
+ *     let a = {[b]: 1}          // => undefined
+ *     let a = {["a" + "b"]: 1}  // => undefined
+ *     let a = {[tag`b`]: 1}     // => undefined
+ *     let a = {[`${b}`]: 1}     // => undefined
  */
-export function getPropertyName(node: TSESTree.Node): string | null {
+export function getPropertyName(node: TSESTree.Node): string | undefined {
   if (!node.type) {
-    return null;
+    return undefined;
   }
 
   const property = getProperty(node);
 
   if (!property) {
-    return null;
+    return undefined;
   }
 
   switch (property.type) {
@@ -92,14 +92,14 @@ export function getPropertyName(node: TSESTree.Node): string | null {
     case AST_NODE_TYPES.TemplateLiteral:
       return property.expressions.length === 0 && property.quasis.length === 1
         ? property.quasis[0].value.cooked
-        : null;
+        : undefined;
 
     case AST_NODE_TYPES.Identifier:
       return (node as TSESTree.Node & { computed?: boolean }).computed
-        ? null
+        ? undefined
         : property.name;
 
     default:
-      return null;
+      return undefined;
   }
 }
