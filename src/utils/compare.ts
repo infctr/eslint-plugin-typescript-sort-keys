@@ -74,9 +74,5 @@ export const compareFn = (
     return ascendingInsensitive(...input);
   }
 
-  if (!isInsensitive && !isNatural) {
-    return ascending(...input);
-  }
-
-  return 0;
+  return ascending(...input);
 };

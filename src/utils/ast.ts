@@ -19,20 +19,17 @@ export function getObjectBody(
 
 function getProperty(node: TSESTree.Node) {
   switch (node.type) {
-    case AST_NODE_TYPES.TSIndexSignature:
-      if (node.parameters.length > 0) {
-        const [identifier] = node.parameters;
+    case AST_NODE_TYPES.TSIndexSignature: {
+      const [identifier] = node.parameters;
 
-        return {
-          ...identifier,
-          // Override name for error message readability and weight calculation
-          name: indexSignature.create(
-            (identifier as TSESTree.Parameter & { name: string }).name,
-          ),
-        };
-      }
-
-      return undefined;
+      return {
+        ...identifier,
+        // Override name for error message readability and weight calculation
+        name: indexSignature.create(
+          (identifier as TSESTree.Parameter & { name: string }).name,
+        ),
+      };
+    }
 
     case AST_NODE_TYPES.TSPropertySignature:
     case AST_NODE_TYPES.TSMethodSignature:
@@ -74,11 +71,7 @@ function getProperty(node: TSESTree.Node) {
  *     let a = {[tag`b`]: 1}     // => undefined
  *     let a = {[`${b}`]: 1}     // => undefined
  */
-export function getPropertyName(node: TSESTree.Node): string | undefined {
-  if (!node.type) {
-    return undefined;
-  }
-
+export function getPropertyName(node: TSESTree.Node) {
   const property = getProperty(node);
 
   if (!property) {
@@ -89,15 +82,8 @@ export function getPropertyName(node: TSESTree.Node): string | undefined {
     case AST_NODE_TYPES.Literal:
       return String(property.value);
 
-    case AST_NODE_TYPES.TemplateLiteral:
-      return property.expressions.length === 0 && property.quasis.length === 1
-        ? property.quasis[0].value.cooked
-        : undefined;
-
     case AST_NODE_TYPES.Identifier:
-      return (node as TSESTree.Node & { computed?: boolean }).computed
-        ? undefined
-        : property.name;
+      return property.name;
 
     default:
       return undefined;
