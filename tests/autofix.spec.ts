@@ -1,50 +1,64 @@
-import assert from 'assert';
-import Path from 'path';
+import path from 'path';
 import fs from 'fs';
-import spawn from 'cross-spawn';
 import tmp from 'tmp';
+import { ESLint } from 'eslint';
+
+import plugin from '../src';
+import recommended from 'config/recommended';
+import { typescript } from './helpers/configs';
+
+declare module 'eslint' {
+  export class ESLint {
+    constructor(config?: any);
+
+    lintFiles(path: string | string[]): Promise<any>;
+    static outputFixes(config: any): Promise<void>;
+  }
+}
 
 describe('autofix', () => {
   beforeEach(() => {
     tmp.setGracefulCleanup();
   });
 
-  it('should properly format comments and indent level', () => {
+  it('should autofix and properly format comments and indent level', async () => {
     const { name: tmpDir } = tmp.dirSync({
       prefix: 'typescript-sort-keys-',
       unsafeCleanup: true,
     });
 
-    const testFilePath = Path.join(tmpDir, 'autofix.ts');
+    const testFilePath = path.join(tmpDir, 'autofix.ts');
     const input = fs.readFileSync('tests/fixtures/autofix.input.ts', 'utf8');
     const expected = fs.readFileSync('tests/fixtures/autofix.output.ts', 'utf8');
 
     fs.writeFileSync(testFilePath, input);
 
-    const result = spawn.sync(
-      'eslint',
-      [
-        '--ext',
-        '.ts',
-        '--rulesdir',
-        'build/rules',
-        '--config',
-        require.resolve('./fixtures/.eslintrc.js'),
-        testFilePath,
-        '--fix',
-      ],
-      { encoding: 'utf8' },
-    );
+    const eslint = new ESLint({
+      overrideConfig: {
+        parser: typescript.parser,
+        parserOptions: { sourceType: 'module' },
+      },
+      baseConfig: recommended,
+      plugins: {
+        'typescript-sort-keys': plugin,
+      },
+      useEslintrc: false,
+      fix: true,
+    });
 
-    if (result.status !== 0) {
-      console.error(result.stdout); // eslint-disable-line no-console
-      console.error(result.stderr); // eslint-disable-line no-console
+    const results = await eslint.lintFiles(testFilePath);
+    const result = results[0];
 
-      throw new Error(`Process exited with status ${result.status}`);
-    }
+    expect(result.messages).toHaveLength(0);
+    expect(result.errorCount).toBe(0);
+    expect(result.warningCount).toBe(0);
+    expect(result.fixableErrorCount).toBe(0);
+    expect(result.fixableWarningCount).toBe(0);
+
+    await ESLint.outputFixes(results);
 
     const output = fs.readFileSync(testFilePath, 'utf8');
 
-    assert.strictEqual(output, expected);
+    expect(output).toStrictEqual(expected);
   });
 });
