@@ -54,6 +54,36 @@ ruleTester.run('interface', rule, {
     { code: "interface U {1:T; 2:T; '11':T; A:T;}", options: ['asc', { natural: true, caseSensitive: false }] },
     { code: "interface U {'#':T; 'Z':T; À:T; è:T;}", options: ['asc', { natural: true, caseSensitive: false }] },
 
+    // asc, natural, insensitive, required
+    { code: 'interface U {_:T; b:T; a?:T;} // asc, natural, insensitive, required', options: ['asc', { natural: true, caseSensitive: false, requiredFirst: true }] },
+    { code: 'interface U {a:T; c:T; b?:T;}', options: ['asc', { natural: true, caseSensitive: false, requiredFirst: true }] },
+    { code: 'interface U {b:T; b_:T; a?:T;}', options: ['asc', { natural: true, caseSensitive: false, requiredFirst: true }] },
+    { code: 'interface U {C:T; c:T; b_?:T;}', options: ['asc', { natural: true, caseSensitive: false, requiredFirst: true }] },
+    { code: 'interface U {c:T; C:T; b_?:T;}', options: ['asc', { natural: true, caseSensitive: false, requiredFirst: true }] },
+    { code: 'interface U {$:T; _:T; A?:T; a?:T;}', options: ['asc', { natural: true, caseSensitive: false, requiredFirst: true }] },
+    { code: "interface U {1:T; '11':T; A:T; 2?:T;}", options: ['asc', { natural: true, caseSensitive: false, requiredFirst: true }] },
+    { code: "interface U {'Z':T; À:T; è:T; '#'?:T;}", options: ['asc', { natural: true, caseSensitive: false, requiredFirst: true }] },
+
+    // asc, required
+    { code: 'interface U {_:T; b:T; a?:T;} // asc, natural, insensitive, required', options: ['asc', { requiredFirst: true }] },
+    { code: 'interface U {a:T; c:T; b?:T;}', options: ['asc', { requiredFirst: true }] },
+    { code: 'interface U {b:T; b_:T; a?:T;}', options: ['asc', { requiredFirst: true }] },
+    { code: 'interface U {C:T; c:T; b_?:T;}', options: ['asc', { requiredFirst: true }] },
+    { code: 'interface U {1:T; 11:T; 9:T; 111?:T;}', options: ['asc', { requiredFirst: true }] },
+    { code: 'interface U {$:T; _:T; A?:T; a?:T;}', options: ['asc', { requiredFirst: true }] },
+    { code: "interface U {10:T; '11':T; 1?:T; 12?:T; 2?:T;}", options: ['asc', { requiredFirst: true }] },
+    { code: "interface U {'Z':T; À:T; è:T; '#'?:T;}", options: ['asc', { requiredFirst: true }] },
+
+    // asc, natural, insensitive, not-required
+    { code: 'interface U {_:T; a?:T; b:T;} // asc, natural, insensitive, not-required', options: ['asc', { natural: true, caseSensitive: false, requiredFirst: false }] },
+    { code: 'interface U {a:T; b?:T; c:T;}', options: ['asc', { natural: true, caseSensitive: false, requiredFirst: false }] },
+    { code: 'interface U {a?:T; b:T; b_:T;}', options: ['asc', { natural: true, caseSensitive: false, requiredFirst: false }] },
+    { code: 'interface U {b_?:T; C:T; c:T;}', options: ['asc', { natural: true, caseSensitive: false, requiredFirst: false }] },
+    { code: 'interface U {b_?:T; c:T; C:T;}', options: ['asc', { natural: true, caseSensitive: false, requiredFirst: false }] },
+    { code: 'interface U {$:T; _:T; A?:T; a?:T;}', options: ['asc', { natural: true, caseSensitive: false, requiredFirst: false }] },
+    { code: "interface U {1:T;  2?:T; '11':T; A:T;}", options: ['asc', { natural: true, caseSensitive: false, requiredFirst: false }] },
+    { code: "interface U {'#'?:T; 'Z':T; À:T; è:T;}", options: ['asc', { natural: true, caseSensitive: false, requiredFirst: false }] },
+
     // desc
     { code: 'interface U {b:T; a:T; _:T;} // desc', options: ['desc'] },
     { code: 'interface U {c:T; b:T; a:T;}', options: ['desc'] },
@@ -91,6 +121,36 @@ ruleTester.run('interface', rule, {
     { code: 'interface U {a:T; A:T; _:T; $:T;}', options: ['desc', { natural: true, caseSensitive: false }] },
     { code: "interface U {A:T; '11':T; 2:T; 1:T;}", options: ['desc', { natural: true, caseSensitive: false }] },
     { code: "interface U {è:T; À:T; 'Z':T; '#':T;}", options: ['desc', { natural: true, caseSensitive: false }] },
+
+    // desc, natural, insensitive, required
+    { code: 'interface U {b:T; _:T; a?:T;} // desc, natural, insensitive, required', options: ['desc', { natural: true, caseSensitive: false, requiredFirst: true }] },
+    { code: 'interface U {c:T; a:T; b?:T;}', options: ['desc', { natural: true, caseSensitive: false, requiredFirst: true }] },
+    { code: 'interface U {b_:T; b:T; a?:T;}', options: ['desc', { natural: true, caseSensitive: false, requiredFirst: true }] },
+    { code: 'interface U {c:T; C:T; b_?:T;}', options: ['desc', { natural: true, caseSensitive: false, requiredFirst: true }] },
+    { code: 'interface U {C:T; c:T; b_?:T;}', options: ['desc', { natural: true, caseSensitive: false, requiredFirst: true }] },
+    { code: 'interface U {_:T; $:T; a?:T; A?:T;}', options: ['desc', { natural: true, caseSensitive: false, requiredFirst: true }] },
+    { code: "interface U { A:T; '11':T; 1:T; 2?:T;}", options: ['desc', { natural: true, caseSensitive: false, requiredFirst: true }] },
+    { code: "interface U {è:T; 'Z':T; À?:T; '#'?:T;}", options: ['desc', { natural: true, caseSensitive: false, requiredFirst: true }] },
+
+    // desc, required
+    { code: 'interface U {b:T; _:T; a?:T;} // desc, natural, insensitive, required', options: ['desc', { requiredFirst: true }] },
+    { code: 'interface U {c:T; a:T; b?:T;}', options: ['desc', { requiredFirst: true }] },
+    { code: 'interface U {b_:T; b:T; a?:T;}', options: ['desc', { requiredFirst: true }] },
+    { code: 'interface U {c:T; C:T; b_?:T;}', options: ['desc', { requiredFirst: true }] },
+    { code: 'interface U {9:T; 11:T; 1:T; 111?:T;}', options: ['desc', { requiredFirst: true }] },
+    { code: 'interface U {_:T; $:T; a?:T; A?:T;}', options: ['desc', { requiredFirst: true }] },
+    { code: "interface U {'11':T; 10:T; 2?:T; 12?:T; 1?:T;}", options: ['desc', { requiredFirst: true }] },
+    { code: "interface U {è:T; À:T; 'Z':T; '#'?:T;}", options: ['desc', { requiredFirst: true }] },
+
+    // desc, natural, insensitive, not-required
+    { code: 'interface U {b:T; a?:T; _:T;} // desc, natural, insensitive, not-required', options: ['desc', { natural: true, caseSensitive: false, requiredFirst: false }] },
+    { code: 'interface U {c:T; b?:T; a:T;}', options: ['desc', { natural: true, caseSensitive: false, requiredFirst: false }] },
+    { code: 'interface U {b_:T; b:T; a?:T;}', options: ['desc', { natural: true, caseSensitive: false, requiredFirst: false }] },
+    { code: 'interface U {c:T; C:T; b_?:T;}', options: ['desc', { natural: true, caseSensitive: false, requiredFirst: false }] },
+    { code: 'interface U {C:T; c:T; b_?:T;}', options: ['desc', { natural: true, caseSensitive: false, requiredFirst: false }] },
+    { code: 'interface U {a?:T; A?:T; _:T; $:T;}', options: ['desc', { natural: true, caseSensitive: false, requiredFirst: false }] },
+    { code: "interface U {A:T; '11':T; 2?:T; 1:T;}", options: ['desc', { natural: true, caseSensitive: false, requiredFirst: false }] },
+    { code: "interface U {è:T; À:T; 'Z':T; '#'?:T;}", options: ['desc', { natural: true, caseSensitive: false, requiredFirst: false }] },
 
     // index signatures
     { code: 'interface U<T> { [nkey: number]: T; [skey: string]: T; $: T; A: T; _: T; a: T; }', options: ['asc'] },
@@ -330,6 +390,106 @@ ruleTester.run('interface', rule, {
       output: "interface U {'#':T; 'Z':T; À:T; è:T;}",
     },
 
+    // asc, natural, insensitive, required
+    {
+      code: 'interface U {_:T; a?:T; b:T;} // asc, natural, insensitive, required',
+      options: ['asc', { natural: true, caseSensitive: false, requiredFirst: true }],
+      errors: ["Expected interface keys to be in required first natural insensitive ascending order. 'b' should be before 'a'."],
+      output: 'interface U {_:T; b:T; a?:T;} // asc, natural, insensitive, required',
+    },
+    {
+      code: 'interface U {a:T; b?:T; c:T;}',
+      options: ['asc', { natural: true, caseSensitive: false, requiredFirst: true }],
+      errors: ["Expected interface keys to be in required first natural insensitive ascending order. 'c' should be before 'b'."],
+      output: 'interface U {a:T; c:T; b?:T;}',
+    },
+    {
+      code: 'interface U {b:T; a?:T; b_:T;}',
+      options: ['asc', { natural: true, caseSensitive: false, requiredFirst: true }],
+      errors: ["Expected interface keys to be in required first natural insensitive ascending order. 'b_' should be before 'a'."],
+      output: 'interface U {b:T; b_:T; a?:T;}',
+    },
+    {
+      code: 'interface U {C:T; b_?:T; c:T;}',
+      options: ['asc', { natural: true, caseSensitive: false, requiredFirst: true }],
+      errors: ["Expected interface keys to be in required first natural insensitive ascending order. 'c' should be before 'b_'."],
+      output: 'interface U {C:T; c:T; b_?:T;}',
+    },
+    {
+      code: 'interface U {C:T; b_?:T; c:T;}',
+      options: ['asc', { natural: true, caseSensitive: false, requiredFirst: true }],
+      errors: ["Expected interface keys to be in required first natural insensitive ascending order. 'c' should be before 'b_'."],
+      output: 'interface U {C:T; c:T; b_?:T;}',
+    },
+    {
+      code: 'interface U {$:T; A?:T; _:T; a?:T;}',
+      options: ['asc', { natural: true, caseSensitive: false, requiredFirst: true }],
+      errors: ["Expected interface keys to be in required first natural insensitive ascending order. '_' should be before 'A'."],
+      output: 'interface U {$:T; _:T; A?:T; a?:T;}',
+    },
+    {
+      code: "interface U {1:T; '11':T; 2?:T; A:T;}",
+      options: ['asc', { natural: true, caseSensitive: false, requiredFirst: true }],
+      errors: ["Expected interface keys to be in required first natural insensitive ascending order. 'A' should be before '2'."],
+      output: "interface U {1:T; '11':T; A:T; 2?:T;}",
+    },
+    {
+      code: "interface U {'Z':T; À:T; '#'?:T; è:T;}",
+      options: ['asc', { natural: true, caseSensitive: false, requiredFirst: true }],
+      errors: ["Expected interface keys to be in required first natural insensitive ascending order. 'è' should be before '#'."],
+      output: "interface U {'Z':T; À:T; è:T; '#'?:T;}",
+    },
+
+    // asc, natural, insensitive, not-required
+    {
+      code: 'interface U {_:T; b:T; a?:T;} // asc, natural, insensitive, not-required',
+      options: ['asc', { natural: true, caseSensitive: false, requiredFirst: false }],
+      errors: ["Expected interface keys to be in natural insensitive ascending order. 'a' should be before 'b'."],
+      output: 'interface U {_:T; a?:T; b:T;} // asc, natural, insensitive, not-required',
+    },
+    {
+      code: 'interface U {b?:T; a:T; c:T;}',
+      options: ['asc', { natural: true, caseSensitive: false, requiredFirst: false }],
+      errors: ["Expected interface keys to be in natural insensitive ascending order. 'a' should be before 'b'."],
+      output: 'interface U {a:T; b?:T; c:T;}',
+    },
+    {
+      code: 'interface U {b:T; a?:T; b_:T;}',
+      options: ['asc', { natural: true, caseSensitive: false, requiredFirst: false }],
+      errors: ["Expected interface keys to be in natural insensitive ascending order. 'a' should be before 'b'."],
+      output: 'interface U {a?:T; b:T; b_:T;}',
+    },
+    {
+      code: 'interface U {C:T; c:T; b_?:T;}',
+      options: ['asc', { natural: true, caseSensitive: false, requiredFirst: false }],
+      errors: ["Expected interface keys to be in natural insensitive ascending order. 'b_' should be before 'c'."],
+      output: 'interface U {b_?:T; c:T; C:T;}',
+    },
+    {
+      code: 'interface U {C:T; b_?:T; c:T;}',
+      options: ['asc', { natural: true, caseSensitive: false, requiredFirst: false }],
+      errors: ["Expected interface keys to be in natural insensitive ascending order. 'b_' should be before 'C'."],
+      output: 'interface U {b_?:T; C:T; c:T;}',
+    },
+    {
+      code: 'interface U {$:T; A?:T; _:T; a?:T;}',
+      options: ['asc', { natural: true, caseSensitive: false, requiredFirst: false }],
+      errors: ["Expected interface keys to be in natural insensitive ascending order. '_' should be before 'A'."],
+      output: 'interface U {$:T; _:T; A?:T; a?:T;}',
+    },
+    {
+      code: "interface U {1:T; '11':T; 2?:T; A:T;}",
+      options: ['asc', { natural: true, caseSensitive: false, requiredFirst: false }],
+      errors: ["Expected interface keys to be in natural insensitive ascending order. '2' should be before '11'."],
+      output: "interface U {1:T; 2?:T; '11':T; A:T;}",
+    },
+    {
+      code: "interface U {'Z':T; À:T; '#'?:T; è:T;}",
+      options: ['asc', { natural: true, caseSensitive: false, requiredFirst: false }],
+      errors: ["Expected interface keys to be in natural insensitive ascending order. '#' should be before 'À'."],
+      output: "interface U {'#'?:T; À:T; 'Z':T; è:T;}",
+    },
+
     // desc
     {
       code: 'interface U {a:T; _:T; b:T;} // desc',
@@ -518,6 +678,133 @@ ruleTester.run('interface', rule, {
         "Expected interface keys to be in natural insensitive descending order. 'è' should be before 'Z'.",
       ],
       output: "interface U {è:T; À:T; 'Z':T; '#':T;}",
+    },
+
+    // desc, natural, insensitive, required
+    {
+      code: 'interface U {_:T; a?:T; b:T;} // desc, natural, insensitive, required',
+      options: ['desc', { natural: true, caseSensitive: false, requiredFirst: true }],
+      errors: ["Expected interface keys to be in required first natural insensitive descending order. 'b' should be before 'a'."],
+      output: 'interface U {b:T; a?:T; _:T;} // desc, natural, insensitive, required',
+    },
+    {
+      code: 'interface U {b:T; a?:T; _:T;}',
+      options: ['desc', { natural: true, caseSensitive: false, requiredFirst: true }],
+      errors: ["Expected interface keys to be in required first natural insensitive descending order. '_' should be before 'a'."],
+      output: 'interface U {b:T; _:T; a?:T;}',
+    },
+    {
+      code: 'interface U {b:T; b_:T; a?:T;}',
+      options: ['desc', { natural: true, caseSensitive: false, requiredFirst: true }],
+      errors: ["Expected interface keys to be in required first natural insensitive descending order. 'b_' should be before 'b'."],
+      output: 'interface U {b_:T; b:T; a?:T;}',
+    },
+    {
+      code: 'interface U {c:T; b_?:T; C:T;}',
+      options: ['desc', { natural: true, caseSensitive: false, requiredFirst: true }],
+      errors: ["Expected interface keys to be in required first natural insensitive descending order. 'C' should be before 'b_'."],
+      output: 'interface U {c:T; C:T; b_?:T;}',
+    },
+    {
+      code: 'interface U {b_?:T; C:T; c:T;}',
+      options: ['desc', { natural: true, caseSensitive: false, requiredFirst: true }],
+      errors: ["Expected interface keys to be in required first natural insensitive descending order. 'C' should be before 'b_'."],
+      output: 'interface U {C:T; b_?:T; c:T;}',
+    },
+    {
+      code: 'interface U {_:T; a?:T; $:T; A?:T;}',
+      options: ['desc', { natural: true, caseSensitive: false, requiredFirst: true }],
+      errors: ["Expected interface keys to be in required first natural insensitive descending order. '$' should be before 'a'."],
+      output: 'interface U {_:T; $:T; a?:T; A?:T;}',
+    },
+    {
+      code: "interface U {2?:T; A:T; 1:T; '11':T;}",
+      options: ['desc', { natural: true, caseSensitive: false, requiredFirst: true }],
+      errors: [
+        "Expected interface keys to be in required first natural insensitive descending order. 'A' should be before '2'.",
+        "Expected interface keys to be in required first natural insensitive descending order. '11' should be before '1'.",
+      ],
+      output: "interface U {A:T; 2?:T; 1:T; '11':T;}",
+    },
+    {
+      code: "interface U {è:T; 'Z':T; '#'?:T; À?:T;}",
+      options: ['desc', { natural: true, caseSensitive: false, requiredFirst: true }],
+      errors: ["Expected interface keys to be in required first natural insensitive descending order. 'À' should be before '#'."],
+      output: "interface U {è:T; 'Z':T; À?:T; '#'?:T;}",
+    },
+    {
+      code: "interface U {À?:T; 'Z':T; '#'?:T; è:T;}",
+      options: ['desc', { natural: true, caseSensitive: false, requiredFirst: true }],
+      errors: [
+        "Expected interface keys to be in required first natural insensitive descending order. 'Z' should be before 'À'.",
+        "Expected interface keys to be in required first natural insensitive descending order. 'è' should be before '#'.",
+      ],
+      output: "interface U {è:T; 'Z':T; '#'?:T; À?:T;}",
+    },
+
+    // desc, natural, insensitive, not-required
+    {
+      code: 'interface U {_:T; a?:T; b:T;} // desc, natural, insensitive, not-required',
+      options: ['desc', { natural: true, caseSensitive: false, requiredFirst: false }],
+      errors: [
+        "Expected interface keys to be in natural insensitive descending order. 'a' should be before '_'.",
+        "Expected interface keys to be in natural insensitive descending order. 'b' should be before 'a'.",
+      ],
+      output: 'interface U {b:T; a?:T; _:T;} // desc, natural, insensitive, not-required',
+    },
+    {
+      code: 'interface U {a?:T; b:T; _:T;}',
+      options: ['desc', { natural: true, caseSensitive: false, requiredFirst: false }],
+      errors: ["Expected interface keys to be in natural insensitive descending order. 'b' should be before 'a'."],
+      output: 'interface U {b:T; a?:T; _:T;}',
+    },
+    {
+      code: 'interface U {b:T; b_:T; a?:T;}',
+      options: ['desc', { natural: true, caseSensitive: false, requiredFirst: false }],
+      errors: ["Expected interface keys to be in natural insensitive descending order. 'b_' should be before 'b'."],
+      output: 'interface U {b_:T; b:T; a?:T;}',
+    },
+    {
+      code: 'interface U {c:T; b_?:T; C:T;}',
+      options: ['desc', { natural: true, caseSensitive: false, requiredFirst: false }],
+      errors: ["Expected interface keys to be in natural insensitive descending order. 'C' should be before 'b_'."],
+      output: 'interface U {c:T; C:T; b_?:T;}',
+    },
+    {
+      code: 'interface U {b_?:T; C:T; c:T;}',
+      options: ['desc', { natural: true, caseSensitive: false, requiredFirst: false }],
+      errors: ["Expected interface keys to be in natural insensitive descending order. 'C' should be before 'b_'."],
+      output: 'interface U {C:T; b_?:T; c:T;}',
+    },
+    {
+      code: 'interface U {_:T; a?:T; $:T; A?:T;}',
+      options: ['desc', { natural: true, caseSensitive: false, requiredFirst: false }],
+      errors: [
+        "Expected interface keys to be in natural insensitive descending order. 'a' should be before '_'.",
+        "Expected interface keys to be in natural insensitive descending order. 'A' should be before '$'.",
+      ],
+      output: 'interface U {a?:T; _:T; $:T; A?:T;}',
+    },
+    {
+      code: "interface U {2?:T; A:T; 1:T; '11':T;}",
+      options: ['desc', { natural: true, caseSensitive: false, requiredFirst: false }],
+      errors: [
+        "Expected interface keys to be in natural insensitive descending order. 'A' should be before '2'.",
+        "Expected interface keys to be in natural insensitive descending order. '11' should be before '1'.",
+      ],
+      output: "interface U {A:T; 2?:T; 1:T; '11':T;}",
+    },
+    {
+      code: "interface U {è:T; 'Z':T; '#'?:T; À?:T;}",
+      options: ['desc', { natural: true, caseSensitive: false, requiredFirst: false }],
+      errors: ["Expected interface keys to be in natural insensitive descending order. 'À' should be before '#'."],
+      output: "interface U {è:T; À?:T; '#'?:T; 'Z':T;}",
+    },
+    {
+      code: "interface U {À?:T; 'Z':T; '#'?:T; è:T;}",
+      options: ['desc', { natural: true, caseSensitive: false, requiredFirst: false }],
+      errors: ["Expected interface keys to be in natural insensitive descending order. 'è' should be before '#'."],
+      output: "interface U {è:T; 'Z':T; '#'?:T; À?:T;}",
     },
 
     // index signatures
