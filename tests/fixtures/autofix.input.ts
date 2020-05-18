@@ -108,3 +108,20 @@ interface ClockConstructor {
 interface ClockInterface {
   tick(): void;
 }
+
+interface Methods {
+  /**
+   * %foo
+   */
+  quux(): any;
+  qux?();
+  quuz?(): any;
+  foo: boolean;
+  /* %baz */
+  baz: boolean;
+  // %bar
+  bar(): boolean;
+  ['grault']?(): void;
+  ['corge']?(): void;
+  ['garply']();
+}
