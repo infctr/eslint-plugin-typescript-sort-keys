@@ -21,44 +21,63 @@ describe('autofix', () => {
     tmp.setGracefulCleanup();
   });
 
-  it('should autofix and properly format comments and indent level', async () => {
-    const { name: tmpDir } = tmp.dirSync({
-      prefix: 'typescript-sort-keys-',
-      unsafeCleanup: true,
-    });
-
-    const testFilePath = path.join(tmpDir, 'autofix.ts');
-    const input = fs.readFileSync('tests/fixtures/autofix.input.ts', 'utf8');
-    const expected = fs.readFileSync('tests/fixtures/autofix.output.ts', 'utf8');
-
-    fs.writeFileSync(testFilePath, input);
-
-    const eslint = new ESLint({
-      overrideConfig: {
-        parser: typescript.parser,
-        parserOptions: { sourceType: 'module' },
+  it.each([
+    [recommended, 'autofix.output.ts'],
+    [
+      {
+        ...recommended,
+        rules: {
+          ...recommended.rules,
+          interface: [
+            'error',
+            'asc',
+            { caseSensitive: true, natural: true, requiredFirst: true },
+          ],
+        },
       },
-      baseConfig: recommended,
-      plugins: {
-        'typescript-sort-keys': plugin,
-      },
-      useEslintrc: false,
-      fix: true,
-    });
+      'requiredFirst.output.ts',
+    ],
+  ])(
+    'should autofix and properly format comments and indent level',
+    async (config, fileName) => {
+      const { name: tmpDir } = tmp.dirSync({
+        prefix: 'typescript-sort-keys-',
+        unsafeCleanup: true,
+      });
 
-    const results = await eslint.lintFiles(testFilePath);
-    const result = results[0];
+      const testFilePath = path.join(tmpDir, 'autofix.ts');
+      const input = fs.readFileSync('tests/fixtures/autofix.input.ts', 'utf8');
+      const expected = fs.readFileSync(`tests/fixtures/${fileName}`, 'utf8');
 
-    expect(result.messages).toHaveLength(0);
-    expect(result.errorCount).toBe(0);
-    expect(result.warningCount).toBe(0);
-    expect(result.fixableErrorCount).toBe(0);
-    expect(result.fixableWarningCount).toBe(0);
+      fs.writeFileSync(testFilePath, input);
 
-    await ESLint.outputFixes(results);
+      const eslint = new ESLint({
+        overrideConfig: {
+          parser: typescript.parser,
+          parserOptions: { sourceType: 'module' },
+        },
+        baseConfig: config,
+        plugins: {
+          'typescript-sort-keys': plugin,
+        },
+        useEslintrc: false,
+        fix: true,
+      });
 
-    const output = fs.readFileSync(testFilePath, 'utf8');
+      const results = await eslint.lintFiles(testFilePath);
+      const result = results[0];
 
-    expect(output).toStrictEqual(expected);
-  });
+      expect(result.messages).toHaveLength(0);
+      expect(result.errorCount).toBe(0);
+      expect(result.warningCount).toBe(0);
+      expect(result.fixableErrorCount).toBe(0);
+      expect(result.fixableWarningCount).toBe(0);
+
+      await ESLint.outputFixes(results);
+
+      const output = fs.readFileSync(testFilePath, 'utf8');
+
+      expect(output).toStrictEqual(expected);
+    },
+  );
 });

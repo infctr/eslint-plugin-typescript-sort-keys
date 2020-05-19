@@ -9,14 +9,14 @@ namespace Koa {
   export interface Context {}
 }
 
-const inlineArrow: (props: {foo: boolean; baz: boolean; bar: boolean}) => null = ({...props}) => null;
+const inlineArrow: (props: {foo: boolean; baz?: boolean; bar: boolean}) => null = ({...props}) => null;
 
-const inlineArrow2: (props: {foo: boolean; bar: boolean; baz: boolean}) => null = ({...props}) => null;
+const inlineArrow2: (props: {foo: boolean; bar?: boolean; baz: boolean}) => null = ({...props}) => null;
 
-const inlineWeird: (props: {foo: boolean;baz: boolean,
+const inlineWeird: (props: {foo?: boolean;baz: boolean,
           bar: boolean}) => null = ({...props}) => null;
 
-function inlineGeneric<T extends { foo: boolean; baz: boolean; bar: boolean}>({...props}: T | {foo: boolean; bar: boolean; baz: boolean}) {
+function inlineGeneric<T extends { foo: boolean; baz?: boolean; bar: boolean}>({...props}: T | {foo: boolean; bar: boolean; baz?: boolean}) {
    return null
 }
 
@@ -29,15 +29,15 @@ enum InlineEnum3 {b_="T", c="T", C="T"}
 enum WeirdEnum {
   Foo = 'FOO',Baz = 'BAZ',    Bar = 'BAR',}
 
-interface InlineInterface {e: "T"; c:"T"; d:"T"; b:"T"; a:"T"}
+interface InlineInterface {e: "T"; c?:"T"; d:"T"; b:"T"; a?:"T"}
 
 class Class extends GraphQLExtension<{
   graphqlResponse: GraphQLResponse;
-  context: Koa.Context;
+  context?: Koa.Context;
 }> {
   public method(o: {
     graphqlResponse: GraphQLResponse;
-    context: Koa.Context;
+    context?: Koa.Context;
   }): void | { graphqlResponse?: GraphQLResponse; context?: Koa.Context } {
     //
   }
@@ -49,14 +49,14 @@ interface Interface {
    */
   foo: boolean;
   /* %baz */
-  baz: boolean;
+  baz?: boolean;
   // %bar
   bar: boolean;
 }
 
 type Type1<TKey extends string> = Partial<{
   // %foo
-  foo: boolean;
+  foo?: boolean;
   /* %baz */ baz: boolean;
 
   /**
@@ -64,7 +64,7 @@ type Type1<TKey extends string> = Partial<{
    */
   bar: boolean;
 }> & {/* %foo */
-  foo: boolean;
+  foo?: boolean;
 
 // %baz
   baz: boolean;
@@ -90,7 +90,7 @@ enum StringEnum {
 }
 
 type Type2 = {/* %foo */
-  foo: boolean;
+  foo?: boolean;
 
 // %baz
   baz: boolean;
@@ -107,4 +107,21 @@ interface ClockConstructor {
 
 interface ClockInterface {
   tick(): void;
+}
+
+interface Methods {
+  /**
+   * %foo
+   */
+  quux(): any;
+  qux?();
+  quuz?(): any;
+  foo: boolean;
+  /* %baz */
+  baz: boolean;
+  // %bar
+  bar(): boolean;
+  ['grault']?(): void;
+  ['corge']?(): void;
+  ['garply']();
 }

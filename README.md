@@ -49,8 +49,8 @@ Then configure the rules you want to use under the rules section.
 ```json
 {
   "rules": {
-    "typescript-sort-keys/interface": 2,
-    "typescript-sort-keys/string-enum": 2
+    "typescript-sort-keys/interface": "error",
+    "typescript-sort-keys/string-enum": "error"
   }
 }
 ```
