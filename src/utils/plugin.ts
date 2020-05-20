@@ -7,9 +7,13 @@ import {
 } from '@typescript-eslint/experimental-utils/dist/ts-eslint';
 import assert from 'assert';
 
-import { RuleOptions, SortingOrder } from 'common/options';
-import { getPropertyName } from './ast';
+import { SortingOrder } from 'common/options';
+import { Options as InterfaceRuleOptions } from 'rules/interface';
+import { Options as StringEnumRuleOptions } from 'rules/string-enum';
+import { getPropertyName, getPropertyIsOptional } from './ast';
 import { compareFn } from './compare';
+
+type RuleOptions = InterfaceRuleOptions & StringEnumRuleOptions;
 
 type TSType = TSESTree.TypeElement | TSESTree.TSEnumMember;
 
@@ -145,14 +149,24 @@ export function createReporter<MessageIds extends string>(
   const isAscending = order === SortingOrder.Ascending;
   const isInsensitive = (options && options.caseSensitive) === false;
   const isNatural = Boolean(options && options.natural);
+  const isRequiredFirst = (options && options.requiredFirst) === true;
 
   const compare = compareFn(isAscending, isInsensitive, isNatural);
   const swapNodes = createNodeSwapper(context);
 
   return (body: TSType[]) => {
-    const sortedBody = [...body].sort((a, b) =>
-      compare(getPropertyName(a), getPropertyName(b)),
-    );
+    const sortedBody = isRequiredFirst
+      ? [
+          ...body
+            .slice(0)
+            .filter(node => !getPropertyIsOptional(node))
+            .sort((a, b) => compare(getPropertyName(a), getPropertyName(b))),
+          ...body
+            .slice(0)
+            .filter(node => getPropertyIsOptional(node))
+            .sort((a, b) => compare(getPropertyName(a), getPropertyName(b))),
+        ]
+      : body.slice(0).sort((a, b) => compare(getPropertyName(a), getPropertyName(b)));
 
     const nodePositions = new Map(
       body.map(n => [n, { initial: body.indexOf(n), final: sortedBody.indexOf(n) }]),
@@ -164,7 +178,15 @@ export function createReporter<MessageIds extends string>(
       const prevNodeName = getPropertyName(prevNode);
       const currentNodeName = getPropertyName(currentNode);
 
-      if (compare(prevNodeName, currentNodeName) > 0) {
+      if (
+        (!isRequiredFirst && compare(prevNodeName, currentNodeName) > 0) ||
+        (isRequiredFirst &&
+          getPropertyIsOptional(prevNode) === getPropertyIsOptional(currentNode) &&
+          compare(prevNodeName, currentNodeName) > 0) ||
+        (isRequiredFirst &&
+          getPropertyIsOptional(prevNode) !== getPropertyIsOptional(currentNode) &&
+          getPropertyIsOptional(prevNode))
+      ) {
         const targetPosition = sortedBody.indexOf(currentNode);
         const replaceNode = body[targetPosition];
         const { loc, messageId } = createReportObject(currentNode);
@@ -186,6 +208,7 @@ export function createReporter<MessageIds extends string>(
             order,
             insensitive: isInsensitive ? 'insensitive ' : '',
             natural: isNatural ? 'natural ' : '',
+            requiredFirst: isRequiredFirst ? 'required first ' : '',
           },
 
           fix: fixer => {

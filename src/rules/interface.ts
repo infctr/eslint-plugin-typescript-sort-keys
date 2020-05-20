@@ -5,10 +5,10 @@ import { createReporter } from 'utils/plugin';
 import { createRule, RuleMetaData } from 'utils/rule';
 import {
   sortingOrderOptionSchema,
-  sortingParamsOptionSchema,
   SortingOrder,
   ErrorMessage,
-  RuleOptions,
+  SortingOrderOption,
+  SortingParamsOptions,
 } from 'common/options';
 
 /**
@@ -16,10 +16,30 @@ import {
  */
 export const name = 'interface' as const;
 
+type SortingParams = SortingParamsOptions['caseSensitive'] &
+  SortingParamsOptions['natural'] &
+  SortingParamsOptions['requiredFirst'];
+
 /**
  * The options this rule can take.
  */
-export type Options = RuleOptions;
+export type Options = [SortingOrderOption] | [SortingOrderOption, Partial<SortingParams>];
+
+const sortingParamsOptionSchema: JSONSchema4 = {
+  type: 'object',
+  properties: {
+    caseSensitive: {
+      type: 'boolean',
+    },
+    natural: {
+      type: 'boolean',
+    },
+    requiredFirst: {
+      type: 'boolean',
+    },
+  },
+  additionalProperties: false,
+};
 
 /**
  * The schema for the rule options.
@@ -31,7 +51,7 @@ const schema: JSONSchema4 = [sortingOrderOptionSchema, sortingParamsOptionSchema
  */
 const defaultOptions: Options = [
   SortingOrder.Ascending,
-  { caseSensitive: true, natural: false },
+  { caseSensitive: true, natural: false, requiredFirst: false },
 ];
 
 /**

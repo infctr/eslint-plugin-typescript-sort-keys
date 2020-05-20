@@ -28,7 +28,7 @@ describe('autofix', () => {
         ...recommended,
         rules: {
           ...recommended.rules,
-          interface: [
+          'typescript-sort-keys/interface': [
             'error',
             'asc',
             { caseSensitive: true, natural: true, requiredFirst: true },
@@ -53,10 +53,10 @@ describe('autofix', () => {
 
       const eslint = new ESLint({
         overrideConfig: {
+          ...config,
           parser: typescript.parser,
           parserOptions: { sourceType: 'module' },
         },
-        baseConfig: config,
         plugins: {
           'typescript-sort-keys': plugin,
         },

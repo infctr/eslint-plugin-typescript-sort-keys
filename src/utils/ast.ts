@@ -71,7 +71,7 @@ function getProperty(node: TSESTree.Node) {
  *     let a = {[tag`b`]: 1}     // => undefined
  *     let a = {[`${b}`]: 1}     // => undefined
  */
-export function getPropertyName(node: TSESTree.Node) {
+export function getPropertyName(node: TSESTree.TypeElement | TSESTree.TSEnumMember) {
   const property = getProperty(node);
 
   if (!property) {
@@ -88,4 +88,16 @@ export function getPropertyName(node: TSESTree.Node) {
     default:
       return undefined;
   }
+}
+
+export function getPropertyIsOptional(
+  node: TSESTree.TypeElement | TSESTree.TSEnumMember,
+) {
+  switch (node.type) {
+    case AST_NODE_TYPES.TSMethodSignature:
+    case AST_NODE_TYPES.TSPropertySignature:
+      return Boolean(node.optional);
+  }
+
+  return false;
 }

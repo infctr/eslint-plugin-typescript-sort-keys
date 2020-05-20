@@ -6,10 +6,10 @@ import { createReporter } from 'utils/plugin';
 import { createRule, RuleMetaData } from 'utils/rule';
 import {
   sortingOrderOptionSchema,
-  sortingParamsOptionSchema,
   SortingOrder,
   ErrorMessage,
-  RuleOptions,
+  SortingOrderOption,
+  SortingParamsOptions,
 } from 'common/options';
 
 /**
@@ -17,10 +17,26 @@ import {
  */
 export const name = 'string-enum' as const;
 
+type SortingParams = SortingParamsOptions['caseSensitive'] &
+  SortingParamsOptions['natural'];
+
 /**
  * The options this rule can take.
  */
-export type Options = RuleOptions;
+export type Options = [SortingOrderOption] | [SortingOrderOption, Partial<SortingParams>];
+
+const sortingParamsOptionSchema: JSONSchema4 = {
+  type: 'object',
+  properties: {
+    caseSensitive: {
+      type: 'boolean',
+    },
+    natural: {
+      type: 'boolean',
+    },
+  },
+  additionalProperties: false,
+};
 
 /**
  * The schema for the rule options.

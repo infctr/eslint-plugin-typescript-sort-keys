@@ -11,29 +11,25 @@ export const sortingOrderOptionSchema: JSONSchema4 = {
 
 export type SortingOrderOption = SortingOrder;
 
-export const sortingParamsOptionSchema: JSONSchema4 = {
-  type: 'object',
-  properties: {
-    caseSensitive: {
-      type: 'boolean',
-    },
-    natural: {
-      type: 'boolean',
-    },
-  },
-  additionalProperties: false,
-};
-
-export interface SortingParamsOption {
+interface CaseSensitiveSortingOption {
   readonly caseSensitive: boolean;
+}
+
+interface NaturalSortingOption {
   readonly natural: boolean;
 }
 
-export type RuleOptions =
-  | [SortingOrderOption]
-  | [SortingOrderOption, Partial<SortingParamsOption>];
+interface RequiredFirstSortingOption {
+  readonly requiredFirst: boolean;
+}
+
+export interface SortingParamsOptions {
+  readonly caseSensitive: CaseSensitiveSortingOption;
+  readonly natural: NaturalSortingOption;
+  readonly requiredFirst: RequiredFirstSortingOption;
+}
 
 export enum ErrorMessage {
-  InterfaceInvalidOrder = `Expected interface keys to be in {{ natural }}{{ insensitive }}{{ order }}ending order. '{{ thisName }}' should be before '{{ prevName }}'.`,
+  InterfaceInvalidOrder = `Expected interface keys to be in {{ requiredFirst }}{{ natural }}{{ insensitive }}{{ order }}ending order. '{{ thisName }}' should be before '{{ prevName }}'.`,
   StringEnumInvalidOrder = `Expected string enum members to be in {{ natural }}{{ insensitive }}{{ order }}ending order. '{{ thisName }}' should be before '{{ prevName }}'.`,
 }
