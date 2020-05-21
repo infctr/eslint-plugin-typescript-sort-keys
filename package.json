@@ -9,9 +9,22 @@
     "typescript"
   ],
   "author": "infctr <infctr@gmail.com>",
-  "main": "dist/index.js",
+  "main": "lib/index.cjs.js",
+  "module": "lib/index.esm.js",
   "repository": "git@github.com:infctr/eslint-plugin-typescript-sort-keys.git",
   "url": "https://github.com/infctr/eslint-plugin-typescript-sort-keys",
+  "files": [
+    "/lib",
+    "package.json",
+    "CHANGELOG.md",
+    "LICENSE.md",
+    "README.md"
+  ],
+  "exports": {
+    "import": "lib/index.esm.js",
+    "require": "lib/index.cjs.js",
+    "default": "lib/index.cjs.js"
+  },
   "scripts": {
     "build": "yarn rimraf lib && yarn compile",
     "compile": "yarn rollup -c",
@@ -26,6 +39,7 @@
     "verify": "yarn type-check && yarn lint && yarn build && yarn test"
   },
   "dependencies": {
+    "@typescript-eslint/experimental-utils": "~2.32.0",
     "natural-compare-lite": "~1.4.0"
   },
   "devDependencies": {
@@ -34,16 +48,21 @@
     "@babel/preset-env": "~7.9.6",
     "@babel/preset-typescript": "~7.9.0",
     "@infctr/eslint-docs": "~0.4.0",
+    "@rollup/plugin-commonjs": "~12.0.0",
+    "@rollup/plugin-json": "~4.0.3",
+    "@rollup/plugin-node-resolve": "~8.0.0",
+    "@rollup/plugin-typescript": "~4.1.2",
+    "@types/babel__core": "~7.1.7",
+    "@types/babel__preset-env": "~7.9.0",
     "@types/eslint": "~6.8.1",
     "@types/eslint-plugin-prettier": "~3.1.0",
+    "@types/http-server": "~0.10.0",
     "@types/jest": "~25.2.3",
     "@types/natural-compare-lite": "~1.4.0",
     "@types/prettier": "~2.0.0",
-    "@types/requireindex": "~1.2.0",
     "@types/rimraf": "~3.0.0",
     "@types/tmp": "~0.2.0",
     "@typescript-eslint/eslint-plugin": "~2.32.0",
-    "@typescript-eslint/experimental-utils": "~2.32.0",
     "@typescript-eslint/parser": "~2.32.0",
     "babel-jest": "~26.0.1",
     "babel-plugin-module-resolver": "~4.0.0",
@@ -60,6 +79,7 @@
     "lint-staged": "~10.2.4",
     "prettier": "~2.0.5",
     "rimraf": "~3.0.2",
+    "rollup": "~2.10.5",
     "tmp": "~0.2.1",
     "tsconfig": "~7.0.0",
     "typescript": "~3.9.3"
