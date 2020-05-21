@@ -336,8 +336,8 @@ const invalid: readonly InvalidTestCase<Options>[] = [
    */
   {
     code: 'enum U {a="a", _="b", b="c"}',
-    errors: ["Expected string enum members to be in ascending order. '_' should be before 'a'."],
     output: 'enum U {_="b", a="a", b="c"}',
+    errors: ["Expected string enum members to be in ascending order. '_' should be before 'a'."],
     optionsSet: [
       [],
       [SortingOrder.Ascending],
@@ -348,8 +348,8 @@ const invalid: readonly InvalidTestCase<Options>[] = [
   },
   {
     code: 'enum U {a="T", c="T", b="T"}',
-    errors: ["Expected string enum members to be in ascending order. 'b' should be before 'c'."],
     output: 'enum U {a="T", b="T", c="T"}',
+    errors: ["Expected string enum members to be in ascending order. 'b' should be before 'c'."],
     optionsSet: [
       [],
       [SortingOrder.Ascending],
@@ -360,8 +360,8 @@ const invalid: readonly InvalidTestCase<Options>[] = [
   },
   {
     code: 'enum U {b_="T", a="T", b="T"}',
-    errors: ["Expected string enum members to be in ascending order. 'a' should be before 'b_'."],
     output: 'enum U {a="T", b_="T", b="T"}',
+    errors: ["Expected string enum members to be in ascending order. 'a' should be before 'b_'."],
     optionsSet: [
       [],
       [SortingOrder.Ascending],
@@ -372,8 +372,8 @@ const invalid: readonly InvalidTestCase<Options>[] = [
   },
   {
     code: 'enum U {b_="T", c="T", C="T"}',
-    errors: ["Expected string enum members to be in ascending order. 'C' should be before 'c'."],
     output: 'enum U {C="T", c="T", b_="T",}',
+    errors: ["Expected string enum members to be in ascending order. 'C' should be before 'c'."],
     optionsSet: [
       [],
       [SortingOrder.Ascending],
@@ -384,8 +384,8 @@ const invalid: readonly InvalidTestCase<Options>[] = [
   },
   {
     code: 'enum U {$="T", _="T", A="T", a="T"}',
-    errors: ["Expected string enum members to be in ascending order. 'A' should be before '_'."],
     output: 'enum U {$="T", A="T", _="T", a="T"}',
+    errors: ["Expected string enum members to be in ascending order. 'A' should be before '_'."],
     optionsSet: [
       [],
       [SortingOrder.Ascending],
@@ -396,8 +396,8 @@ const invalid: readonly InvalidTestCase<Options>[] = [
   },
   {
     code: "enum U {'#'='T', À='T', 'Z'='T', è='T'}",
-    errors: ["Expected string enum members to be in ascending order. 'Z' should be before 'À'."],
     output: "enum U {'#'='T', 'Z'='T', À='T', è='T'}",
+    errors: ["Expected string enum members to be in ascending order. 'Z' should be before 'À'."],
     optionsSet: [
       [],
       [SortingOrder.Ascending],
@@ -412,8 +412,8 @@ const invalid: readonly InvalidTestCase<Options>[] = [
    */
   {
     code: 'enum U {a="T", b="T", ["aa"]="T", c="T"}',
-    errors: ["Expected string enum members to be in ascending order. 'aa' should be before 'b'."],
     output: 'enum U {a="T", ["aa"]="T", b="T", c="T"}',
+    errors: ["Expected string enum members to be in ascending order. 'aa' should be before 'b'."],
     optionsSet: [
       [],
       [SortingOrder.Ascending],
@@ -428,8 +428,8 @@ const invalid: readonly InvalidTestCase<Options>[] = [
    */
   {
     code: 'enum U {a="T", _="T", b="T"}',
-    errors: ["Expected string enum members to be in ascending order. '_' should be before 'a'."],
     output: 'enum U {_="T", a="T", b="T"}',
+    errors: ["Expected string enum members to be in ascending order. '_' should be before 'a'."],
     optionsSet: [
       [],
       [SortingOrder.Ascending],
@@ -440,8 +440,8 @@ const invalid: readonly InvalidTestCase<Options>[] = [
   },
   {
     code: 'enum U {a="T", c="T", b="T"}',
-    errors: ["Expected string enum members to be in ascending order. 'b' should be before 'c'."],
     output: 'enum U {a="T", b="T", c="T"}',
+    errors: ["Expected string enum members to be in ascending order. 'b' should be before 'c'."],
     optionsSet: [
       [],
       [SortingOrder.Ascending],
@@ -452,8 +452,8 @@ const invalid: readonly InvalidTestCase<Options>[] = [
   },
   {
     code: 'enum U {b_="T", a="T", b="T"}',
-    errors: ["Expected string enum members to be in ascending order. 'a' should be before 'b_'."],
     output: 'enum U {a="T", b_="T", b="T"}',
+    errors: ["Expected string enum members to be in ascending order. 'a' should be before 'b_'."],
     optionsSet: [
       [],
       [SortingOrder.Ascending],
@@ -464,8 +464,8 @@ const invalid: readonly InvalidTestCase<Options>[] = [
   },
   {
     code: 'enum U {b_="T", c="T", C="T"}',
-    errors: ["Expected string enum members to be in ascending order. 'C' should be before 'c'."],
     output: 'enum U {C="T", c="T", b_="T",}',
+    errors: ["Expected string enum members to be in ascending order. 'C' should be before 'c'."],
     optionsSet: [
       [],
       [SortingOrder.Ascending],
@@ -476,8 +476,8 @@ const invalid: readonly InvalidTestCase<Options>[] = [
   },
   {
     code: 'enum U {$="T", _="T", A="T", a="T"}',
-    errors: ["Expected string enum members to be in ascending order. 'A' should be before '_'."],
     output: 'enum U {$="T", A="T", _="T", a="T"}',
+    errors: ["Expected string enum members to be in ascending order. 'A' should be before '_'."],
     optionsSet: [
       [],
       [SortingOrder.Ascending],
@@ -488,8 +488,8 @@ const invalid: readonly InvalidTestCase<Options>[] = [
   },
   {
     code: "enum U {'#'='T', À='T', 'Z'='T', è='T'}",
-    errors: ["Expected string enum members to be in ascending order. 'Z' should be before 'À'."],
     output: "enum U {'#'='T', 'Z'='T', À='T', è='T'}",
+    errors: ["Expected string enum members to be in ascending order. 'Z' should be before 'À'."],
     optionsSet: [
       [],
       [SortingOrder.Ascending],
@@ -504,42 +504,42 @@ const invalid: readonly InvalidTestCase<Options>[] = [
    */
   {
     code: 'enum U {a="T", _="T", b="T"}',
+    output: 'enum U {_="T", a="T", b="T"}',
     errors: [
       "Expected string enum members to be in insensitive ascending order. '_' should be before 'a'.",
     ],
-    output: 'enum U {_="T", a="T", b="T"}',
     optionsSet: [[SortingOrder.Ascending, { caseSensitive: false }]],
   },
   {
     code: 'enum U {a="T", c="T", b="T"}',
+    output: 'enum U {a="T", b="T", c="T"}',
     errors: [
       "Expected string enum members to be in insensitive ascending order. 'b' should be before 'c'.",
     ],
-    output: 'enum U {a="T", b="T", c="T"}',
     optionsSet: [[SortingOrder.Ascending, { caseSensitive: false }]],
   },
   {
     code: 'enum U {b_="T", a="T", b="T"}',
+    output: 'enum U {a="T", b_="T", b="T"}',
     errors: [
       "Expected string enum members to be in insensitive ascending order. 'a' should be before 'b_'.",
     ],
-    output: 'enum U {a="T", b_="T", b="T"}',
     optionsSet: [[SortingOrder.Ascending, { caseSensitive: false }]],
   },
   {
     code: 'enum U {$="T", A="T", _="T", a="T"}',
+    output: 'enum U {$="T", _="T", A="T", a="T"}',
     errors: [
       "Expected string enum members to be in insensitive ascending order. '_' should be before 'A'.",
     ],
-    output: 'enum U {$="T", _="T", A="T", a="T"}',
     optionsSet: [[SortingOrder.Ascending, { caseSensitive: false }]],
   },
   {
     code: "enum U {'#'='T', À='T', 'Z'='T', è='T'}",
+    output: "enum U {'#'='T', 'Z'='T', À='T', è='T'}",
     errors: [
       "Expected string enum members to be in insensitive ascending order. 'Z' should be before 'À'.",
     ],
-    output: "enum U {'#'='T', 'Z'='T', À='T', è='T'}",
     optionsSet: [[SortingOrder.Ascending, { caseSensitive: false }]],
   },
 
@@ -548,50 +548,50 @@ const invalid: readonly InvalidTestCase<Options>[] = [
    */
   {
     code: 'enum U {a="T", _="T", b="T"}',
+    output: 'enum U {_="T", a="T", b="T"}',
     errors: [
       "Expected string enum members to be in natural ascending order. '_' should be before 'a'.",
     ],
-    output: 'enum U {_="T", a="T", b="T"}',
     optionsSet: [[SortingOrder.Ascending, { natural: true }]],
   },
   {
     code: 'enum U {a="T", c="T", b="T"}',
+    output: 'enum U {a="T", b="T", c="T"}',
     errors: [
       "Expected string enum members to be in natural ascending order. 'b' should be before 'c'.",
     ],
-    output: 'enum U {a="T", b="T", c="T"}',
     optionsSet: [[SortingOrder.Ascending, { natural: true }]],
   },
   {
     code: 'enum U {b_="T", a="T", b="T"}',
+    output: 'enum U {a="T", b_="T", b="T"}',
     errors: [
       "Expected string enum members to be in natural ascending order. 'a' should be before 'b_'.",
     ],
-    output: 'enum U {a="T", b_="T", b="T"}',
     optionsSet: [[SortingOrder.Ascending, { natural: true }]],
   },
   {
     code: 'enum U {b_="T", c="T", C="T"}',
+    output: 'enum U {C="T", c="T", b_="T",}',
     errors: [
       "Expected string enum members to be in natural ascending order. 'C' should be before 'c'.",
     ],
-    output: 'enum U {C="T", c="T", b_="T",}',
     optionsSet: [[SortingOrder.Ascending, { natural: true }]],
   },
   {
     code: 'enum U {$="T", A="T", _="T", a="T"}',
+    output: 'enum U {$="T", _="T", A="T", a="T"}',
     errors: [
       "Expected string enum members to be in natural ascending order. '_' should be before 'A'.",
     ],
-    output: 'enum U {$="T", _="T", A="T", a="T"}',
     optionsSet: [[SortingOrder.Ascending, { natural: true }]],
   },
   {
     code: "enum U {'#'='T', À='T', 'Z'='T', è='T'}",
+    output: "enum U {'#'='T', 'Z'='T', À='T', è='T'}",
     errors: [
       "Expected string enum members to be in natural ascending order. 'Z' should be before 'À'.",
     ],
-    output: "enum U {'#'='T', 'Z'='T', À='T', è='T'}",
     optionsSet: [[SortingOrder.Ascending, { natural: true }]],
   },
 
@@ -600,43 +600,43 @@ const invalid: readonly InvalidTestCase<Options>[] = [
    */
   {
     code: 'enum U {a="T", _="T", b="T"}',
-    optionsSet: [[SortingOrder.Ascending, { natural: true, caseSensitive: false }]],
+    output: 'enum U {_="T", a="T", b="T"}',
     errors: [
       "Expected string enum members to be in natural insensitive ascending order. '_' should be before 'a'.",
     ],
-    output: 'enum U {_="T", a="T", b="T"}',
+    optionsSet: [[SortingOrder.Ascending, { natural: true, caseSensitive: false }]],
   },
   {
     code: 'enum U {a="T", c="T", b="T"}',
-    optionsSet: [[SortingOrder.Ascending, { natural: true, caseSensitive: false }]],
+    output: 'enum U {a="T", b="T", c="T"}',
     errors: [
       "Expected string enum members to be in natural insensitive ascending order. 'b' should be before 'c'.",
     ],
-    output: 'enum U {a="T", b="T", c="T"}',
+    optionsSet: [[SortingOrder.Ascending, { natural: true, caseSensitive: false }]],
   },
   {
     code: 'enum U {b_="T", a="T", b="T"}',
-    optionsSet: [[SortingOrder.Ascending, { natural: true, caseSensitive: false }]],
+    output: 'enum U {a="T", b_="T", b="T"}',
     errors: [
       "Expected string enum members to be in natural insensitive ascending order. 'a' should be before 'b_'.",
     ],
-    output: 'enum U {a="T", b_="T", b="T"}',
+    optionsSet: [[SortingOrder.Ascending, { natural: true, caseSensitive: false }]],
   },
   {
     code: 'enum U {$="T", A="T", _="T", a="T"}',
-    optionsSet: [[SortingOrder.Ascending, { natural: true, caseSensitive: false }]],
+    output: 'enum U {$="T", _="T", A="T", a="T"}',
     errors: [
       "Expected string enum members to be in natural insensitive ascending order. '_' should be before 'A'.",
     ],
-    output: 'enum U {$="T", _="T", A="T", a="T"}',
+    optionsSet: [[SortingOrder.Ascending, { natural: true, caseSensitive: false }]],
   },
   {
     code: "enum U {'#'='T', À='T', 'Z'='T', è='T'}",
-    optionsSet: [[SortingOrder.Ascending, { natural: true, caseSensitive: false }]],
+    output: "enum U {'#'='T', 'Z'='T', À='T', è='T'}",
     errors: [
       "Expected string enum members to be in natural insensitive ascending order. 'Z' should be before 'À'.",
     ],
-    output: "enum U {'#'='T', 'Z'='T', À='T', è='T'}",
+    optionsSet: [[SortingOrder.Ascending, { natural: true, caseSensitive: false }]],
   },
 
   /**
@@ -644,45 +644,45 @@ const invalid: readonly InvalidTestCase<Options>[] = [
    */
   {
     code: 'enum U {a="T", _="T", b="T"}',
-    optionsSet: [[SortingOrder.Descending]],
-    errors: ["Expected string enum members to be in descending order. 'b' should be before '_'."],
     output: 'enum U {b="T", _="T", a="T",}',
+    errors: ["Expected string enum members to be in descending order. 'b' should be before '_'."],
+    optionsSet: [[SortingOrder.Descending]],
   },
   {
     code: 'enum U {a="T", c="T", b="T"}',
-    optionsSet: [[SortingOrder.Descending]],
-    errors: ["Expected string enum members to be in descending order. 'c' should be before 'a'."],
     output: 'enum U {c="T", a="T", b="T"}',
+    errors: ["Expected string enum members to be in descending order. 'c' should be before 'a'."],
+    optionsSet: [[SortingOrder.Descending]],
   },
   {
     code: 'enum U {b_="T", a="T", b="T"}',
-    optionsSet: [[SortingOrder.Descending]],
-    errors: ["Expected string enum members to be in descending order. 'b' should be before 'a'."],
     output: 'enum U {b_="T", b="T", a="T"}',
+    errors: ["Expected string enum members to be in descending order. 'b' should be before 'a'."],
+    optionsSet: [[SortingOrder.Descending]],
   },
   {
     code: 'enum U {b_="T", c="T", C="T"}',
-    optionsSet: [[SortingOrder.Descending]],
-    errors: ["Expected string enum members to be in descending order. 'c' should be before 'b_'."],
     output: 'enum U {c="T", b_="T", C="T"}',
+    errors: ["Expected string enum members to be in descending order. 'c' should be before 'b_'."],
+    optionsSet: [[SortingOrder.Descending]],
   },
   {
     code: 'enum U {$="T", _="T", A="T", a="T"}',
-    optionsSet: [[SortingOrder.Descending]],
+    output: 'enum U {a="T", _="T", A="T", $="T"}',
     errors: [
       "Expected string enum members to be in descending order. '_' should be before '$'.",
       "Expected string enum members to be in descending order. 'a' should be before 'A'.",
     ],
-    output: 'enum U {a="T", _="T", A="T", $="T"}',
+    optionsSet: [[SortingOrder.Descending]],
   },
   {
     code: "enum U {'#'='T', À='T', 'Z'='T', è='T'}",
-    optionsSet: [[SortingOrder.Descending]],
+    output: "enum U {è='T', À='T', 'Z'='T', '#'='T'}",
     errors: [
       "Expected string enum members to be in descending order. 'À' should be before '#'.",
       "Expected string enum members to be in descending order. 'è' should be before 'Z'.",
     ],
-    output: "enum U {è='T', À='T', 'Z'='T', '#'='T'}",
+    optionsSet: [[SortingOrder.Descending]],
   },
 
   /**
@@ -690,53 +690,53 @@ const invalid: readonly InvalidTestCase<Options>[] = [
    */
   {
     code: 'enum U {a="T", _="T", b="T"}',
-    optionsSet: [[SortingOrder.Descending, { caseSensitive: false }]],
+    output: 'enum U {b="T", _="T", a="T",}',
     errors: [
       "Expected string enum members to be in insensitive descending order. 'b' should be before '_'.",
     ],
-    output: 'enum U {b="T", _="T", a="T",}',
+    optionsSet: [[SortingOrder.Descending, { caseSensitive: false }]],
   },
   {
     code: 'enum U {a="T", c="T", b="T"}',
-    optionsSet: [[SortingOrder.Descending, { caseSensitive: false }]],
+    output: 'enum U {c="T", a="T", b="T"}',
     errors: [
       "Expected string enum members to be in insensitive descending order. 'c' should be before 'a'.",
     ],
-    output: 'enum U {c="T", a="T", b="T"}',
+    optionsSet: [[SortingOrder.Descending, { caseSensitive: false }]],
   },
   {
     code: 'enum U {b_="T", a="T", b="T"}',
-    optionsSet: [[SortingOrder.Descending, { caseSensitive: false }]],
+    output: 'enum U {b_="T", b="T", a="T"}',
     errors: [
       "Expected string enum members to be in insensitive descending order. 'b' should be before 'a'.",
     ],
-    output: 'enum U {b_="T", b="T", a="T"}',
+    optionsSet: [[SortingOrder.Descending, { caseSensitive: false }]],
   },
   {
     code: 'enum U {b_="T", c="T", C="T"}',
-    optionsSet: [[SortingOrder.Descending, { caseSensitive: false }]],
+    output: 'enum U {c="T", b_="T", C="T"}',
     errors: [
       "Expected string enum members to be in insensitive descending order. 'c' should be before 'b_'.",
     ],
-    output: 'enum U {c="T", b_="T", C="T"}',
+    optionsSet: [[SortingOrder.Descending, { caseSensitive: false }]],
   },
   {
     code: 'enum U {$="T", _="T", A="T", a="T"}',
-    optionsSet: [[SortingOrder.Descending, { caseSensitive: false }]],
+    output: 'enum U {A="T", _="T", $="T", a="T"}',
     errors: [
       "Expected string enum members to be in insensitive descending order. '_' should be before '$'.",
       "Expected string enum members to be in insensitive descending order. 'A' should be before '_'.",
     ],
-    output: 'enum U {A="T", _="T", $="T", a="T"}',
+    optionsSet: [[SortingOrder.Descending, { caseSensitive: false }]],
   },
   {
     code: "enum U {'#'='T', À='T', 'Z'='T', è='T'}",
-    optionsSet: [[SortingOrder.Descending, { caseSensitive: false }]],
+    output: "enum U {è='T', À='T', 'Z'='T', '#'='T'}",
     errors: [
       "Expected string enum members to be in insensitive descending order. 'À' should be before '#'.",
       "Expected string enum members to be in insensitive descending order. 'è' should be before 'Z'.",
     ],
-    output: "enum U {è='T', À='T', 'Z'='T', '#'='T'}",
+    optionsSet: [[SortingOrder.Descending, { caseSensitive: false }]],
   },
 
   /**
@@ -744,54 +744,54 @@ const invalid: readonly InvalidTestCase<Options>[] = [
    */
   {
     code: 'enum U {a="T", _="T", b="T"}',
-    optionsSet: [[SortingOrder.Descending, { natural: true }]],
+    output: 'enum U {b="T", _="T", a="T",}',
     errors: [
       "Expected string enum members to be in natural descending order. 'b' should be before '_'.",
     ],
-    output: 'enum U {b="T", _="T", a="T",}',
+    optionsSet: [[SortingOrder.Descending, { natural: true }]],
   },
   {
     code: 'enum U {a="T", c="T", b="T"}',
-    optionsSet: [[SortingOrder.Descending, { natural: true }]],
+    output: 'enum U {c="T", a="T", b="T"}',
     errors: [
       "Expected string enum members to be in natural descending order. 'c' should be before 'a'.",
     ],
-    output: 'enum U {c="T", a="T", b="T"}',
+    optionsSet: [[SortingOrder.Descending, { natural: true }]],
   },
   {
     code: 'enum U {b_="T", a="T", b="T"}',
-    optionsSet: [[SortingOrder.Descending, { natural: true }]],
+    output: 'enum U {b_="T", b="T", a="T"}',
     errors: [
       "Expected string enum members to be in natural descending order. 'b' should be before 'a'.",
     ],
-    output: 'enum U {b_="T", b="T", a="T"}',
+    optionsSet: [[SortingOrder.Descending, { natural: true }]],
   },
   {
     code: 'enum U {b_="T", c="T", C="T"}',
-    optionsSet: [[SortingOrder.Descending, { natural: true }]],
+    output: 'enum U {c="T", b_="T", C="T"}',
     errors: [
       "Expected string enum members to be in natural descending order. 'c' should be before 'b_'.",
     ],
-    output: 'enum U {c="T", b_="T", C="T"}',
+    optionsSet: [[SortingOrder.Descending, { natural: true }]],
   },
   {
     code: 'enum U {$="T", _="T", A="T", a="T"}',
-    optionsSet: [[SortingOrder.Descending, { natural: true }]],
+    output: 'enum U {a="T", _="T", A="T", $="T"}',
     errors: [
       "Expected string enum members to be in natural descending order. '_' should be before '$'.",
       "Expected string enum members to be in natural descending order. 'A' should be before '_'.",
       "Expected string enum members to be in natural descending order. 'a' should be before 'A'.",
     ],
-    output: 'enum U {a="T", _="T", A="T", $="T"}',
+    optionsSet: [[SortingOrder.Descending, { natural: true }]],
   },
   {
     code: "enum U {'#'='T', À='T', 'Z'='T', è='T'}",
-    optionsSet: [[SortingOrder.Descending, { natural: true }]],
+    output: "enum U {è='T', À='T', 'Z'='T', '#'='T'}",
     errors: [
       "Expected string enum members to be in natural descending order. 'À' should be before '#'.",
       "Expected string enum members to be in natural descending order. 'è' should be before 'Z'.",
     ],
-    output: "enum U {è='T', À='T', 'Z'='T', '#'='T'}",
+    optionsSet: [[SortingOrder.Descending, { natural: true }]],
   },
 
   /**
@@ -799,53 +799,53 @@ const invalid: readonly InvalidTestCase<Options>[] = [
    */
   {
     code: 'enum U {a="T", _="T", b="T"}',
-    optionsSet: [[SortingOrder.Descending, { natural: true, caseSensitive: false }]],
+    output: 'enum U {b="T", _="T", a="T",}',
     errors: [
       "Expected string enum members to be in natural insensitive descending order. 'b' should be before '_'.",
     ],
-    output: 'enum U {b="T", _="T", a="T",}',
+    optionsSet: [[SortingOrder.Descending, { natural: true, caseSensitive: false }]],
   },
   {
     code: 'enum U {a="T", c="T", b="T"}',
-    optionsSet: [[SortingOrder.Descending, { natural: true, caseSensitive: false }]],
+    output: 'enum U {c="T", a="T", b="T"}',
     errors: [
       "Expected string enum members to be in natural insensitive descending order. 'c' should be before 'a'.",
     ],
-    output: 'enum U {c="T", a="T", b="T"}',
+    optionsSet: [[SortingOrder.Descending, { natural: true, caseSensitive: false }]],
   },
   {
     code: 'enum U {b_="T", a="T", b="T"}',
-    optionsSet: [[SortingOrder.Descending, { natural: true, caseSensitive: false }]],
+    output: 'enum U {b_="T", b="T", a="T"}',
     errors: [
       "Expected string enum members to be in natural insensitive descending order. 'b' should be before 'a'.",
     ],
-    output: 'enum U {b_="T", b="T", a="T"}',
+    optionsSet: [[SortingOrder.Descending, { natural: true, caseSensitive: false }]],
   },
   {
     code: 'enum U {b_="T", c="T", C="T"}',
-    optionsSet: [[SortingOrder.Descending, { natural: true, caseSensitive: false }]],
+    output: 'enum U {c="T", b_="T", C="T"}',
     errors: [
       "Expected string enum members to be in natural insensitive descending order. 'c' should be before 'b_'.",
     ],
-    output: 'enum U {c="T", b_="T", C="T"}',
+    optionsSet: [[SortingOrder.Descending, { natural: true, caseSensitive: false }]],
   },
   {
     code: 'enum U {$="T", _="T", A="T", a="T"}',
-    optionsSet: [[SortingOrder.Descending, { natural: true, caseSensitive: false }]],
+    output: 'enum U {A="T", _="T", $="T", a="T"}',
     errors: [
       "Expected string enum members to be in natural insensitive descending order. '_' should be before '$'.",
       "Expected string enum members to be in natural insensitive descending order. 'A' should be before '_'.",
     ],
-    output: 'enum U {A="T", _="T", $="T", a="T"}',
+    optionsSet: [[SortingOrder.Descending, { natural: true, caseSensitive: false }]],
   },
   {
     code: "enum U {'#'='T', À='T', 'Z'='T', è='T'}",
-    optionsSet: [[SortingOrder.Descending, { natural: true, caseSensitive: false }]],
+    output: "enum U {è='T', À='T', 'Z'='T', '#'='T'}",
     errors: [
       "Expected string enum members to be in natural insensitive descending order. 'À' should be before '#'.",
       "Expected string enum members to be in natural insensitive descending order. 'è' should be before 'Z'.",
     ],
-    output: "enum U {è='T', À='T', 'Z'='T', '#'='T'}",
+    optionsSet: [[SortingOrder.Descending, { natural: true, caseSensitive: false }]],
   },
 ];
 
