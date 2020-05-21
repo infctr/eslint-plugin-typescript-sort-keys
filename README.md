@@ -55,6 +55,14 @@ Then configure the rules you want to use under the rules section.
 }
 ```
 
+Or enable all rules with defaults
+
+```json
+{
+  "extends": ["plugin:typescript-sort-keys/recommended"]
+}
+```
+
 ## Supported Rules
 
 <!-- begin rule list -->
