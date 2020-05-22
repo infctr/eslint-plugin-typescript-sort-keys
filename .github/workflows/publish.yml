@@ -16,7 +16,7 @@ jobs:
         with:
           node-version: 12
       - run: yarn
-      - run: yarn test
+      - run: yarn verify
 
   publish-npm:
     needs: build
