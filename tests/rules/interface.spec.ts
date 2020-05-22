@@ -1,14 +1,14 @@
-import { Rule, RuleTester } from 'eslint';
+import { Rule, RuleTester } from 'eslint'
 
-import { rule, name, Options } from 'rules/interface';
-import { SortingOrder } from 'common/options';
-import { typescript } from '../helpers/configs';
+import { rule, name, Options } from 'rules/interface'
+import { SortingOrder } from 'common/options'
+import { typescript } from '../helpers/configs'
 import {
   InvalidTestCase,
   processInvalidTestCase,
   processValidTestCase,
   ValidTestCase,
-} from '../helpers/util';
+} from '../helpers/util'
 
 const valid: readonly ValidTestCase<Options>[] = [
   /**
@@ -735,7 +735,7 @@ const valid: readonly ValidTestCase<Options>[] = [
     code: `interface U<T> { a: T; _: T; A: T; $: T; [skey: string]: T; [nkey: number]: T; }`,
     optionsSet: [[SortingOrder.Descending]],
   },
-];
+]
 
 const invalid: readonly InvalidTestCase<Options>[] = [
   /**
@@ -1790,13 +1790,13 @@ const invalid: readonly InvalidTestCase<Options>[] = [
     ],
     optionsSet: [[SortingOrder.Descending]],
   },
-];
+]
 
 describe('TypeScript', () => {
-  const ruleTester = new RuleTester(typescript);
+  const ruleTester = new RuleTester(typescript)
 
   ruleTester.run(name, (rule as unknown) as Rule.RuleModule, {
     valid: processValidTestCase(valid),
     invalid: processInvalidTestCase(invalid),
-  });
-});
+  })
+})

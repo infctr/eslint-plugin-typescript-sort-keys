@@ -1,6 +1,6 @@
-import { TSESTree, AST_NODE_TYPES } from '@typescript-eslint/experimental-utils';
+import { TSESTree, AST_NODE_TYPES } from '@typescript-eslint/experimental-utils'
 
-import { indexSignature } from './common';
+import { indexSignature } from './common'
 
 export function getObjectBody(
   node:
@@ -10,17 +10,17 @@ export function getObjectBody(
 ) {
   switch (node.type) {
     case AST_NODE_TYPES.TSInterfaceDeclaration:
-      return node.body.body;
+      return node.body.body
     case AST_NODE_TYPES.TSEnumDeclaration:
     case AST_NODE_TYPES.TSTypeLiteral:
-      return node.members;
+      return node.members
   }
 }
 
 function getProperty(node: TSESTree.Node) {
   switch (node.type) {
     case AST_NODE_TYPES.TSIndexSignature: {
-      const [identifier] = node.parameters;
+      const [identifier] = node.parameters
 
       return {
         ...identifier,
@@ -28,18 +28,18 @@ function getProperty(node: TSESTree.Node) {
         name: indexSignature.create(
           (identifier as TSESTree.Parameter & { name: string }).name,
         ),
-      };
+      }
     }
 
     case AST_NODE_TYPES.TSPropertySignature:
     case AST_NODE_TYPES.TSMethodSignature:
-      return node.key;
+      return node.key
 
     case AST_NODE_TYPES.TSEnumMember:
-      return node.id;
+      return node.id
 
     default:
-      return undefined;
+      return undefined
   }
 }
 
@@ -72,21 +72,21 @@ function getProperty(node: TSESTree.Node) {
  *     let a = {[`${b}`]: 1}     // => undefined
  */
 export function getPropertyName(node: TSESTree.TypeElement | TSESTree.TSEnumMember) {
-  const property = getProperty(node);
+  const property = getProperty(node)
 
   if (!property) {
-    return undefined;
+    return undefined
   }
 
   switch (property.type) {
     case AST_NODE_TYPES.Literal:
-      return String(property.value);
+      return String(property.value)
 
     case AST_NODE_TYPES.Identifier:
-      return property.name;
+      return property.name
 
     default:
-      return undefined;
+      return undefined
   }
 }
 
@@ -96,8 +96,8 @@ export function getPropertyIsOptional(
   switch (node.type) {
     case AST_NODE_TYPES.TSMethodSignature:
     case AST_NODE_TYPES.TSPropertySignature:
-      return Boolean(node.optional);
+      return Boolean(node.optional)
   }
 
-  return false;
+  return false
 }

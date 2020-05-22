@@ -71,11 +71,7 @@ enum U {
 
 ```json
 {
-  "typescript-sort-keys/string-enum": [
-    "error",
-    "asc",
-    { "caseSensitive": true }
-  ]
+  "typescript-sort-keys/string-enum": ["error", "asc", { "caseSensitive": true }]
 }
 ```
 

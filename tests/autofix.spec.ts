@@ -1,25 +1,25 @@
-import path from 'path';
-import fs from 'fs';
-import tmp from 'tmp';
-import { ESLint } from 'eslint';
+import path from 'path'
+import fs from 'fs'
+import tmp from 'tmp'
+import { ESLint } from 'eslint'
 
-import plugin from '../src';
-import recommended from 'config/recommended';
-import { typescript } from './helpers/configs';
+import plugin from '../src'
+import recommended from 'config/recommended'
+import { typescript } from './helpers/configs'
 
 declare module 'eslint' {
   export class ESLint {
-    constructor(config?: any);
+    constructor(config?: any)
 
-    lintFiles(path: string | string[]): Promise<any>;
-    static outputFixes(config: any): Promise<void>;
+    lintFiles(path: string | string[]): Promise<any>
+    static outputFixes(config: any): Promise<void>
   }
 }
 
 describe('autofix', () => {
   beforeEach(() => {
-    tmp.setGracefulCleanup();
-  });
+    tmp.setGracefulCleanup()
+  })
 
   it.each([
     [recommended, 'autofix.output.ts'],
@@ -43,13 +43,13 @@ describe('autofix', () => {
       const { name: tmpDir } = tmp.dirSync({
         prefix: 'typescript-sort-keys-',
         unsafeCleanup: true,
-      });
+      })
 
-      const testFilePath = path.join(tmpDir, 'autofix.ts');
-      const input = fs.readFileSync('tests/fixtures/autofix.input.ts', 'utf8');
-      const expected = fs.readFileSync(`tests/fixtures/${fileName}`, 'utf8');
+      const testFilePath = path.join(tmpDir, 'autofix.ts')
+      const input = fs.readFileSync('tests/fixtures/autofix.input.ts', 'utf8')
+      const expected = fs.readFileSync(`tests/fixtures/${fileName}`, 'utf8')
 
-      fs.writeFileSync(testFilePath, input);
+      fs.writeFileSync(testFilePath, input)
 
       const eslint = new ESLint({
         overrideConfig: {
@@ -62,22 +62,22 @@ describe('autofix', () => {
         },
         useEslintrc: false,
         fix: true,
-      });
+      })
 
-      const results = await eslint.lintFiles(testFilePath);
-      const result = results[0];
+      const results = await eslint.lintFiles(testFilePath)
+      const result = results[0]
 
-      expect(result.messages).toHaveLength(0);
-      expect(result.errorCount).toBe(0);
-      expect(result.warningCount).toBe(0);
-      expect(result.fixableErrorCount).toBe(0);
-      expect(result.fixableWarningCount).toBe(0);
+      expect(result.messages).toHaveLength(0)
+      expect(result.errorCount).toBe(0)
+      expect(result.warningCount).toBe(0)
+      expect(result.fixableErrorCount).toBe(0)
+      expect(result.fixableWarningCount).toBe(0)
 
-      await ESLint.outputFixes(results);
+      await ESLint.outputFixes(results)
 
-      const output = fs.readFileSync(testFilePath, 'utf8');
+      const output = fs.readFileSync(testFilePath, 'utf8')
 
-      expect(output).toStrictEqual(expected);
+      expect(output).toStrictEqual(expected)
     },
-  );
-});
+  )
+})

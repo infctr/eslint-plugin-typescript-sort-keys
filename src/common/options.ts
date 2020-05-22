@@ -1,4 +1,4 @@
-import { JSONSchema4 } from 'json-schema';
+import { JSONSchema4 } from 'json-schema'
 
 export enum SortingOrder {
   Ascending = 'asc',
@@ -7,26 +7,26 @@ export enum SortingOrder {
 
 export const sortingOrderOptionSchema: JSONSchema4 = {
   enum: [SortingOrder.Ascending, SortingOrder.Descending],
-};
+}
 
-export type SortingOrderOption = SortingOrder;
+export type SortingOrderOption = SortingOrder
 
 interface CaseSensitiveSortingOption {
-  readonly caseSensitive: boolean;
+  readonly caseSensitive: boolean
 }
 
 interface NaturalSortingOption {
-  readonly natural: boolean;
+  readonly natural: boolean
 }
 
 interface RequiredFirstSortingOption {
-  readonly requiredFirst: boolean;
+  readonly requiredFirst: boolean
 }
 
 export interface SortingParamsOptions {
-  readonly caseSensitive: CaseSensitiveSortingOption;
-  readonly natural: NaturalSortingOption;
-  readonly requiredFirst: RequiredFirstSortingOption;
+  readonly caseSensitive: CaseSensitiveSortingOption
+  readonly natural: NaturalSortingOption
+  readonly requiredFirst: RequiredFirstSortingOption
 }
 
 export enum ErrorMessage {
