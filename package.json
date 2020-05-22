@@ -1,6 +1,6 @@
 {
   "name": "eslint-plugin-typescript-sort-keys",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Sort interface and string enum keys",
   "keywords": [
     "eslint",
