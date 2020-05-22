@@ -5,6 +5,23 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.0.0] - 2020-05-22
+
+### Changed
+
+- Rewrite to typescript with strong types
+- Leverage helpers and types from @typescript-eslint/experimental-utils
+- Run autofix tests with ESLint Class rather than spawn a child process for eslint runner
+- Heavy refactoring and remove code paths that were never taken
+- Update ESLint config
+- Update to ESLint v7.0.0
+- Update dependencies
+
+### Added
+
+- Follow semver
+- Rollup bundler
+
 ## [0.10.0] - 2020-05-21
 
 ### Added

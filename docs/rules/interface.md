@@ -12,41 +12,41 @@ Examples of **incorrect** code for this rule:
 /* eslint typescript-sort-keys/interface: "error" */
 
 interface U {
-  a: T;
-  c: T;
-  b: T;
+  a: T
+  c: T
+  b: T
 }
 interface U {
-  a: T;
-  c: T;
-  b: T;
+  a: T
+  c: T
+  b: T
 }
 
 // Case-sensitive by default.
 interface U {
-  a: T;
-  b: T;
-  C: T;
+  a: T
+  b: T
+  C: T
 }
 
 // Non-natural order by default.
 interface U {
-  1: T;
-  2: T;
-  10: T;
+  1: T
+  2: T
+  10: T
 }
 
 // Non-required first order by default.
 interface U {
-  b?: T;
-  a: T;
-  c: T;
+  b?: T
+  a: T
+  c: T
 }
 
 interface U {
-  a: T;
-  ['c']: T;
-  b: T;
+  a: T
+  ['c']: T
+  b: T
 }
 ```
 
@@ -56,42 +56,42 @@ Examples of **correct** code for this rule:
 /* eslint typescript-sort-keys/interface: "error" */
 
 interface U {
-  a: T;
-  b: T;
-  c: T;
+  a: T
+  b: T
+  c: T
 }
 interface U {
-  a: T;
-  b: T;
-  c: T;
+  a: T
+  b: T
+  c: T
 }
 
 // Case-sensitive by default.
 interface U {
-  C: T;
-  a: T;
-  b: T;
+  C: T
+  a: T
+  b: T
 }
 
 // Non-natural order by default.
 interface U {
-  1: T;
-  10: T;
-  2: T;
+  1: T
+  10: T
+  2: T
 }
 
 // Non-required first order by default.
 interface U {
-  a: T;
-  b?: T;
-  c: T;
+  a: T
+  b?: T
+  c: T
 }
 
 // This rule checks computed properties which have a simple name as well.
 interface U {
-  a: T;
-  ['b']: T;
-  c: T;
+  a: T
+  ['b']: T
+  c: T
 }
 ```
 
@@ -142,35 +142,35 @@ Examples of **incorrect** code for the `"desc"` option:
 /* eslint typescript-sort-keys/interface: ["error", "desc"] */
 
 interface U {
-  b: T;
-  c: T;
-  a: T;
+  b: T
+  c: T
+  a: T
 }
 interface U {
-  b: T;
-  c: T;
-  a: T;
+  b: T
+  c: T
+  a: T
 }
 
 // Case-sensitive by default.
 interface U {
-  C: T;
-  b: T;
-  a: T;
+  C: T
+  b: T
+  a: T
 }
 
 // Non-required first order by default.
 interface U {
-  a: T;
-  b?: T;
-  c: T;
+  a: T
+  b?: T
+  c: T
 }
 
 // Non-natural order by default.
 interface U {
-  10: T;
-  2: T;
-  1: T;
+  10: T
+  2: T
+  1: T
 }
 ```
 
@@ -180,35 +180,35 @@ Examples of **correct** code for the `"desc"` option:
 /* eslint typescript-sort-keys/interface: ["error", "desc"] */
 
 interface U {
-  c: T;
-  b: T;
-  a: T;
+  c: T
+  b: T
+  a: T
 }
 interface U {
-  c: T;
-  b: T;
-  a: T;
+  c: T
+  b: T
+  a: T
 }
 
 // Case-sensitive by default.
 interface U {
-  b: T;
-  a: T;
-  C: T;
+  b: T
+  a: T
+  C: T
 }
 
 // Non-required first order by default.
 interface U {
-  c: T;
-  b?: T;
-  a: T;
+  c: T
+  b?: T
+  a: T
 }
 
 // Non-natural order by default.
 interface U {
-  2: T;
-  10: T;
-  1: T;
+  2: T
+  10: T
+  1: T
 }
 ```
 
@@ -220,16 +220,16 @@ Examples of **incorrect** code for the `{ caseSensitive: false }` option:
 /* eslint typescript-sort-keys/interface: ["error", "asc", { caseSensitive: false }] */
 
 interface U {
-  a: T;
-  c: T;
-  C: T;
-  b: T;
+  a: T
+  c: T
+  C: T
+  b: T
 }
 interface U {
-  a: T;
-  C: T;
-  c: T;
-  b: T;
+  a: T
+  C: T
+  c: T
+  b: T
 }
 ```
 
@@ -239,16 +239,16 @@ Examples of **correct** code for the `{ caseSensitive: false }` option:
 /* eslint typescript-sort-keys/interface: ["error", "asc", { caseSensitive: false }] */
 
 interface U {
-  a: T;
-  b: T;
-  c: T;
-  C: T;
+  a: T
+  b: T
+  c: T
+  C: T
 }
 interface U {
-  a: T;
-  b: T;
-  C: T;
-  c: T;
+  a: T
+  b: T
+  C: T
+  c: T
 }
 ```
 
@@ -260,9 +260,9 @@ Examples of **incorrect** code for the `{natural: true}` option:
 /* eslint typescript-sort-keys/interface: ["error", "asc", { natural: true }] */
 
 interface U {
-  1: T;
-  10: T;
-  2: T;
+  1: T
+  10: T
+  2: T
 }
 ```
 
@@ -272,9 +272,9 @@ Examples of **correct** code for the `{natural: true}` option:
 /* eslint typescript-sort-keys/interface: ["error", "asc", { natural: true }] */
 
 interface U {
-  1: T;
-  2: T;
-  10: T;
+  1: T
+  2: T
+  10: T
 }
 ```
 
@@ -286,10 +286,10 @@ Examples of **incorrect** code for the `{ requiredFirst: true }` option:
 /* eslint typescript-sort-keys/interface: ["error", "asc", { requiredFirst: true }] */
 
 interface U {
-  d: T;
-  c?: T;
-  b?: T;
-  a: T;
+  d: T
+  c?: T
+  b?: T
+  a: T
 }
 ```
 
@@ -299,10 +299,10 @@ Examples of **correct** code for the `{ requiredFirst: true }` option:
 /* eslint typescript-sort-keys/interface: ["error", "asc", { requiredFirst: true }] */
 
 interface U {
-  a: T;
-  d: T;
-  b?: T;
-  c?: T;
+  a: T
+  d: T
+  b?: T
+  c?: T
 }
 ```
 
