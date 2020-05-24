@@ -62,6 +62,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - Fix linter crash on accessing node key name
 
+[1.1.0]: https://github.com/infctr/eslint-plugin-typescript-sort-keys/compare/v1.0.2...v1.1.0
 [1.0.2]: https://github.com/infctr/eslint-plugin-typescript-sort-keys/compare/v1.0.1...v1.0.2
 [1.0.1]: https://github.com/infctr/eslint-plugin-typescript-sort-keys/compare/v1.0.0...v1.0.1
 [1.0.0]: https://github.com/infctr/eslint-plugin-typescript-sort-keys/compare/v0.10.0...v1.0.0
