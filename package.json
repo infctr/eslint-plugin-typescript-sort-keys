@@ -26,6 +26,7 @@
     "default": "lib/index.cjs.js"
   },
   "scripts": {
+    "prepublishOnly": "yarn compile",
     "build": "yarn rimraf lib && yarn compile",
     "compile": "yarn rollup -c",
     "docs": "eslint-docs",
