@@ -40,6 +40,7 @@
   },
   "dependencies": {
     "@typescript-eslint/experimental-utils": "~2.32.0",
+    "json-schema": "~0.2.5",
     "natural-compare-lite": "~1.4.0"
   },
   "devDependencies": {
