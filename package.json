@@ -9,8 +9,7 @@
     "typescript"
   ],
   "author": "infctr <infctr@gmail.com>",
-  "main": "lib/index.cjs.js",
-  "module": "lib/index.esm.js",
+  "main": "./lib/index.cjs.js",
   "repository": "git@github.com:infctr/eslint-plugin-typescript-sort-keys.git",
   "url": "https://github.com/infctr/eslint-plugin-typescript-sort-keys",
   "files": [
@@ -21,9 +20,9 @@
     "README.md"
   ],
   "exports": {
-    "import": "lib/index.esm.js",
-    "require": "lib/index.cjs.js",
-    "default": "lib/index.cjs.js"
+    "import": "./lib/index.esm.js",
+    "require": "./lib/index.cjs.js",
+    "default": "./lib/index.cjs.js"
   },
   "scripts": {
     "prepublishOnly": "yarn compile",
@@ -91,7 +90,7 @@
     "typescript": "^3"
   },
   "engines": {
-    "node": ">=8.3.0"
+    "node": "10 - 12 || >= 13.9"
   },
   "license": "ISC"
 }
