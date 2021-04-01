@@ -20,9 +20,12 @@
     "README.md"
   ],
   "exports": {
-    "import": "./lib/index.esm.js",
-    "require": "./lib/index.cjs.js",
-    "default": "./lib/index.cjs.js"
+    ".": {
+      "import": "./lib/index.esm.js",
+      "require": "./lib/index.cjs.js",
+      "default": "./lib/index.cjs.js"
+    },
+    "./package.json": "./package.json"
   },
   "scripts": {
     "prepublishOnly": "yarn compile",
