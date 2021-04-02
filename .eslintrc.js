@@ -15,7 +15,6 @@ module.exports = {
     'plugin:@typescript-eslint/recommended',
     'plugin:eslint-plugin/all',
     'plugin:prettier/recommended',
-    'prettier/@typescript-eslint',
   ],
   parserOptions: {
     ecmaVersion: 10,
@@ -49,6 +48,7 @@ module.exports = {
         'jest/prefer-to-have-length': 'warn',
         'jest/prefer-spy-on': 'error',
         'jest/valid-expect': 'error',
+        'jest/no-test-callback': 'off',
       },
     },
   ],
