@@ -42,7 +42,7 @@
     "verify": "yarn type-check && yarn lint && yarn build && yarn coverage"
   },
   "dependencies": {
-    "@typescript-eslint/experimental-utils": "^2.32.0",
+    "@typescript-eslint/experimental-utils": "^4.26.0",
     "json-schema": "^0.2.5",
     "natural-compare-lite": "^1.4.0"
   },
