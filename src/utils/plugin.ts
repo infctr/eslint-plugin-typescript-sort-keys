@@ -139,9 +139,10 @@ function createNodeSwapper(context: UtilRuleContext<string, RuleOptions>) {
 
 export function createReporter<MessageIds extends string>(
   context: UtilRuleContext<MessageIds, RuleOptions>,
-  createReportObject: (
-    node: TSESTree.Node,
-  ) => { readonly loc: TSESTree.SourceLocation; readonly messageId: MessageIds },
+  createReportObject: (node: TSESTree.Node) => {
+    readonly loc: TSESTree.SourceLocation
+    readonly messageId: MessageIds
+  },
 ) {
   // Parse options.
   const order = context.options[0] || SortingOrder.Ascending

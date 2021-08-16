@@ -852,7 +852,7 @@ const invalid: readonly InvalidTestCase<Options>[] = [
 describe('TypeScript', () => {
   const ruleTester = new RuleTester(typescript)
 
-  ruleTester.run(name, (rule as unknown) as Rule.RuleModule, {
+  ruleTester.run(name, rule as unknown as Rule.RuleModule, {
     valid: processValidTestCase(valid),
     invalid: processInvalidTestCase(invalid),
   })
