@@ -11,7 +11,6 @@ module.exports = {
     'plugin:import/errors',
     'plugin:import/warnings',
     'plugin:import/typescript',
-    'plugin:@typescript-eslint/eslint-recommended',
     'plugin:@typescript-eslint/recommended',
     'plugin:eslint-plugin/all',
     'plugin:prettier/recommended',
@@ -59,4 +58,5 @@ module.exports = {
       },
     },
   },
+  ignorePatterns: ['.eslintrc.js'],
 }

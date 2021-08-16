@@ -1,20 +1,12 @@
 import path from 'path'
 import fs from 'fs'
 import tmp from 'tmp'
-import { ESLint } from 'eslint'
+import { ESLint, Linter } from 'eslint'
 
 import plugin from '../src'
 import recommended from 'config/recommended'
+import { SortingOrder } from 'common/options'
 import { typescript } from './helpers/configs'
-
-declare module 'eslint' {
-  export class ESLint {
-    constructor(config?: any)
-
-    lintFiles(path: string | string[]): Promise<any>
-    static outputFixes(config: any): Promise<void>
-  }
-}
 
 describe('autofix', () => {
   beforeEach(() => {
@@ -25,14 +17,14 @@ describe('autofix', () => {
     [recommended, 'autofix.output.ts'],
     [
       {
-        ...recommended,
+        plugins: recommended.plugins,
         rules: {
           ...recommended.rules,
           'typescript-sort-keys/interface': [
-            'error',
-            'asc',
+            'error' as const,
+            SortingOrder.Ascending,
             { caseSensitive: true, natural: true, requiredFirst: true },
-          ],
+          ] as Linter.RuleEntry,
         },
       },
       'requiredFirst.output.ts',
