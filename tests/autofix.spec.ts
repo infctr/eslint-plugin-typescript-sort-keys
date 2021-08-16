@@ -7,15 +7,6 @@ import plugin from '../src'
 import recommended from 'config/recommended'
 import { typescript } from './helpers/configs'
 
-// declare module 'eslint' {
-//   export class ESLint {
-//     constructor(config?: any)
-
-//     lintFiles(path: string | string[]): Promise<any>
-//     static outputFixes(config: any): Promise<void>
-//   }
-// }
-
 describe('autofix', () => {
   beforeEach(() => {
     tmp.setGracefulCleanup()
