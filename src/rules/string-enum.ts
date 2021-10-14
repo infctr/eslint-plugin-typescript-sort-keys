@@ -41,7 +41,7 @@ const sortingParamsOptionSchema: JSONSchema4 = {
 /**
  * The schema for the rule options.
  */
-const schema: JSONSchema4 = [sortingOrderOptionSchema, sortingParamsOptionSchema]
+const schema: JSONSchema4[] = [sortingOrderOptionSchema, sortingParamsOptionSchema]
 
 /**
  * The default options for the rule.
@@ -65,7 +65,6 @@ const meta: RuleMetaData<keyof typeof errorMessages> = {
   type: 'suggestion',
   docs: {
     description: 'require string enum members to be sorted',
-    category: 'Stylistic Issues',
     recommended: 'warn',
   },
   messages: errorMessages,
