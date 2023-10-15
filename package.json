@@ -21,7 +21,7 @@
   ],
   "exports": {
     ".": {
-      "import": "./lib/index.esm.js",
+      "import": "./lib/index.mjs",
       "require": "./lib/index.cjs.js",
       "default": "./lib/index.cjs.js"
     },

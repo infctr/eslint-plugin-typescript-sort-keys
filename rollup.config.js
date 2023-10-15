@@ -30,7 +30,7 @@ export default [
     external,
     output: [
       { dir: 'lib', entryFileNames: '[name].cjs.js', format: 'cjs' },
-      { dir: 'lib', entryFileNames: '[name].esm.js', format: 'es' },
+      { dir: 'lib', entryFileNames: '[name].mjs', format: 'es' },
     ],
     plugins: [commonjs(), resolve(), typescript(), json()],
   },
