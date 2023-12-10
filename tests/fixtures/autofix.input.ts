@@ -1,5 +1,5 @@
 // So typescript treats this as a module
-export {};
+export { };
 
 class GraphQLExtension<T> {_: T}
 
@@ -13,21 +13,29 @@ const inlineArrow: (props: {foo: boolean; baz?: boolean; bar: boolean}) => null 
 
 const inlineArrow2: (props: {foo: boolean; bar?: boolean; baz: boolean}) => null = ({...props}) => null;
 
-const inlineWeird: (props: {foo?: boolean;baz: boolean,
-          bar: boolean}) => null = ({...props}) => null;
+const inlineNewline: (props: {/* foo0 */ foo?: boolean /* foo1 */;baz: boolean,
+          /* bar0 */ bar: boolean /* bar1 */}) => null = ({...props}) => null;
+
+const inlineArrowEmbedded: (props: {foo: {y: string; x: string;}; bar: boolean; baz?: boolean}) => null = ({...props}) => null;
 
 function inlineGeneric<T extends { foo: boolean; baz?: boolean; bar: boolean}>({...props}: T | {foo: boolean; bar: boolean; baz?: boolean}) {
    return null
 }
 
-enum InlineEnum {e="T", c="T", d="T", b="T", a="T"}
+enum InlineEnum { e="T", c="T", d="T", b="T", a="T"}
 
 enum InlineEnum2 {Foo = 'FOO',Baz = 'BAZ', Bar = 'BAR' }
 
 enum InlineEnum3 {b_="T", c="T", C="T"}
 
 enum WeirdEnum {
-  Foo = 'FOO',Baz = 'BAZ',    Bar = 'BAR',}
+  Foo = 'FOO',Baz = 'BAZ',    Bar = 'BAR',    }
+
+enum WeirderEnum { Foo = 'FOO', // FOO
+Baz = 'BAZ',    Bar = 'BAR', }
+
+enum WeirdestEnum { Gorp = 'GORP', Foo = 'FOO', // FOO
+Baz = 'BAZ',    Bar = 'BAR', }
 
 interface InlineInterface {e: "T"; c?:"T"; d:"T"; b:"T"; a?:"T"}
 
@@ -52,6 +60,7 @@ interface Interface {
   baz?: boolean;
   // %bar
   bar: boolean;
+  // end comment no sort
 }
 
 type Type1<TKey extends string> = Partial<{
@@ -78,7 +87,7 @@ type Type1<TKey extends string> = Partial<{
 
 enum StringEnum {
   /* %foo */
-  Foo = 'FOO',
+  Foo = 'FOO', //Fooend
 
   // %baz
   Baz = 'BAZ',
@@ -87,10 +96,16 @@ enum StringEnum {
    * %bar
    */
   Bar = 'BAR',
+  // end comment no sort
+}
+
+enum BasicEnum {
+  Foo = 'FOO',
+  Bar = 'BAR',
 }
 
 type Type2 = {/* %foo */
-  foo?: boolean;
+  foo?: boolean; //fooend
 
 // %baz
   baz: boolean;
@@ -98,6 +113,7 @@ type Type2 = {/* %foo */
    * %bar
    */
   bar: boolean;
+  // end comment no sort
 }
 
 interface ClockConstructor {
