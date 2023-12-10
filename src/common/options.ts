@@ -1,35 +1,35 @@
-import { JSONSchema4 } from 'json-schema'
+import {
+  AllRuleOptions,
+  CreateReporterArgs,
+  SortingOrder,
+  SortingParamsOptions,
+} from '../types'
 
-export enum SortingOrder {
-  Ascending = 'asc',
-  Descending = 'desc',
+export const defaultSortingOrder = SortingOrder.Ascending
+export const defaultOptions: SortingParamsOptions = {
+  caseSensitive: true,
+  natural: false,
+  requiredFirst: false,
 }
 
-export const sortingOrderOptionSchema: JSONSchema4 = {
-  enum: [SortingOrder.Ascending, SortingOrder.Descending],
-}
+/**
+ * Get the options from the context
+ */
+export function getOptions(
+  context: CreateReporterArgs<string, AllRuleOptions>['context'],
+) {
+  const order = context.options[0] || defaultSortingOrder
+  const options = context.options[1]
+  const isAscending = order === SortingOrder.Ascending
+  const isInsensitive = !(options?.caseSensitive ?? defaultOptions.caseSensitive)
+  const isNatural = options?.natural ?? defaultOptions.natural
+  const isRequiredFirst = options?.requiredFirst ?? defaultOptions.requiredFirst
 
-export type SortingOrderOption = SortingOrder
-
-interface CaseSensitiveSortingOption {
-  readonly caseSensitive: boolean
-}
-
-interface NaturalSortingOption {
-  readonly natural: boolean
-}
-
-interface RequiredFirstSortingOption {
-  readonly requiredFirst: boolean
-}
-
-export interface SortingParamsOptions {
-  readonly caseSensitive: CaseSensitiveSortingOption
-  readonly natural: NaturalSortingOption
-  readonly requiredFirst: RequiredFirstSortingOption
-}
-
-export enum ErrorMessage {
-  InterfaceInvalidOrder = `Expected interface keys to be in {{ requiredFirst }}{{ natural }}{{ insensitive }}{{ order }}ending order. '{{ thisName }}' should be before '{{ prevName }}'.`,
-  StringEnumInvalidOrder = `Expected string enum members to be in {{ natural }}{{ insensitive }}{{ order }}ending order. '{{ thisName }}' should be before '{{ prevName }}'.`,
+  return {
+    isAscending,
+    isInsensitive,
+    isNatural,
+    isRequiredFirst,
+    order,
+  }
 }

@@ -1,12 +1,12 @@
-import { ESLintUtils } from '@typescript-eslint/experimental-utils'
+import { ESLintUtils } from '@typescript-eslint/utils'
 import {
   ReportDescriptor,
-  RuleContext as UtilRuleContext,
   RuleListener,
+  RuleModule,
+  RuleContext as UtilRuleContext,
   RuleMetaData as UtilRuleMetaData,
   RuleMetaDataDocs as UtilRuleMetaDataDocs,
-  RuleModule,
-} from '@typescript-eslint/experimental-utils/dist/ts-eslint'
+} from '@typescript-eslint/utils/ts-eslint'
 
 export type BaseOptions = readonly unknown[]
 
@@ -39,8 +39,9 @@ export function createRule<MessageIds extends string, Options extends BaseOption
     optionsWithDefault: Mutable<Options>,
   ) => RuleListener
 }): RuleModule<MessageIds, Options, RuleListener> {
-  return ESLintUtils.RuleCreator(
-    name =>
-      `https://github.com/infctr/eslint-plugin-typescript-sort-keys/blob/master/docs/rules/${name}.md`,
-  )(data)
+  return ESLintUtils.RuleCreator(getRuleDocsUrl)<Options, MessageIds>(data)
 }
+
+// Return a link to the docs based on the given name.
+export const getRuleDocsUrl = (name: string) =>
+  `https://github.com/infctr/eslint-plugin-typescript-sort-keys/blob/master/docs/rules/${name}.md`
