@@ -1,64 +1,42 @@
-import path from 'path'
+import { ESLint } from '@typescript-eslint/utils/ts-eslint'
 import fs from 'fs'
+import path from 'path'
 import tmp from 'tmp'
-import { ESLint, Linter } from 'eslint'
-
-import plugin from '../src'
-import recommended from 'config/recommended'
-import { SortingOrder } from 'common/options'
-import { typescript } from './helpers/configs'
+import { Config, getESLint } from './helpers/eslint'
 
 describe('autofix', () => {
   beforeEach(() => {
     tmp.setGracefulCleanup()
   })
 
-  it.each([
-    [recommended, 'autofix.output.ts'],
-    [
-      {
-        plugins: recommended.plugins,
-        rules: {
-          ...recommended.rules,
-          'typescript-sort-keys/interface': [
-            'error' as const,
-            SortingOrder.Ascending,
-            { caseSensitive: true, natural: true, requiredFirst: true },
-          ] as Linter.RuleEntry,
-        },
-      },
-      'requiredFirst.output.ts',
-    ],
-  ])(
-    'should autofix and properly format comments and indent level',
-    async (config, fileName) => {
+  const cases: Array<[Config, string]> = [
+    [Config.Recommended, 'recommended.output.ts'],
+    [Config.RequiredFirst, 'requiredFirst.output.ts'],
+  ]
+
+  it.each(cases)(
+    `should autofix (config=%s, output=%s)`,
+    async (configName, outputFileName) => {
       const { name: tmpDir } = tmp.dirSync({
         prefix: 'typescript-sort-keys-',
         unsafeCleanup: true,
       })
 
-      const testFilePath = path.join(tmpDir, 'autofix.ts')
+      const testFilePath = path.join(tmpDir, `autofix-${configName}.ts`)
       const input = fs.readFileSync('tests/fixtures/autofix.input.ts', 'utf8')
-      const expected = fs.readFileSync(`tests/fixtures/${fileName}`, 'utf8')
+      const expectedOutput = fs.readFileSync(`tests/fixtures/${outputFileName}`, 'utf8')
 
       fs.writeFileSync(testFilePath, input)
 
-      const eslint = new ESLint({
-        overrideConfig: {
-          ...config,
-          parser: typescript.parser,
-          parserOptions: { sourceType: 'module' },
-        },
-        plugins: {
-          'typescript-sort-keys': plugin,
-        },
-        useEslintrc: false,
-        fix: true,
-      })
-
+      const eslint = getESLint(configName)
       const results = await eslint.lintFiles(testFilePath)
       const result = results[0]
 
+      // For debugging when output is malformed
+      // eslint-disable-next-line no-console
+      if (process.env.DEBUG === 'true') console.log(result.output)
+
+      // Validate no issues linting
       expect(result.messages).toHaveLength(0)
       expect(result.errorCount).toBe(0)
       expect(result.warningCount).toBe(0)
@@ -68,8 +46,8 @@ describe('autofix', () => {
       await ESLint.outputFixes(results)
 
       const output = fs.readFileSync(testFilePath, 'utf8')
-
-      expect(output).toStrictEqual(expected)
+      // Validate correctness
+      expect(output).toStrictEqual(expectedOutput)
     },
   )
 })

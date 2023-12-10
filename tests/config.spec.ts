@@ -1,43 +1,35 @@
 import { readdirSync } from 'fs'
 
+import { RuleModule } from '@typescript-eslint/utils/ts-eslint'
+
 import plugin from '../src'
+import { PLUGIN_NAME } from '../src/config/constants'
+import { isNotDeprecated } from './helpers/configs'
 
 describe('recommended config', () => {
-  const RULE_NAME_PREFIX = 'typescript-sort-keys/'
   const {
-    rules,
+    rules: allRules,
     configs: {
-      recommended: { rules: configRules },
+      recommended: { rules: pluginRules },
     },
   } = plugin
 
-  const entriesToObject = <T = unknown>(
-    value: readonly [string, T][],
-  ): Record<string, T> => {
-    return value.reduce<Record<string, T>>((memo, [k, v]) => {
-      memo[k] = v
-      return memo
-    }, {})
-  }
-
-  const ruleConfigs = Object.entries(rules)
-    .filter(([, rule]) => rule.meta.docs && rule.meta.docs.recommended !== false)
-    .map<[string, string]>(([name, rule]) => [
-      `${RULE_NAME_PREFIX}${name}`,
-      rule.meta.docs && rule.meta.docs.recommended ? 'error' : 'off',
-    ])
-
   it('contains all recommended rules', () => {
-    expect(entriesToObject(ruleConfigs)).toEqual(configRules)
+    // Get non-deprecated rules with recommended set and map to config format
+    const recommendedRules = Object.fromEntries(
+      (
+        Object.entries(allRules).filter(
+          ([name, rule]) => !!rule.meta.docs?.recommended && isNotDeprecated(name),
+        ) as Array<[string, RuleModule<string, unknown[]>]>
+      ).map(([name]) => [`${PLUGIN_NAME}/${name}`, 'error']),
+    )
+
+    expect(recommendedRules).toEqual(pluginRules)
   })
 })
 
-describe('plugin', () => {
+describe('recommended plugin', () => {
   const ruleFiles: readonly string[] = readdirSync('./src/rules').filter(
-    file => file !== 'index.ts' && file.endsWith('.ts'),
-  )
-
-  const configFiles: readonly string[] = readdirSync('./src/config').filter(
     file => file !== 'index.ts' && file.endsWith('.ts'),
   )
 
@@ -46,8 +38,8 @@ describe('plugin', () => {
     expect(Object.keys(plugin.rules)).toHaveLength(ruleFiles.length)
   })
 
-  it('should have all the configs', () => {
+  it('should have the recommended config', () => {
     expect(plugin).toHaveProperty('configs')
-    expect(Object.keys(plugin.configs)).toHaveLength(configFiles.length)
+    expect(Object.keys(plugin.configs)).toHaveLength(1)
   })
 })

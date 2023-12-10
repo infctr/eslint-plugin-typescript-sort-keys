@@ -1,12 +1,25 @@
-import { Linter } from 'eslint'
-import * as path from 'path'
+import path from 'path'
 
-export const filename = path.join(__dirname, 'file.ts')
+import { Linter } from '@typescript-eslint/utils/ts-eslint'
 
-export const typescript: Linter.Config = {
+import { name as enumRuleNameDeprecated } from '../../src/rules/string-enum'
+
+const configPath = path.resolve(__dirname, '../config')
+export const filename = path.join(configPath, 'file.ts')
+
+export const typescriptConfig: Linter.ConfigType = {
   parser: require.resolve('@typescript-eslint/parser'),
   parserOptions: {
     sourceType: 'module',
-    project: path.join(__dirname, './tsconfig.json'),
+    project: path.join(configPath, 'tsconfig.json'),
   },
+}
+
+export function isNotDeprecated(name) {
+  switch (name) {
+    case enumRuleNameDeprecated:
+      return false
+    default:
+      return true
+  }
 }
