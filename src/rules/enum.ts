@@ -1,4 +1,4 @@
-import { AST_NODE_TYPES, TSESTree } from '@typescript-eslint/utils'
+import { TSESTree } from '@typescript-eslint/utils'
 import { JSONSchema4 } from '@typescript-eslint/utils/json-schema'
 
 import { createReporter } from '../plugin'
@@ -13,13 +13,12 @@ import { getObjectBody } from '../utils/ast'
 import { createRule, RuleMetaData } from '../utils/rule'
 
 /**
- * @deprecated
  * The name of this rule.
  */
-export const name = 'string-enum' as const
+export const name = 'enum' as const
+export const nameDeprecated = 'string-enum' as const
 
 /**
- * @deprecated
  * The options this rule can take.
  */
 export type RuleOptions = RuleOptionsGeneric<Omit<SortingParamsOptions, 'requiredFirst'>>
@@ -38,7 +37,6 @@ const sortingParamsOptionSchema: JSONSchema4 = {
 }
 
 /**
- * @deprecated
  * The schema for the rule options.
  */
 const schema: JSONSchema4[] = [sortingOrderOptionSchema, sortingParamsOptionSchema]
@@ -52,7 +50,6 @@ const defaultOptions: RuleOptions = [
 ]
 
 /**
- * @deprecated
  * The possible error messages.
  */
 const errorMessages = {
@@ -62,13 +59,12 @@ const errorMessages = {
 type errorMessageKeys = keyof typeof errorMessages
 
 /**
- * @deprecated
  * The meta data for this rule.
  */
 const meta: RuleMetaData<errorMessageKeys> = {
   type: 'layout',
   docs: {
-    description: 'require string enum members to be sorted',
+    description: 'require enum members to be sorted',
     recommended: 'stylistic',
   },
   messages: errorMessages,
@@ -77,7 +73,6 @@ const meta: RuleMetaData<errorMessageKeys> = {
 }
 
 /**
- * @deprecated
  * Create the rule.
  */
 export const rule = createRule<errorMessageKeys, RuleOptions>({
@@ -101,15 +96,7 @@ export const rule = createRule<errorMessageKeys, RuleOptions>({
     return {
       TSEnumDeclaration(node: TSESTree.TSEnumDeclaration) {
         const body = getObjectBody(node) as TSESTree.TSEnumMember[]
-        const isStringEnum = body.every(
-          (member: TSESTree.TSEnumMember) =>
-            member.initializer?.type === AST_NODE_TYPES.Literal &&
-            typeof member.initializer?.value === 'string',
-        )
-
-        if (isStringEnum) {
-          compareNodeListAndReport(node, body)
-        }
+        compareNodeListAndReport(node, body)
       },
     }
   },
