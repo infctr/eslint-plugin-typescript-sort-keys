@@ -1,5 +1,7 @@
-import { AST_NODE_TYPES, AST_TOKEN_TYPES, TSESTree } from '@typescript-eslint/utils'
 import { Node, SourceCode } from 'types'
+
+import { AST_NODE_TYPES, AST_TOKEN_TYPES, TSESTree } from '@typescript-eslint/utils'
+
 import { getLatestNode } from './nodeHelpers'
 import {
   getDeclarationPunctuators,

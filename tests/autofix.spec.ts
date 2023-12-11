@@ -1,7 +1,9 @@
-import { ESLint } from '@typescript-eslint/utils/ts-eslint'
 import fs from 'fs'
 import path from 'path'
 import tmp from 'tmp'
+
+import { ESLint } from '@typescript-eslint/utils/ts-eslint'
+
 import { Config, getESLint } from './helpers/eslint'
 
 describe('autofix', () => {

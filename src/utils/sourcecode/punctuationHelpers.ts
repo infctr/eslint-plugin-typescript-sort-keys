@@ -1,6 +1,8 @@
-import { AST_NODE_TYPES, AST_TOKEN_TYPES } from '@typescript-eslint/utils'
 import assert from 'assert'
 import { Node, SourceCode } from 'types'
+
+import { AST_NODE_TYPES, AST_TOKEN_TYPES } from '@typescript-eslint/utils'
+
 import {
   getEarliestNode,
   getLatestNode,
@@ -31,6 +33,7 @@ export function getNodePunctuator(
     includeComments: false,
   })
   // Ensure we don't go beyond the parent into the source code
+
   return punctuator && punctuator.range[1] <= (node.parent?.range[1] || Infinity)
     ? punctuator
     : undefined
