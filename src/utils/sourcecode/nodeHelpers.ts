@@ -23,6 +23,6 @@ export function getNextNonCommentNode(sourceCode: SourceCode, node: Node) {
   return nextNode ?? undefined
 }
 export function getPreviousNonCommentNode(sourceCode: SourceCode, node: Node) {
-  const nextNode = sourceCode.getTokenBefore(node, { includeComments: false })
-  return nextNode ?? undefined
+  const prevNode = sourceCode.getTokenBefore(node, { includeComments: false })
+  return prevNode ?? undefined
 }

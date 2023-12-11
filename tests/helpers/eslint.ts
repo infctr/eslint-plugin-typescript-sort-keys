@@ -1,9 +1,14 @@
+import { Linter } from 'eslint'
+
 import { ESLint } from '@typescript-eslint/utils/ts-eslint'
 
 import plugin from '../../src'
 import recommended from '../../src/config/recommended.config'
 import requiredFirst from '../../src/config/requiredFirst.config'
 import { typescriptConfig } from './configs'
+
+// eslint-disable-next-line @typescript-eslint/no-var-requires
+const parser = require('@typescript-eslint/parser')
 
 export enum Config {
   Recommended,
@@ -29,4 +34,33 @@ export function getESLint(config: Config, fix = true) {
     fix,
   })
   return eslint
+}
+
+// For unit testing
+export function getSourceCode(code: string) {
+  const linter = new Linter()
+  linter.defineParser('@typescript-eslint/parser', parser)
+
+  const config = {
+    parser: '@typescript-eslint/parser',
+    parserOptions: {
+      ecmaVersion: 'latest',
+      sourceType: 'module',
+    },
+    rules: {},
+    settings: {
+      'import/parsers': {
+        '@typescript-eslint/parser': ['.ts', '.tsx'],
+      },
+      'import/resolver': {
+        typescript: {
+          alwaysTryTypes: true,
+        },
+      },
+    },
+  } as Linter.Config
+
+  const messages = linter.verify(code, config)
+
+  return messages[0]?.fatal ? null : linter.getSourceCode()
 }
