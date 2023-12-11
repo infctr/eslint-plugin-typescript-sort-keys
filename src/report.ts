@@ -60,6 +60,15 @@ export function reportBodyNodes(
       assert(loc, 'createReportObject return value must include a node location')
       assert(messageId, 'createReportObject return value must include a problem message')
 
+      let optionsString = [
+        isRequiredFirst && 'required-first',
+        isInsensitive && 'insensitive',
+        isNatural && 'natural',
+      ]
+        .filter(Boolean)
+        .join(', ')
+      if (optionsString) optionsString += ' '
+
       context.report({
         loc,
         messageId,
@@ -71,9 +80,7 @@ export function reportBodyNodes(
               ? `before '${getPropertyName(sortedBody[finalIndex + 1])}'`
               : 'at the end',
           order,
-          insensitive: isInsensitive ? 'insensitive ' : '',
-          natural: isNatural ? 'natural ' : '',
-          requiredFirst: isRequiredFirst ? 'required first ' : '',
+          options: optionsString,
           notice: getDeprecationMessage(context.id),
         },
         fix: fixerFunction,

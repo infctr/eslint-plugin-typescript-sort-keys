@@ -1,4 +1,4 @@
-import { AllRuleOptions, SortingOrder, SortingParamsOptions } from 'types'
+import { AllRuleOptions, SortingOrder, SortingParamsOptions } from '../../src/types'
 
 export type OptionsSet = {
   /**
@@ -10,84 +10,74 @@ export type OptionsSet = {
  * Option sets by test category
  */
 export const optionsSetsWithRequiredFirst = {
-  ascendingOnly: [[SortingOrder.Ascending]],
-  ascending: [
-    [],
-    [SortingOrder.Ascending],
-    [SortingOrder.Ascending, { caseSensitive: true }],
-    [SortingOrder.Ascending, { natural: false }],
-    [SortingOrder.Ascending, { caseSensitive: true, natural: false }],
+  ascendingWithDefaults: [[], [SortingOrder.Ascending]],
+  ascendingSensitiveNonNaturalNotRequired: [
     [
       SortingOrder.Ascending,
       { caseSensitive: true, natural: false, requiredFirst: false },
     ],
   ],
-  ascendingInsensitive: [[SortingOrder.Ascending, { caseSensitive: false }]],
-  ascendingNatural: [[SortingOrder.Ascending, { natural: true }]],
-  ascendingInsensitiveNatural: [
-    [SortingOrder.Ascending, { natural: true, caseSensitive: false }],
-  ],
-  ascendingSensitive: [
-    [],
-    [SortingOrder.Ascending],
-    [SortingOrder.Ascending, { caseSensitive: true }],
-    [SortingOrder.Ascending, { natural: false }],
-    [SortingOrder.Ascending, { caseSensitive: true, natural: false }],
+  ascendingInsensitiveNonNaturalNotRequired: [
     [
       SortingOrder.Ascending,
-      { caseSensitive: true, natural: false, requiredFirst: false },
+      { caseSensitive: false, natural: false, requiredFirst: false },
     ],
   ],
-  ascendingInsensitiveNaturalRequired: [
+  ascendingSensitiveNaturalNotRequired: [
     [
       SortingOrder.Ascending,
-      { natural: true, caseSensitive: false, requiredFirst: true },
+      { caseSensitive: true, natural: true, requiredFirst: false },
     ],
   ],
   ascendingInsensitiveNaturalNotRequired: [
     [
       SortingOrder.Ascending,
-      { natural: true, caseSensitive: false, requiredFirst: false },
+      { caseSensitive: false, natural: true, requiredFirst: false },
     ],
   ],
-  ascendingRequired: [[SortingOrder.Ascending, { requiredFirst: true }]],
-  descendingOnly: [[SortingOrder.Descending]],
-  descending: [
-    [SortingOrder.Descending],
-    [SortingOrder.Descending, { caseSensitive: true }],
-    [SortingOrder.Descending, { natural: false }],
-    [SortingOrder.Descending, { caseSensitive: true, natural: false }],
+  ascendingInsensitiveNaturalRequired: [
     [
-      SortingOrder.Descending,
-      { caseSensitive: true, natural: false, requiredFirst: false },
+      SortingOrder.Ascending,
+      { caseSensitive: false, natural: true, requiredFirst: true },
     ],
   ],
-  descendingInsensitive: [[SortingOrder.Descending, { caseSensitive: false }]],
-  descendingInsensitiveNonNatural: [
-    [SortingOrder.Descending, { caseSensitive: false }],
-    [SortingOrder.Descending, { caseSensitive: false, natural: false }],
+  ascendingSensitiveNonNaturalRequired: [
+    [
+      SortingOrder.Ascending,
+      { caseSensitive: true, natural: false, requiredFirst: true },
+    ],
   ],
-  descendingNatural: [[SortingOrder.Descending, { natural: true }]],
-  descendingInsensitiveNatural: [
-    [SortingOrder.Descending, { natural: true, caseSensitive: false }],
-  ],
-  descendingSensitiveNatural: [
-    [SortingOrder.Descending, { natural: true }],
-    [SortingOrder.Descending, { natural: true, caseSensitive: true }],
-  ],
-  descendingInsensitiveNaturalRequired: [
+  descendingWithDefaults: [[SortingOrder.Descending]],
+  descendingInsensitiveNonNaturalNotRequired: [
     [
       SortingOrder.Descending,
-      { natural: true, caseSensitive: false, requiredFirst: true },
+      { caseSensitive: false, natural: false, requiredFirst: false },
+    ],
+  ],
+  descendingSensitiveNaturalNotRequired: [
+    [
+      SortingOrder.Descending,
+      { caseSensitive: true, natural: true, requiredFirst: false },
     ],
   ],
   descendingInsensitiveNaturalNotRequired: [
     [
       SortingOrder.Descending,
-      { natural: true, caseSensitive: false, requiredFirst: false },
+      { caseSensitive: false, natural: true, requiredFirst: false },
     ],
   ],
-  descendingRequired: [[SortingOrder.Descending, { requiredFirst: true }]],
+  descendingInsensitiveNaturalRequired: [
+    [
+      SortingOrder.Descending,
+      { caseSensitive: false, natural: true, requiredFirst: true },
+    ],
+  ],
+  descendingSensitiveNonNaturalRequired: [
+    [
+      SortingOrder.Descending,
+      { caseSensitive: false, natural: true, requiredFirst: true },
+    ],
+  ],
   noOptions: [[]],
 }
 

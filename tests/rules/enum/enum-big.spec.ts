@@ -17,11 +17,11 @@ const invalidBigTestCode = fs
   .toString('utf-8')
 
 const valid: PreValidTestCaseObject = {
-  ascending: [validBigTestCode],
+  ascendingWithDefaults: [validBigTestCode],
 }
 
 const invalid: PreInvalidTestCaseObject = {
-  ascending: [
+  ascendingWithDefaults: [
     {
       code: invalidBigTestCode,
       output: validBigTestCode,

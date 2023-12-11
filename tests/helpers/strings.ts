@@ -1,26 +1,23 @@
 import { OptionsSetsKey } from './options'
 
+// Check src/report.ts for option string ordering
+// Only options set differently from default are printed
 export const orderStrings: Record<OptionsSetsKey, string> = {
-  ascending: 'ascending',
-  ascendingInsensitive: 'insensitive ascending',
-  ascendingNatural: 'natural ascending',
-  ascendingInsensitiveNatural: 'insensitive natural ascending',
-  descendingOnly: 'descending',
-  descendingInsensitive: 'insensitive descending',
-  descendingNatural: 'natural descending',
-  descendingInsensitiveNatural: 'insensitive natural descending',
-  noOptions: '',
-  ascendingOnly: 'ascending',
-  ascendingSensitive: 'ascending',
-  ascendingInsensitiveNaturalRequired: 'required first insensitive natural ascending',
-  ascendingInsensitiveNaturalNotRequired: 'insensitive natural ascending',
-  ascendingRequired: '',
-  descending: 'descending',
-  descendingInsensitiveNonNatural: '',
-  descendingSensitiveNatural: '',
-  descendingInsensitiveNaturalRequired: 'required first insensitive natural descending',
-  descendingInsensitiveNaturalNotRequired: 'insensitive natural descending',
-  descendingRequired: '',
+  ascendingInsensitiveNaturalNotRequired: 'ascending insensitive, natural',
+  ascendingInsensitiveNaturalRequired: 'ascending required-first, insensitive, natural',
+  ascendingInsensitiveNonNaturalNotRequired: 'ascending insensitive',
+  ascendingSensitiveNaturalNotRequired: 'ascending natural',
+  ascendingSensitiveNonNaturalNotRequired: 'ascending',
+  ascendingSensitiveNonNaturalRequired: 'ascending required-first',
+  ascendingWithDefaults: 'ascending',
+  noOptions: 'ascending',
+
+  descendingInsensitiveNaturalNotRequired: 'descending insensitive, natural',
+  descendingInsensitiveNaturalRequired: 'descending required-first, insensitive, natural',
+  descendingInsensitiveNonNaturalNotRequired: 'descending insensitive',
+  descendingSensitiveNaturalNotRequired: 'descending natural',
+  descendingSensitiveNonNaturalRequired: 'descending required-first',
+  descendingWithDefaults: 'descending',
 }
 
 export enum CaseCategory {

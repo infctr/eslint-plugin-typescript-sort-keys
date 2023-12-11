@@ -20,10 +20,7 @@ const valid: PreValidTestCaseObject = {
     'enum U {c=0, b="b", a}',
     'const enum U {A=1, B=A*2}',
   ],
-  /**
-   * ascending (default)
-   */
-  ascending: [
+  ascendingWithDefaults: [
     'enum U {a="b", }',
     'enum U {a="b", b="c"}',
     'enum U {_="a", a="b", b="c"}',
@@ -43,10 +40,27 @@ const valid: PreValidTestCaseObject = {
      */
     '{a="T", ["aa"]="T", b="T", c="T"}',
   ],
-  /**
-   * ascending, natureal, case sensitive
-   */
-  ascendingNatural: [
+  ascendingSensitiveNonNaturalNotRequired: [
+    'enum U {a="b", }',
+    'enum U {a="b", b="c"}',
+    'enum U {_="a", a="b", b="c"}',
+    'enum U {a="a", b="b", c="c"}',
+    'enum U {a="a", b="b", b_="c"}',
+    'enum U {C="a", b_="b", c="c"}',
+    'enum U {$="a", A="b", _="c", a="d"}',
+    "enum U {'#'='a', 'Z'='b', À='c', è='d'}",
+    'enum U {_="T", a="T", b="T"}',
+    'enum U {a="T", b="T", c="T"}',
+    'enum U {a="T", b="T", b_="T"}',
+    'enum U {C="T", b_="T", c="T"}',
+    'enum U {$="T", A="T", _="T", a="T"}',
+    "enum U {'#'='T', 'Z'='T', À='T', è='T'}",
+    /**
+     * computed
+     */
+    '{a="T", ["aa"]="T", b="T", c="T"}',
+  ],
+  ascendingSensitiveNaturalNotRequired: [
     'enum U {_="T", a="T", b="T"}',
     'enum U {a="T", b="T", c="T"}',
     'enum U {a="T", b="T", b_="T"}',
@@ -54,10 +68,7 @@ const valid: PreValidTestCaseObject = {
     'enum U {$="T", _="T", A="T", a="T"}',
     "enum U {'#'='T', 'Z'='T', À='T', è='T'}",
   ],
-  /**
-   * ascending, natural, insensitive
-   */
-  ascendingInsensitiveNatural: [
+  ascendingInsensitiveNaturalNotRequired: [
     'enum U {_="T", a="T", b="T"}',
     'enum U {a="T", b="T", c="T"}',
     'enum U {a="T", b="T", b_="T"}',
@@ -66,10 +77,7 @@ const valid: PreValidTestCaseObject = {
     'enum U {$="T", _="T", A="T", a="T"}',
     "enum U {'#'='T', 'Z'='T', À='T', è='T'}",
   ],
-  /**
-   * descending
-   */
-  descendingOnly: [
+  descendingWithDefaults: [
     'enum U {b="T", a="T", _="T"}',
     'enum U {c="T", b="T", a="T"}',
     'enum U {b_="T", b="T", a="T"}',
@@ -77,10 +85,7 @@ const valid: PreValidTestCaseObject = {
     'enum U {a="T", _="T", A="T", $="T"}',
     "enum U {è='T', À='T', 'Z'='T', '#'='T'}",
   ],
-  /**
-   * descending, insensitive
-   */
-  descendingInsensitive: [
+  descendingInsensitiveNonNaturalNotRequired: [
     'enum U {b="T", a="T", _="T"}',
     'enum U {c="T", b="T", a="T"}',
     'enum U {b_="T", b="T", a="T"}',
@@ -89,10 +94,16 @@ const valid: PreValidTestCaseObject = {
     'enum U {a="T", A="T", _="T", $="T"}',
     "enum U {è='T', À='T', 'Z'='T', '#'='T'}",
   ],
-  /**
-   * descending, natural
-   */
-  descendingNatural: [
+  descendingInsensitiveNaturalNotRequired: [
+    'enum U {b="T", a="T", _="T"}',
+    'enum U {c="T", b="T", a="T"}',
+    'enum U {b_="T", b="T", a="T"}',
+    'enum U {a="T", A="T", _="T", $="T"}',
+    "enum U {è='T', À='T', 'Z'='T', '#'='T'}",
+    'enum U {c="T", C="T", b_="T"}',
+    'enum U {C="T", c="T", b_="T"}',
+  ],
+  descendingSensitiveNaturalNotRequired: [
     'enum U {b="T", a="T", _="T"}',
     'enum U {c="T", b="T", a="T"}',
     'enum U {b_="T", b="T", a="T"}',
@@ -100,36 +111,10 @@ const valid: PreValidTestCaseObject = {
     'enum U {a="T", A="T", _="T", $="T"}',
     "enum U {è='T', À='T', 'Z'='T', '#'='T'}",
   ],
-  /**
-   * descending, natural, insensitive
-   */
-  descendingInsensitiveNatural: [
-    'enum U {b="T", a="T", _="T"}',
-    'enum U {c="T", b="T", a="T"}',
-    'enum U {b_="T", b="T", a="T"}',
-    'enum U {c="T", C="T", b_="T"}',
-    'enum U {C="T", c="T", b_="T"}',
-    'enum U {a="T", A="T", _="T", $="T"}',
-    "enum U {è='T', À='T', 'Z'='T', '#'='T'}",
-  ],
-  descending: [
-    'enum U {c, b, a}',
-    'enum U {c=a(), b, a}',
-    'enum U {c=0, b, a}',
-    'enum U {c=3, b, a}',
-    'enum U {c=1<<1, b, a}',
-    'enum U {c=M|N, b, a}',
-    'enum U {c="123".length, b, a}',
-    'enum U {c=0, b="b", a}',
-    'const enum U {B=1, A=B*2}',
-  ],
 }
 
 const invalid: PreInvalidTestCaseObject = {
-  // /**
-  //  * ascending (default case sensitive)
-  //  */
-  ascending: [
+  ascendingWithDefaults: [
     {
       code: 'enum U {b="c", a="a"}',
       output: 'enum U {a="a", b="c"}',
@@ -204,10 +189,7 @@ const invalid: PreInvalidTestCaseObject = {
       errors: 3,
     },
   ],
-  // /**
-  //  * ascending, insensitive
-  //  */
-  ascendingInsensitive: [
+  ascendingInsensitiveNonNaturalNotRequired: [
     {
       code: 'enum U {a="T", _="T", b="T"}',
       output: 'enum U {_="T", a="T", b="T"}',
@@ -234,10 +216,7 @@ const invalid: PreInvalidTestCaseObject = {
       errors: 3,
     },
   ],
-  // /**
-  //  * ascending, natural
-  //  */
-  ascendingNatural: [
+  ascendingSensitiveNaturalNotRequired: [
     {
       code: 'enum U {a="T", _="T", b="T"}',
       output: 'enum U {_="T", a="T", b="T"}',
@@ -269,10 +248,7 @@ const invalid: PreInvalidTestCaseObject = {
       errors: 3,
     },
   ],
-  // /**
-  //  * ascending, natural, insensitive
-  //  */
-  ascendingInsensitiveNatural: [
+  ascendingInsensitiveNaturalNotRequired: [
     {
       code: 'enum U {a="T", _="T", b="T"}',
       output: 'enum U {_="T", a="T", b="T"}',
@@ -299,10 +275,7 @@ const invalid: PreInvalidTestCaseObject = {
       errors: 3,
     },
   ],
-  // /**
-  //  * descending (case sensitive)
-  //  */
-  descendingOnly: [
+  descendingWithDefaults: [
     {
       code: 'enum U {a="T", _="T", b="T"}',
       output: 'enum U {b="T", a="T", _="T"}',
@@ -334,10 +307,7 @@ const invalid: PreInvalidTestCaseObject = {
       errors: 3,
     },
   ],
-  // /**
-  //  * descending, insensitive
-  //  */
-  descendingInsensitive: [
+  descendingInsensitiveNonNaturalNotRequired: [
     {
       code: 'enum U {a="T", _="T", b="T"}',
       output: 'enum U {b="T", a="T", _="T"}',
@@ -369,10 +339,7 @@ const invalid: PreInvalidTestCaseObject = {
       errors: 3,
     },
   ],
-  // /**
-  //  * descending, natural
-  //  */
-  descendingNatural: [
+  descendingSensitiveNaturalNotRequired: [
     {
       code: 'enum U {a="T", _="T", b="T"}',
       output: 'enum U {b="T", a="T", _="T"}',
@@ -404,10 +371,7 @@ const invalid: PreInvalidTestCaseObject = {
       errors: 3,
     },
   ],
-  /**
-   * descending, natural, insensitive
-   */
-  descendingInsensitiveNatural: [
+  descendingInsensitiveNaturalNotRequired: [
     {
       code: 'enum U {a="T", _="T", b="T"}',
       output: 'enum U {b="T", a="T", _="T"}',
