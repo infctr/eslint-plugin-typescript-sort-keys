@@ -1,4 +1,4 @@
-import recommended from './config/recommended'
+import recommended from './config/recommended.config'
 import { rules } from './rules'
 
 const config = {

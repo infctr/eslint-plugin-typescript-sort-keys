@@ -1,10 +1,14 @@
-# require string enum members to be sorted (string-enum)
+# Deprecation notice: This rule has been deprecated in favor of [typescript-sort-keys/enum](./enum.md). `string-enum` will continue to sort only string enums and may be removed in future updates.
 
-When declaring multiple members on an string enum, some developers prefer to sort enum member names alphabetically to be able to find necessary members easier at the later time. Others feel that it adds complexity and becomes burden to maintain.
+---
+
+# require string-enum members to be sorted (string-enum)
+
+When declaring multiple members on a string-enum, some developers prefer to sort string-enum member names alphabetically to be able to find necessary members easier at the later time. Others feel that it adds complexity and becomes burden to maintain.
 
 ## Rule Details
 
-This rule checks all members of a string enum declaration and verifies that all keys are sorted alphabetically.
+This rule checks all members of a string-enum declaration and verifies that all keys are sorted alphabetically.
 
 Examples of **incorrect** code for this rule:
 
@@ -77,13 +81,13 @@ enum U {
 
 The 1st option is `"asc"` or `"desc"`.
 
-- `"asc"` (default) - enforce enum members to be in ascending order.
-- `"desc"` - enforce enum members to be in descending order.
+- `"asc"` (default) - enforce string-enum members to be in ascending order.
+- `"desc"` - enforce string-enum members to be in descending order.
 
 The 2nd option is an object which has 2 properties.
 
-- `caseSensitive` - if `true`, enforce enum members to be in case-sensitive order. Default is `true`.
-- `natural` - if `true`, enforce enum members to be in natural order. Default is `false`. Natural Order compares strings containing combination of letters and numbers in the way a human being would sort. It basically sorts numerically, instead of sorting alphabetically. So the number 10 comes after the number 3 in Natural Sorting.
+- `caseSensitive` - if `true`, enforce string-enum members to be in case-sensitive order. Default is `true`.
+- `natural` - if `true`, enforce string-enum members to be in natural order. Default is `false`. Natural Order compares strings containing combination of letters and numbers in the way a human being would sort. It basically sorts numerically, instead of sorting alphabetically. So the number 10 comes after the number 3 in Natural Sorting.
 
 ### desc
 
@@ -205,4 +209,4 @@ enum U {
 
 ## When Not To Use It
 
-If you don't want to notify about enum members' order, then it's safe to disable this rule.
+If you don't want to notify about string-enum members' order, then it's safe to disable this rule.

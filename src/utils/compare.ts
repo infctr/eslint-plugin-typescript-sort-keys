@@ -15,13 +15,11 @@ function charCompare(a: string, b: string) {
 }
 
 function getWeight(value: string) {
-  switch (true) {
-    // Custom name for index signature used here
-    case indexSignature.regex.test(value):
-      return 100
-    default:
-      return 0
+  // Custom name for index signature used here
+  if (indexSignature.regex.test(value)) {
+    return 100
   }
+  return 0
 }
 
 function weightedCompare(
@@ -51,9 +49,12 @@ const ascendingInsensitiveNatural = (a: string, b: string) => {
 /**
  * Functions which check that the given 2 names are in specific order.
  */
-export const compareFn =
-  (isAscending: boolean, isInsensitive: boolean, isNatural: boolean) =>
-  (...args: [string?, string?]) => {
+export const compareFn = (
+  isAscending: boolean,
+  isInsensitive: boolean,
+  isNatural: boolean,
+) => {
+  return (...args: [string?, string?]) => {
     if (args.filter(Boolean).length !== 2) {
       return 0
     }
@@ -74,3 +75,4 @@ export const compareFn =
 
     return ascending(...input)
   }
+}

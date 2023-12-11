@@ -1,29 +1,28 @@
-import { JSONSchema4 } from 'json-schema'
-import { TSESTree, AST_NODE_TYPES } from '@typescript-eslint/experimental-utils'
+import { AST_NODE_TYPES, TSESTree } from '@typescript-eslint/utils'
+import { JSONSchema4 } from '@typescript-eslint/utils/json-schema'
 
-import { getObjectBody } from 'utils/ast'
-import { createReporter } from 'utils/plugin'
-import { createRule, RuleMetaData } from 'utils/rule'
+import { createReporter } from '../plugin'
 import {
-  sortingOrderOptionSchema,
-  SortingOrder,
   ErrorMessage,
-  SortingOrderOption,
+  RuleOptionsGeneric,
+  SortingOrder,
+  sortingOrderOptionSchema,
   SortingParamsOptions,
-} from 'common/options'
+} from '../types'
+import { getObjectBody } from '../utils/ast'
+import { createRule, RuleMetaData } from '../utils/rule'
 
 /**
+ * @deprecated
  * The name of this rule.
  */
 export const name = 'string-enum' as const
 
-type SortingParams = SortingParamsOptions['caseSensitive'] &
-  SortingParamsOptions['natural']
-
 /**
+ * @deprecated
  * The options this rule can take.
  */
-export type Options = [SortingOrderOption] | [SortingOrderOption, Partial<SortingParams>]
+export type RuleOptions = RuleOptionsGeneric<Omit<SortingParamsOptions, 'requiredFirst'>>
 
 const sortingParamsOptionSchema: JSONSchema4 = {
   type: 'object',
@@ -39,6 +38,7 @@ const sortingParamsOptionSchema: JSONSchema4 = {
 }
 
 /**
+ * @deprecated
  * The schema for the rule options.
  */
 const schema: JSONSchema4[] = [sortingOrderOptionSchema, sortingParamsOptionSchema]
@@ -46,26 +46,30 @@ const schema: JSONSchema4[] = [sortingOrderOptionSchema, sortingParamsOptionSche
 /**
  * The default options for the rule.
  */
-const defaultOptions: Options = [
+const defaultOptions: RuleOptions = [
   SortingOrder.Ascending,
   { caseSensitive: true, natural: false },
 ]
 
 /**
+ * @deprecated
  * The possible error messages.
  */
 const errorMessages = {
-  invalidOrder: ErrorMessage.StringEnumInvalidOrder,
+  invalidOrderBody: ErrorMessage.EnumInvalidOrder,
+  invalidOrderParent: ErrorMessage.EnumParentInvalidOrder,
 } as const
+type errorMessageKeys = keyof typeof errorMessages
 
 /**
+ * @deprecated
  * The meta data for this rule.
  */
-const meta: RuleMetaData<keyof typeof errorMessages> = {
-  type: 'suggestion',
+const meta: RuleMetaData<errorMessageKeys> = {
+  type: 'layout',
   docs: {
     description: 'require string enum members to be sorted',
-    recommended: 'warn',
+    recommended: 'stylistic',
   },
   messages: errorMessages,
   fixable: 'code',
@@ -73,31 +77,38 @@ const meta: RuleMetaData<keyof typeof errorMessages> = {
 }
 
 /**
+ * @deprecated
  * Create the rule.
  */
-export const rule = createRule<keyof typeof errorMessages, Options>({
+export const rule = createRule<errorMessageKeys, RuleOptions>({
   name,
   meta,
   defaultOptions,
 
   create(context) {
-    const compareNodeListAndReport = createReporter(context, ({ loc }) => ({
-      loc,
-      messageId: 'invalidOrder',
-    }))
+    const compareNodeListAndReport = createReporter({
+      context,
+      createReportPropertiesObject: ({ loc }: TSESTree.Node) => ({
+        loc,
+        messageId: 'invalidOrderBody' as any,
+      }),
+      createReportParentObject: ({ loc }: TSESTree.Node) => ({
+        loc,
+        messageId: 'invalidOrderParent' as any,
+      }),
+    })
 
     return {
-      TSEnumDeclaration(node) {
+      TSEnumDeclaration(node: TSESTree.TSEnumDeclaration) {
         const body = getObjectBody(node) as TSESTree.TSEnumMember[]
         const isStringEnum = body.every(
           (member: TSESTree.TSEnumMember) =>
-            member.initializer &&
-            member.initializer.type === AST_NODE_TYPES.Literal &&
-            typeof member.initializer.value === 'string',
+            member.initializer?.type === AST_NODE_TYPES.Literal &&
+            typeof member.initializer?.value === 'string',
         )
 
         if (isStringEnum) {
-          compareNodeListAndReport(body)
+          compareNodeListAndReport(node, body)
         }
       },
     }
