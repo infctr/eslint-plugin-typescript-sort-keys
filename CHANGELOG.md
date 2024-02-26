@@ -5,6 +5,12 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [3.2.0] - 2024-02-26
+
+### Changed
+
+- Update @typescript-eslint/parser to v7
+
 ## [3.1.0] - 2023-10-15
 
 ### Changed
@@ -149,6 +155,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - Fix linter crash on accessing node key name
 
+[3.2.0]: https://github.com/infctr/eslint-plugin-typescript-sort-keys/compare/v3.1.0...v3.2.0
 [3.1.0]: https://github.com/infctr/eslint-plugin-typescript-sort-keys/compare/v3.0.0...v3.1.0
 [3.0.0]: https://github.com/infctr/eslint-plugin-typescript-sort-keys/compare/v2.3.0...v3.0.0
 [2.3.0]: https://github.com/infctr/eslint-plugin-typescript-sort-keys/compare/v2.2.0...v2.3.0
