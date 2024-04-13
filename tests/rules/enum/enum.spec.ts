@@ -70,6 +70,7 @@ const valid: PreValidTestCaseObject = {
     'enum U {c="T", b_="T", C="T"}',
     'enum U {a="T", _="T", A="T", $="T"}',
     "enum U {è='T', À='T', 'Z'='T', '#'='T'}",
+    /* Non-string enums */
     'enum U {c, b, a}',
     'enum U {c=a(), b, a}',
     'enum U {c=0, b, a}',
@@ -110,6 +111,7 @@ const valid: PreValidTestCaseObject = {
 
 const invalid: PreInvalidTestCaseObject = {
   ascendingWithDefaults: [
+    /* Non-string enums */
     {
       code: 'enum U {c="123".length, b, a}',
       output: 'enum U {a, b, c="123".length}',

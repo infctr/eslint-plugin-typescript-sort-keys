@@ -5,6 +5,14 @@ import { PreInvalidTestCaseObject, PreValidTestCaseObject, runCases } from '../.
 import { typescriptConfig } from '../../helpers/configs'
 import { CaseCategory } from '../../helpers/strings'
 
+/**
+ * This file is different from enum.spec.ts in that it:
+ * - tests that non-string enums are ignored
+ * - uses the deprecated rule that ignores non-string enums
+ *
+ * When the deprecated string-enum rule is eventually removed, this file can be too.
+ */
+
 const valid: PreValidTestCaseObject = {
   /**
    * ignores
