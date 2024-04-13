@@ -10,9 +10,7 @@ export const sortingOrderOptionSchema: JSONSchema4 = {
   type: 'string',
 }
 
-export type SortingOrderOption = SortingOrder
-
-export interface SortingParamsOptions {
+export interface SortingParams {
   readonly caseSensitive: boolean
   readonly natural: boolean
   readonly requiredFirst: boolean

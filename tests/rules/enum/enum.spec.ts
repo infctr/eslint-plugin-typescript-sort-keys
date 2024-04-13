@@ -386,10 +386,16 @@ const invalid: PreInvalidTestCaseObject = {
       output: 'enum U {b_="T", b="T", a="T"}',
       errors: [['a'], ['b', 'a']],
     },
+    /* test sorted items stay in place */
     {
       code: 'enum U {b_="T", c="T", C="T"}',
       output: 'enum U {c="T", C="T", b_="T"}',
       errors: [['b_'], ['C', 'b_']],
+    },
+    {
+      code: 'enum U {b_="T", C="T", c="T"}',
+      output: 'enum U {C="T", c="T", b_="T"}',
+      errors: [['b_'], ['c', 'b_']],
     },
     {
       code: 'enum U {$="T", _="T", A="T", a="T"}',

@@ -7,7 +7,7 @@ import {
   RuleOptionsGeneric,
   SortingOrder,
   sortingOrderOptionSchema,
-  SortingParamsOptions,
+  SortingParams,
 } from '../types'
 import { getObjectBody } from '../utils/ast'
 import { createRule, RuleMetaData } from '../utils/rule'
@@ -20,7 +20,7 @@ export const name = 'interface' as const
 /**
  * The options this rule can take.
  */
-export type RuleOptions = RuleOptionsGeneric<SortingParamsOptions>
+export type RuleOptions = RuleOptionsGeneric<SortingParams>
 
 const sortingParamsOptionSchema: JSONSchema4 = {
   type: 'object',
@@ -67,7 +67,7 @@ type errorMessageKeys = keyof typeof errorMessages
  * The meta data for this rule.
  */
 const meta: RuleMetaData<errorMessageKeys> = {
-  type: 'layout',
+  type: 'suggestion',
   docs: {
     description: 'require interface keys to be sorted',
     recommended: 'stylistic',

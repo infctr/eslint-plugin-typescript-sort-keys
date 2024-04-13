@@ -7,7 +7,7 @@ import {
   RuleOptionsGeneric,
   SortingOrder,
   sortingOrderOptionSchema,
-  SortingParamsOptions,
+  SortingParams,
 } from '../types'
 import { getObjectBody } from '../utils/ast'
 import { createRule, RuleMetaData } from '../utils/rule'
@@ -16,12 +16,11 @@ import { createRule, RuleMetaData } from '../utils/rule'
  * The name of this rule.
  */
 export const name = 'enum' as const
-export const nameDeprecated = 'string-enum' as const
 
 /**
  * The options this rule can take.
  */
-export type RuleOptions = RuleOptionsGeneric<Omit<SortingParamsOptions, 'requiredFirst'>>
+export type RuleOptions = RuleOptionsGeneric<Omit<SortingParams, 'requiredFirst'>>
 
 const sortingParamsOptionSchema: JSONSchema4 = {
   type: 'object',
@@ -62,7 +61,7 @@ type errorMessageKeys = keyof typeof errorMessages
  * The meta data for this rule.
  */
 const meta: RuleMetaData<errorMessageKeys> = {
-  type: 'layout',
+  type: 'suggestion',
   docs: {
     description: 'require enum members to be sorted',
     recommended: 'stylistic',

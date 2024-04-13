@@ -145,9 +145,9 @@ const valid: PreValidTestCaseObject = {
     'interface U {c:T; a:T; b?:T;}',
     'interface U {b_:T; b:T; a?:T;}',
     'interface U {c:T; C:T; b_?:T;}',
-    'interface U {11:T; 9:T; 1:T; 111?:T;}',
+    'interface U {9:T; 11:T; 1:T; 111?:T;}',
     'interface U {_:T; $:T; a?:T; A?:T;}',
-    "interface U {'11':T; 10:T; 12?:T; 2?:T; 1?:T;}",
+    "interface U {'11':T; 10:T; 2?:T; 12?:T; 1?:T;}",
     "interface U {è:T; À:T; 'Z':T; '#'?:T;}",
   ],
 }
@@ -247,6 +247,13 @@ const invalid: PreInvalidTestCaseObject = {
     {
       code: 'interface U {a:T; c:{y:T; x:T;}, b:T;}',
       output: 'interface U {a:T; b:T; c:{y:T; x:T;};}',
+      /**
+       * This error structure kind of goes like:
+       * 2 errors in the body of U: c (which has 2 errors with x/y) and b/c
+       *
+       * Due to this structure we want to pass omitInferredErrorCount: true otherwise
+       * preprocessing will count them up differently
+       */
       errors: [2, ['c'], 2, ['y'], ['x', 'y'], ['b', 'c']],
       omitInferredErrorCount: true,
     },

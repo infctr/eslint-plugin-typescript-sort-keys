@@ -1,4 +1,5 @@
 import { TSESTree } from '@typescript-eslint/utils'
+
 import { getOptions } from './common/options'
 import { getFixerFunction } from './fixer'
 import { reportBodyNodes, reportParentNode } from './report'
@@ -47,7 +48,7 @@ export function createReporter(
       return
     }
 
-    const sourceCode = createReporterArgs.context.getSourceCode()
+    const sourceCode = createReporterArgs.context.sourceCode
     // Create a key for memoizing results based on plugin context & input
     const baseMemoKey = JSON.stringify({
       body: sourceCode.getText(bodyParent), // Disambiguator when body has code embedded in body

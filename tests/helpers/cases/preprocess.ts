@@ -40,6 +40,7 @@ function processErrorArgs(
     errorMessages.push(getCountErrorString(category, errorArgs.length))
 
   for (const args of errorArgs) {
+    // At this point args is number or string[]
     if (Array.isArray(args)) {
       switch (args.length) {
         case 1:
@@ -83,6 +84,7 @@ export function preProcessInvalidTestCases(
   return processedCases
 }
 
+// Take from shape PreInvalidTestCase[] to InvalidTestCase[]
 function convertPreInvalidCasesToProcessed(
   cases: PreInvalidTestCaseList,
   category: CaseCategory,
@@ -130,6 +132,7 @@ export function preProcessValidTestCases(
   return processedCases
 }
 
+// Take from shape PreValidTestCase[] to ValidTestCase[]
 function convertPreValidCasesToProcessed(
   cases: string[],
   withRequiredFirstOption: boolean,

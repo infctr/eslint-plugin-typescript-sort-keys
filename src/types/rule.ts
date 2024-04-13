@@ -1,8 +1,5 @@
-import { SortingOrderOption, SortingParamsOptions } from './options'
+import { SortingOrder, SortingParams } from './options'
 
-export type RuleOptionsGeneric<T> =
-  | []
-  | [SortingOrderOption]
-  | [SortingOrderOption, Partial<T>]
+export type RuleOptionsGeneric<T> = [] | [SortingOrder] | [SortingOrder, Partial<T>]
 
-export type AllRuleOptions = RuleOptionsGeneric<SortingParamsOptions>
+export type AllRuleOptions = RuleOptionsGeneric<SortingParams>

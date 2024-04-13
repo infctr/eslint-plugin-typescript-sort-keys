@@ -1,8 +1,6 @@
 import { PLUGIN_NAME } from 'config/constants'
-import {
-  name as enumRuleName,
-  nameDeprecated as enumRuleNameDeprecated,
-} from 'rules/enum'
+import { name as enumRuleName } from 'rules/enum'
+import { name as enumRuleNameDeprecated } from 'rules/string-enum'
 import { NodePositionInfo, TSType } from 'types'
 
 import { getRuleDocsUrl } from './rule'
@@ -52,7 +50,7 @@ export function getUnsortedInfo(
 export function getDeprecationMessage(name: string) {
   switch (name) {
     case enumRuleNameDeprecated:
-      return `DEPRECATED: see [${PLUGIN_NAME}/enum](${getRuleDocsUrl(enumRuleName)})`
+      return `DEPRECATED: see [${PLUGIN_NAME}/${enumRuleName}](${getRuleDocsUrl(enumRuleName)})`
     default:
       return ''
   }

@@ -18,16 +18,17 @@ enum U {
 }
 
 // Case-sensitive by default.
-enum U {
+enum V {
   a = 'T',
-  b = 'T',
-  C = 'T',
+  B = 'T',
+  c = 'T',
 }
 
-enum U {
+enum W {
   a = 'T',
-  'c' = 'T',
+  'c+-' = 'T',
   b = 'T',
+  d = 'T',
 }
 ```
 
@@ -43,17 +44,18 @@ enum U {
 }
 
 // Case-sensitive by default.
-enum U {
-  C = 'T',
+enum V {
+  B = 'T',
   a = 'T',
-  b = 'T',
+  c = 'T',
 }
 
 // This rule sorts members which have an arbitrary string literal name as well.
-enum U {
+enum W {
   a = 'T',
-  'b+-' = 'T',
-  c = 'T',
+  b = 'T',
+  'c+-' = 'T',
+  d = 'T',
 }
 ```
 
@@ -61,7 +63,11 @@ enum U {
 
 ```json
 {
-  "typescript-sort-keys/enum": ["error", "asc", { "caseSensitive": true, "natural": false }]
+  "typescript-sort-keys/enum": [
+    "error",
+    "asc",
+    { "caseSensitive": true, "natural": false }
+  ]
 }
 ```
 
@@ -87,14 +93,9 @@ enum U {
   c = 'T',
   a = 'T',
 }
-enum U {
-  b = 'T',
-  c = 'T',
-  a = 'T',
-}
 
 // Case-sensitive by default.
-enum U {
+enum V {
   a = 'T',
   B = 'T',
   c = 'T',
@@ -111,14 +112,9 @@ enum U {
   b = 'T',
   a = 'T',
 }
-enum U {
-  c = 'T',
-  b = 'T',
-  a = 'T',
-}
 
 // Case-sensitive by default.
-enum U {
+enum V {
   c = 'T',
   a = 'T',
   B = 'T',
@@ -138,7 +134,7 @@ enum U {
   C = 'T',
   b = 'T',
 }
-enum U {
+enum V {
   a = 'T',
   C = 'T',
   c = 'T',
@@ -157,7 +153,7 @@ enum U {
   c = 'T',
   C = 'T',
 }
-enum U {
+enum V {
   a = 'T',
   b = 'T',
   C = 'T',

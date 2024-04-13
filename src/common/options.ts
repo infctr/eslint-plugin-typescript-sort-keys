@@ -1,12 +1,7 @@
-import {
-  AllRuleOptions,
-  CreateReporterArgs,
-  SortingOrder,
-  SortingParamsOptions,
-} from '../types'
+import { AllRuleOptions, CreateReporterArgs, SortingOrder, SortingParams } from '../types'
 
 export const defaultSortingOrder = SortingOrder.Ascending
-export const defaultOptions: SortingParamsOptions = {
+export const defaultOptions: SortingParams = {
   caseSensitive: true,
   natural: false,
   requiredFirst: false,

@@ -12,7 +12,7 @@ export const getFixerFunction = (
   sortedBody: TSType[],
 ): ReportFixFunction =>
   function* (fixer: TSESLint.RuleFixer) {
-    const sourceCode = createReporterArgs.context.getSourceCode() as SourceCode
+    const sourceCode = createReporterArgs.context.sourceCode as SourceCode
 
     const bodyRange = memoize(`bodyRange_${baseMemoKey}`, () =>
       getBodyRange(sourceCode, body as unknown as Node[]),

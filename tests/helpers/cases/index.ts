@@ -11,7 +11,8 @@ export { processInvalidTestCase, processValidTestCase } from './process'
 
 /**
  * Helper for splitting up test cases by options and displaying info about which
- * set of options the test is running with. Sacrifices some parallelizatiom for debuggability.
+ * set of options the test is running with. Sacrifices some parallelizatiom for
+ * powerful concise expression in test files.
  */
 export function runCases(
   {
@@ -24,11 +25,10 @@ export function runCases(
   runOptions: { withRequiredFirstOption: boolean; category: CaseCategory },
 ) {
   const usedOptionsKeys = new Set(Object.keys(invalid).concat(Object.keys(valid)))
+  const ruleTester = new RuleTester(typescriptConfig)
 
   for (const optionsSetKey of usedOptionsKeys) {
     describe(optionsSetKey, () => {
-      const ruleTester = new RuleTester(typescriptConfig)
-
       ruleTester.run(name, rule as unknown as Rule.RuleModule, {
         valid: processValidTestCase(
           { [optionsSetKey]: valid[optionsSetKey] },

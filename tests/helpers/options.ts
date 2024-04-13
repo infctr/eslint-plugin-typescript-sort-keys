@@ -1,4 +1,4 @@
-import { AllRuleOptions, SortingOrder, SortingParamsOptions } from '../../src/types'
+import { AllRuleOptions, SortingOrder, SortingParams } from '../../src/types'
 
 export type OptionsSet = {
   /**
@@ -75,7 +75,7 @@ export const optionsSetsWithRequiredFirst = {
   descendingSensitiveNonNaturalRequired: [
     [
       SortingOrder.Descending,
-      { caseSensitive: false, natural: true, requiredFirst: true },
+      { caseSensitive: true, natural: false, requiredFirst: true },
     ],
   ],
   noOptions: [[]],
@@ -93,9 +93,9 @@ export const optionsSetsNoRequired: Record<
       return [
         opts[0] as SortingOrder,
         Object.fromEntries(
-          Object.entries(opts[1] as SortingParamsOptions).filter(
+          Object.entries(opts[1] as SortingParams).filter(
             ([key]) => key !== 'requiredFirst',
-          ) as Array<[string, SortingParamsOptions[keyof SortingParamsOptions]]>,
+          ) as Array<[string, SortingParams[keyof SortingParams]]>,
         ),
       ]
     }),
