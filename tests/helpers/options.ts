@@ -10,11 +10,16 @@ export type OptionsSet = {
  * Option sets by test category
  */
 export const optionsSetsWithRequiredFirst = {
-  ascendingWithDefaults: [[], [SortingOrder.Ascending]],
-  ascendingSensitiveNonNaturalNotRequired: [
+  ascendingInsensitiveNaturalNotRequired: [
     [
       SortingOrder.Ascending,
-      { caseSensitive: true, natural: false, requiredFirst: false },
+      { caseSensitive: false, natural: true, requiredFirst: false },
+    ],
+  ],
+  ascendingInsensitiveNaturalRequired: [
+    [
+      SortingOrder.Ascending,
+      { caseSensitive: false, natural: true, requiredFirst: true },
     ],
   ],
   ascendingInsensitiveNonNaturalNotRequired: [
@@ -29,16 +34,10 @@ export const optionsSetsWithRequiredFirst = {
       { caseSensitive: true, natural: true, requiredFirst: false },
     ],
   ],
-  ascendingInsensitiveNaturalNotRequired: [
+  ascendingSensitiveNonNaturalNotRequired: [
     [
       SortingOrder.Ascending,
-      { caseSensitive: false, natural: true, requiredFirst: false },
-    ],
-  ],
-  ascendingInsensitiveNaturalRequired: [
-    [
-      SortingOrder.Ascending,
-      { caseSensitive: false, natural: true, requiredFirst: true },
+      { caseSensitive: true, natural: false, requiredFirst: false },
     ],
   ],
   ascendingSensitiveNonNaturalRequired: [
@@ -47,19 +46,7 @@ export const optionsSetsWithRequiredFirst = {
       { caseSensitive: true, natural: false, requiredFirst: true },
     ],
   ],
-  descendingWithDefaults: [[SortingOrder.Descending]],
-  descendingInsensitiveNonNaturalNotRequired: [
-    [
-      SortingOrder.Descending,
-      { caseSensitive: false, natural: false, requiredFirst: false },
-    ],
-  ],
-  descendingSensitiveNaturalNotRequired: [
-    [
-      SortingOrder.Descending,
-      { caseSensitive: true, natural: true, requiredFirst: false },
-    ],
-  ],
+  ascendingWithDefaults: [[], [SortingOrder.Ascending]],
   descendingInsensitiveNaturalNotRequired: [
     [
       SortingOrder.Descending,
@@ -72,12 +59,25 @@ export const optionsSetsWithRequiredFirst = {
       { caseSensitive: false, natural: true, requiredFirst: true },
     ],
   ],
+  descendingInsensitiveNonNaturalNotRequired: [
+    [
+      SortingOrder.Descending,
+      { caseSensitive: false, natural: false, requiredFirst: false },
+    ],
+  ],
+  descendingSensitiveNaturalNotRequired: [
+    [
+      SortingOrder.Descending,
+      { caseSensitive: true, natural: true, requiredFirst: false },
+    ],
+  ],
   descendingSensitiveNonNaturalRequired: [
     [
       SortingOrder.Descending,
       { caseSensitive: true, natural: false, requiredFirst: true },
     ],
   ],
+  descendingWithDefaults: [[SortingOrder.Descending]],
   noOptions: [[]],
 }
 
