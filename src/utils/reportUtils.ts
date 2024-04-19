@@ -46,7 +46,7 @@ export function getUnsortedInfo(
 export function getDeprecationMessage(name: string) {
   switch (name) {
     case RuleNames.StringEnum:
-      return `\nThis rule is deprecated. Use \`${PLUGIN_NAME}/${RuleNames.Enum}\` instead. See docs for more info.`
+      return `\nThis rule is deprecated. Use \`${PLUGIN_NAME}/${RuleNames.Enum}\` instead.`
     default:
       return ''
   }
