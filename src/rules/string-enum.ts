@@ -88,11 +88,11 @@ export const rule = createRule<errorMessageKeys, RuleOptions>({
   create(context) {
     const compareNodeListAndReport = createReporter({
       context,
-      createReportPropertiesObject: ({ loc }: TSESTree.Node) => ({
+      createReportPropertiesObject: (loc: TSESTree.SourceLocation) => ({
         loc,
         messageId: 'invalidOrderBody' as any,
       }),
-      createReportParentObject: ({ loc }: TSESTree.Node) => ({
+      createReportParentObject: (loc: TSESTree.SourceLocation) => ({
         loc,
         messageId: 'invalidOrderParent' as any,
       }),

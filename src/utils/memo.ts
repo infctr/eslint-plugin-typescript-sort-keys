@@ -1,7 +1,7 @@
 const memo: Record<string, any> = {}
 
 // Getting strange test failures? Could be this! Disable and try again.
-export function memoize(key: string, valueFn: () => any): any {
+export function memoize<T>(key: string, valueFn: () => T): T {
   if (hasMemoized(key)) {
     return memo[key]
   }

@@ -1,9 +1,4 @@
-import { PLUGIN_NAME } from 'config/constants'
-import { name as enumRuleName } from 'rules/enum'
-import { name as enumRuleNameDeprecated } from 'rules/string-enum'
-import { NodePositionInfo, TSType } from 'types'
-
-import { getRuleDocsUrl } from './rule'
+import { NodeOrToken, NodePositionInfo } from '../types'
 
 /**
  * Check if the node is locally sorted or not.
@@ -12,8 +7,8 @@ import { getRuleDocsUrl } from './rule'
  *  before 'b' even though they're both positioned wrongly.
  */
 export function shouldReportUnsorted(
-  sortedBody: TSType[],
-  unsortedBody: TSType[],
+  sortedBody: NodeOrToken[],
+  unsortedBody: NodeOrToken[],
   nodeInfo: NodePositionInfo,
 ) {
   const { initialIndex, finalIndex } = nodeInfo
@@ -27,9 +22,9 @@ export function shouldReportUnsorted(
 
 // Helpful metadata on nodes to report/skip reporting
 export function getUnsortedInfo(
-  sortedBody: TSType[],
-  unsortedBody: TSType[],
-  nodePositions: Map<TSType, NodePositionInfo>,
+  sortedBody: NodeOrToken[],
+  unsortedBody: NodeOrToken[],
+  nodePositions: Map<NodeOrToken, NodePositionInfo>,
 ) {
   const finalIndicesToReport = new Array(sortedBody.length).fill(false)
   const unsortedCount = Array.from(nodePositions.entries()).reduce(

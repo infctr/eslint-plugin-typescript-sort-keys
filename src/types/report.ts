@@ -1,7 +1,7 @@
 import { TSESTree } from '@typescript-eslint/utils'
 import {
-  SourceCode as Lib_SourceCode,
   RuleContext as UtilRuleContext,
+  SourceCode as Lib_SourceCode,
 } from '@typescript-eslint/utils/ts-eslint'
 
 export type SourceCode = Lib_SourceCode & {
@@ -9,7 +9,7 @@ export type SourceCode = Lib_SourceCode & {
 }
 
 export type ReportObjectCreator = <MessageIds extends string>(
-  node: TSESTree.Node,
+  loc: TSESTree.SourceLocation,
 ) => {
   readonly loc: TSESTree.SourceLocation
   readonly messageId: MessageIds

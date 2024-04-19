@@ -1,10 +1,10 @@
-import { Node, SourceCode } from 'types'
+import { NodeOrToken, SourceCode } from '../../types'
 
 /**
  * Returns text between the node and previous (previous may be a comment).
  * Empty result if no previous node.
  */
-export function getTextBetweenNodeAndPrevious(sourceCode: SourceCode, node: Node) {
+export function getTextBetweenNodeAndPrevious(sourceCode: SourceCode, node: NodeOrToken) {
   const prevNode = sourceCode.getTokenBefore(node, { includeComments: true })
   if (!prevNode) return ''
 
@@ -15,7 +15,7 @@ export function getTextBetweenNodeAndPrevious(sourceCode: SourceCode, node: Node
  * Returns text between the node and next (next may be a comment).
  * Empty result if no next node.
  */
-export function getTextBetweenNodeAndNext(sourceCode: SourceCode, node: Node) {
+export function getTextBetweenNodeAndNext(sourceCode: SourceCode, node: NodeOrToken) {
   const nextNode = sourceCode.getTokenAfter(node, { includeComments: true })
   if (!nextNode) return ''
 
@@ -25,7 +25,7 @@ export function getTextBetweenNodeAndNext(sourceCode: SourceCode, node: Node) {
 /**
  * Returns the node with proper punctuation.
  */
-export function getProcessedText(sourceCode: SourceCode, node: Node) {
+export function getProcessedText(sourceCode: SourceCode, node: NodeOrToken) {
   const nodeText = sourceCode.getText(node)
 
   if (/[,;]$/.test(nodeText)) {
@@ -40,7 +40,11 @@ export function getProcessedText(sourceCode: SourceCode, node: Node) {
  * Range of start/end is from the comments between the nodes, if any. If a
  * given node is a comment, the respective range is from the comment itself.
  */
-export function getTextBetween(sourceCode: SourceCode, startNode: Node, endNode: Node) {
+export function getTextBetween(
+  sourceCode: SourceCode,
+  startNode: NodeOrToken,
+  endNode: NodeOrToken,
+) {
   const startNodeEnd = startNode.range[1]
   const endNodeStart = endNode.range[0]
 

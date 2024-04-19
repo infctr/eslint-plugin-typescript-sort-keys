@@ -1,9 +1,13 @@
-import { TSESTree } from '@typescript-eslint/utils'
-
 import { getOptions } from './common/options'
 import { getFixerFunction } from './fixer'
 import { reportBodyNodes, reportParentNode } from './report'
-import { AllRuleOptions, CreateReporterArgs, NodePositionInfo, TSType } from './types'
+import {
+  AllRuleOptions,
+  CreateReporterArgs,
+  Declaration,
+  NodeOrToken,
+  NodePositionInfo,
+} from './types'
 import { getPropertyIsOptional, getPropertyName } from './utils/ast'
 import { compareFn } from './utils/compare'
 import { memoize } from './utils/memo'
@@ -13,9 +17,9 @@ import { getUnsortedInfo } from './utils/reportUtils'
  * Returns the body sorted according to the options and sorting function.
  */
 function getSortedBody(
-  body: TSType[],
+  body: NodeOrToken[],
   isRequiredFirst: boolean,
-  sortFunction: (a: TSType, b: TSType) => number,
+  sortFunction: (a: NodeOrToken, b: NodeOrToken) => number,
 ) {
   return isRequiredFirst
     ? [
@@ -39,11 +43,11 @@ export function createReporter(
     createReporterArgs.context,
   )
   const compare = compareFn(isAscending, isInsensitive, isNatural)
-  const sortFunction = (a: TSType, b: TSType) =>
+  const sortFunction = (a: NodeOrToken, b: NodeOrToken) =>
     compare(getPropertyName(a), getPropertyName(b))
 
   // Reporter function
-  return (bodyParent: TSESTree.Node, body: TSType[]) => {
+  return (bodyParent: Declaration, body: NodeOrToken[]) => {
     if (body.length < 2) {
       return
     }
@@ -56,13 +60,13 @@ export function createReporter(
       source: sourceCode.getText(), // Disambiguator when same body on both a type and interface
     })
 
-    const sortedBody: TSType[] = memoize(`sortedBody_${baseMemoKey}`, () =>
+    const sortedBody = memoize(`sortedBody_${baseMemoKey}`, () =>
       getSortedBody(body, isRequiredFirst, sortFunction),
     )
-    const nodePositions: Map<TSType, NodePositionInfo> = memoize(
+    const nodePositions: Map<NodeOrToken, NodePositionInfo> = memoize(
       `nodePositions_${baseMemoKey}`,
       () =>
-        new Map<TSType, NodePositionInfo>(
+        new Map<NodeOrToken, NodePositionInfo>(
           body.map((n, index) => [
             n,
             { initialIndex: index, finalIndex: sortedBody.indexOf(n) },
@@ -80,14 +84,9 @@ export function createReporter(
       const fixerFunction = memoize(fixerFunctionMemoKey, () =>
         getFixerFunction(baseMemoKey, createReporterArgs, body, sortedBody),
       )
-      reportParentNode(createReporterArgs, bodyParent, unsortedCount, fixerFunction)
-      reportBodyNodes(
-        createReporterArgs,
-        nodePositions,
-        sortedBody,
-        finalIndicesToReport,
-        fixerFunction,
-      )
+
+      reportParentNode(createReporterArgs, bodyParent.loc, unsortedCount, fixerFunction)
+      reportBodyNodes(createReporterArgs, nodePositions, sortedBody, finalIndicesToReport)
     }
   }
 }

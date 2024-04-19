@@ -1,8 +1,8 @@
 import assert from 'assert'
-import { Node, SourceCode } from 'types'
 
-import { AST_NODE_TYPES, AST_TOKEN_TYPES } from '@typescript-eslint/utils'
+import { AST_NODE_TYPES, AST_TOKEN_TYPES, TSESTree } from '@typescript-eslint/utils'
 
+import { NodeOrToken, SourceCode } from '../../types'
 import {
   getEarliestNode,
   getLatestNode,
@@ -15,7 +15,7 @@ import {
  */
 export function getNodePunctuator(
   sourceCode: SourceCode,
-  node: Node,
+  node: NodeOrToken,
   punctuators = ',;',
 ) {
   // interface/type member nodes contain their own punctuation
@@ -24,10 +24,10 @@ export function getNodePunctuator(
   }
 
   const punctuator = sourceCode.getTokenAfter(node, {
-    filter: (n: Node) => {
+    filter: (n: NodeOrToken) => {
       return (
         n.type === AST_TOKEN_TYPES.Punctuator &&
-        new RegExp(`^[${punctuators}]$`).test(n.value)
+        new RegExp(`^[${punctuators}]$`).test((n as TSESTree.PunctuatorToken).value)
       )
     },
     includeComments: false,
@@ -43,7 +43,7 @@ export function getNodePunctuator(
  * Returns the non-comment node following the given node's punctuation node, if any.
  * Ex: For `foo: T, bar: T`, returns `bar: T` node given `foo: T,` node.
  */
-export function getNodeFollowingPunctuator(sourceCode: SourceCode, node: Node) {
+export function getNodeFollowingPunctuator(sourceCode: SourceCode, node: NodeOrToken) {
   const punctuator = getNodePunctuator(sourceCode, node)
   if (!punctuator) return undefined
   return getNextNonCommentNode(sourceCode, punctuator)
@@ -53,7 +53,7 @@ export function getNodeFollowingPunctuator(sourceCode: SourceCode, node: Node) {
  * Returns the nodes for outer bracket punctuators of an interface or enum declaration.
  * Asserts that the punctuators exist due to use of non-null operator.
  */
-export function getDeclarationPunctuators(sourceCode: SourceCode, body: Node[]) {
+export function getDeclarationPunctuators(sourceCode: SourceCode, body: NodeOrToken[]) {
   const startNode = getEarliestNode(body)
   // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
   const declarationStartPunctuator = getPreviousNonCommentNode(sourceCode, startNode)!
@@ -74,11 +74,14 @@ export function getDeclarationPunctuators(sourceCode: SourceCode, body: Node[]) 
 }
 
 // Returns a string containing the node's punctuation, if any.
-export function getPunctuation(node: Node) {
+export function getPunctuation(node: NodeOrToken) {
   return node.type === AST_NODE_TYPES.TSEnumMember ? ',' : ';'
 }
 
-export function getBodyRange(sourceCode: SourceCode, body: Node[]): [number, number] {
+export function getBodyRange(
+  sourceCode: SourceCode,
+  body: NodeOrToken[],
+): [number, number] {
   const { declarationStartPunctuator, declarationEndPunctuator } =
     getDeclarationPunctuators(sourceCode, body)
   // Adjust start range ahead of the punctuator

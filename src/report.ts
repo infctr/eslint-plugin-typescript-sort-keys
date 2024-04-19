@@ -4,7 +4,12 @@ import { TSESTree } from '@typescript-eslint/utils'
 import { ReportFixFunction } from '@typescript-eslint/utils/ts-eslint'
 
 import { getOptions } from './common/options'
-import { AllRuleOptions, CreateReporterArgs, NodePositionInfo, TSType } from './types'
+import {
+  AllRuleOptions,
+  CreateReporterArgs,
+  NodeOrToken,
+  NodePositionInfo,
+} from './types'
 import { getPropertyName } from './utils/ast'
 import { getDeprecationMessage } from './utils/reportUtils'
 
@@ -16,12 +21,12 @@ export function reportParentNode(
     CreateReporterArgs<string, AllRuleOptions>,
     'createReportPropertiesObject'
   >,
-  bodyParent: TSESTree.Node,
+  _loc: TSESTree.SourceLocation,
   unsortedCount: number,
   fixerFunction: ReportFixFunction,
 ) {
   const { context, createReportParentObject } = createReporterArgs
-  const { loc, messageId } = createReportParentObject(bodyParent)
+  const { loc, messageId } = createReportParentObject(_loc)
   context.report({
     loc,
     messageId,
@@ -42,8 +47,8 @@ export function reportBodyNodes(
     CreateReporterArgs<string, AllRuleOptions>,
     'createReportParentObject'
   >,
-  nodePositions: Map<TSType, NodePositionInfo>,
-  sortedBody: TSType[],
+  nodePositions: Map<NodeOrToken, NodePositionInfo>,
+  sortedBody: NodeOrToken[],
   finalIndicesToReport: boolean[],
   fixerFunction: ReportFixFunction,
 ) {
@@ -54,7 +59,7 @@ export function reportBodyNodes(
   for (const [node, { finalIndex }] of nodePositions.entries()) {
     // If the node is not in the correct position, report it
     if (finalIndicesToReport[finalIndex]) {
-      const { loc, messageId } = createReportPropertiesObject(node)
+      const { loc, messageId } = createReportPropertiesObject(node.loc)
 
       // Sanity check
       assert(loc, 'createReportObject return value must include a node location')

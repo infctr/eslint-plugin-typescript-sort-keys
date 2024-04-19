@@ -1,7 +1,6 @@
-import { Node, SourceCode } from 'types'
-
 import { AST_NODE_TYPES, AST_TOKEN_TYPES, TSESTree } from '@typescript-eslint/utils'
 
+import { NodeOrToken, SourceCode } from '../../types'
 import { getLatestNode } from './nodeHelpers'
 import {
   getDeclarationPunctuators,
@@ -17,7 +16,7 @@ import {
 /**
  * Returns the text of the last comment in the body
  */
-export function getLastCommentText(sourceCode: SourceCode, body: Node[]) {
+export function getLastCommentText(sourceCode: SourceCode, body: NodeOrToken[]) {
   const lastBodyNode = getLatestNode(body)
   const lastBodyNodeComments = getCommentsAfter(sourceCode, lastBodyNode)
   const latestCommentOrBodyNode = getLatestNode([...lastBodyNodeComments, lastBodyNode])
@@ -31,7 +30,7 @@ export function getLastCommentText(sourceCode: SourceCode, body: Node[]) {
       ...endComments,
       latestCommentOrBodyNode,
       getNodePunctuator(sourceCode, lastBodyNode),
-    ].filter(_ => !!_) as Node[],
+    ].filter(_ => !!_) as NodeOrToken[],
   )
   const endWhitespace = getTextBetween(sourceCode, latestNode, declarationEndPunctuator)
 
@@ -74,7 +73,7 @@ export function getCommentsText(
 }
 
 /* Get text of comments before a node, if any, with leading whitespace. */
-export function getCommentsTextBefore(sourceCode: SourceCode, node: Node) {
+export function getCommentsTextBefore(sourceCode: SourceCode, node: NodeOrToken) {
   let commentText = getCommentsText(sourceCode, getCommentsBefore(sourceCode, node))
 
   if (commentText) {
@@ -86,7 +85,7 @@ export function getCommentsTextBefore(sourceCode: SourceCode, node: Node) {
 /* Get text of comments after a node, if any, with leading whitespace. */
 export function getCommentsTextAfter(
   sourceCode: SourceCode,
-  node: Node,
+  node: NodeOrToken,
   type?: AST_TOKEN_TYPES.Line | AST_TOKEN_TYPES.Block,
   nextIndentation?: string,
 ) {
@@ -105,7 +104,7 @@ export function getCommentsTextAfter(
  */
 export function getCommentsBefore(
   sourceCode: SourceCode,
-  node: Node,
+  node: NodeOrToken,
   type?: AST_TOKEN_TYPES.Line | AST_TOKEN_TYPES.Block,
 ) {
   const prevNode = sourceCode.getTokenBefore(node, { includeComments: false })
@@ -115,7 +114,7 @@ export function getCommentsBefore(
   const nodeStartLine = node.loc.start.line
   const prevNodeEndLine = prevNode.loc.end.line
 
-  return comments.filter((comment: Node) => {
+  return comments.filter((comment: TSESTree.Comment) => {
     const commentStartLine = comment.loc.start.line
 
     // Special case when comment is on previous' line but prev is declaration punctuator
@@ -134,7 +133,7 @@ export function getCommentsBefore(
  */
 export function getCommentsAfter(
   sourceCode: SourceCode,
-  node: Node,
+  node: NodeOrToken,
   type?: AST_TOKEN_TYPES.Line | AST_TOKEN_TYPES.Block,
 ) {
   const nodeEndLine = node.loc.end.line
@@ -152,7 +151,7 @@ export function getCommentsAfter(
   const nextNode = getNodeFollowingPunctuator(sourceCode, node)
   const nextNodeStartPos = nextNode?.range[0] ?? Infinity
 
-  const commentsAfter = comments.filter((comment: Node) => {
+  const commentsAfter = comments.filter((comment: TSESTree.Comment) => {
     const commentStartLine = comment.loc.start.line
     const commentEndPos = comment.range[1]
     const nextBeforeComments = nextNode ? getCommentsBefore(sourceCode, nextNode) : []

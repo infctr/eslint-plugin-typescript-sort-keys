@@ -1,6 +1,7 @@
+import { NodeOrToken } from 'src/types'
+
 import { AST_NODE_TYPES, TSESTree } from '@typescript-eslint/utils'
 
-import { TSType } from 'types'
 import { indexSignature } from './common'
 
 export function getObjectBody(
@@ -18,7 +19,7 @@ export function getObjectBody(
   }
 }
 
-function getProperty(node: TSESTree.Node) {
+function getProperty(node: NodeOrToken) {
   switch (node.type) {
     case AST_NODE_TYPES.TSIndexSignature: {
       const [identifier] = node.parameters
@@ -72,7 +73,7 @@ function getProperty(node: TSESTree.Node) {
  *     let a = {[tag`b`]: 1}     // => undefined
  *     let a = {[`${b}`]: 1}     // => undefined
  */
-export function getPropertyName(node: TSType) {
+export function getPropertyName(node: NodeOrToken) {
   const property = getProperty(node as TSESTree.Node)
 
   switch (property?.type) {
@@ -88,11 +89,14 @@ export function getPropertyName(node: TSType) {
 }
 
 // Returns whether a method or property signature is optional.
-export function getPropertyIsOptional(node: TSType) {
+export function getPropertyIsOptional(node: NodeOrToken) {
   switch (node.type) {
     case AST_NODE_TYPES.TSMethodSignature:
     case AST_NODE_TYPES.TSPropertySignature:
-      return Boolean(node.optional)
+      return Boolean(
+        (node as TSESTree.TSMethodSignature | TSESTree.TSPropertySignature).optional,
+      )
+
     default:
       return false
   }
