@@ -12,13 +12,16 @@ export function shouldReportUnsorted(
   unsortedBody: NodeOrToken[],
   nodeInfo: NodePositionInfo,
 ) {
-  const { initialIndex, finalIndex } = nodeInfo
-  const isLastSorted = finalIndex === sortedBody.length - 1
-  // Node moved and next sorted node isn't the same neighbor as unsorted
-  return (
-    initialIndex !== finalIndex &&
-    (isLastSorted || sortedBody[finalIndex + 1] !== unsortedBody[initialIndex + 1])
-  )
+  const { initialIndex: unsortedIndex, finalIndex: sortedIndex } = nodeInfo
+  const isLastInSorted = sortedIndex === sortedBody.length - 1
+  const nextSortedNode = sortedBody[sortedIndex + 1]
+  const nextUnsortedNode = unsortedBody[unsortedIndex + 1]
+  // is sorted directly with a neighbor or partially sorted (e.g. a B D F E only 2 out of order)
+  const isPartiallySorted =
+    nextSortedNode === nextUnsortedNode ||
+    unsortedBody.indexOf(nextSortedNode) > unsortedIndex
+
+  return unsortedIndex !== sortedIndex && (isLastInSorted || !isPartiallySorted)
 }
 
 // Helpful metadata on nodes to report/skip reporting
