@@ -58,7 +58,6 @@ module.exports = {
   ],
   settings: {
     'import/resolver': {
-      node: true,
       typescript: true,
     },
   },
