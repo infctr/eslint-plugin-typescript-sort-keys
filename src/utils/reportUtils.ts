@@ -1,3 +1,4 @@
+import { PLUGIN_NAME, RuleNames } from '../config/constants'
 import { NodeOrToken, NodePositionInfo } from '../types'
 
 /**
@@ -44,8 +45,8 @@ export function getUnsortedInfo(
 // Return string with url to notify of rule deprecations
 export function getDeprecationMessage(name: string) {
   switch (name) {
-    case enumRuleNameDeprecated:
-      return `DEPRECATED: see [${PLUGIN_NAME}/${enumRuleName}](${getRuleDocsUrl(enumRuleName)})`
+    case RuleNames.StringEnum:
+      return `\nThis rule is deprecated. Use \`${PLUGIN_NAME}/${RuleNames.Enum}\` instead. See docs for more info.`
     default:
       return ''
   }

@@ -1,6 +1,7 @@
 import { AST_NODE_TYPES, TSESTree } from '@typescript-eslint/utils'
 import { JSONSchema4 } from '@typescript-eslint/utils/json-schema'
 
+import { RuleNames } from '../config/constants'
 import { createReporter } from '../plugin'
 import {
   ErrorMessage,
@@ -16,7 +17,7 @@ import { createRule, RuleMetaData } from '../utils/rule'
  * @deprecated
  * The name of this rule.
  */
-export const name = 'string-enum' as const
+export const name = RuleNames.StringEnum as const
 
 /**
  * @deprecated
@@ -74,6 +75,7 @@ const meta: RuleMetaData<errorMessageKeys> = {
   messages: errorMessages,
   fixable: 'code',
   schema,
+  deprecated: true,
 }
 
 /**

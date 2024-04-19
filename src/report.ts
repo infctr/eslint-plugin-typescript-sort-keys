@@ -30,10 +30,9 @@ export function reportParentNode(
   context.report({
     loc,
     messageId,
-    node: bodyParent,
     data: {
       unsortedCount,
-      notice: getDeprecationMessage(context.id),
+      notice: getDeprecationMessage(context.id.split('/').at(-1)!),
     },
     fix: fixerFunction,
   })
@@ -50,12 +49,12 @@ export function reportBodyNodes(
   nodePositions: Map<NodeOrToken, NodePositionInfo>,
   sortedBody: NodeOrToken[],
   finalIndicesToReport: boolean[],
-  fixerFunction: ReportFixFunction,
 ) {
   const { context, createReportPropertiesObject } = createReporterArgs
   const { isInsensitive, isNatural, isRequiredFirst, order } = getOptions(
     createReporterArgs.context,
   )
+
   for (const [node, { finalIndex }] of nodePositions.entries()) {
     // If the node is not in the correct position, report it
     if (finalIndicesToReport[finalIndex]) {
@@ -88,7 +87,6 @@ export function reportBodyNodes(
           options: optionsString,
           notice: getDeprecationMessage(context.id),
         },
-        fix: fixerFunction,
       })
     }
   }
