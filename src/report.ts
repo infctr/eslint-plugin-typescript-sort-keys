@@ -31,6 +31,7 @@ export function reportParentNode(
     loc,
     messageId,
     data: {
+      plural: unsortedCount > 1 ? 's' : '',
       unsortedCount,
       notice: getDeprecationMessage(context.id.split('/').at(-1)!),
     },
