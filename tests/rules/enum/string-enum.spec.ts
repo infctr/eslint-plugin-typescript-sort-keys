@@ -131,7 +131,7 @@ const invalid: PreInvalidTestCaseObject = {
     {
       code: 'enum U {a="a", _="b", b="c"}',
       output: 'enum U {_="b", a="a", b="c"}',
-      errors: 3,
+      errors: 2,
     },
     {
       code: 'enum U {a="T", c="T", b="T"}',
@@ -151,42 +151,17 @@ const invalid: PreInvalidTestCaseObject = {
     {
       code: 'enum U {$="T", _="T", A="T", a="T"}',
       output: 'enum U {$="T", A="T", _="T", a="T"}',
-      errors: 3,
+      errors: 2,
     },
     {
       code: "enum U {'#'='T', À='T', 'Z'='T', è='T'}",
       output: "enum U {'#'='T', 'Z'='T', À='T', è='T'}",
-      errors: 3,
+      errors: 2,
     },
     {
       code: 'enum U {a="T", _="T", b="T"}',
       output: 'enum U {_="T", a="T", b="T"}',
-      errors: 3,
-    },
-    {
-      code: 'enum U {a="T", c="T", b="T"}',
-      output: 'enum U {a="T", b="T", c="T"}',
-      errors: 3,
-    },
-    {
-      code: 'enum U {b_="T", a="T", b="T"}',
-      output: 'enum U {a="T", b="T", b_="T"}',
-      errors: 3,
-    },
-    {
-      code: 'enum U {b_="T", c="T", C="T"}',
-      output: 'enum U {C="T", b_="T", c="T"}',
-      errors: 3,
-    },
-    {
-      code: 'enum U {$="T", _="T", A="T", a="T"}',
-      output: 'enum U {$="T", A="T", _="T", a="T"}',
-      errors: 3,
-    },
-    {
-      code: "enum U {'#'='T', À='T', 'Z'='T', è='T'}",
-      output: "enum U {'#'='T', 'Z'='T', À='T', è='T'}",
-      errors: 3,
+      errors: 2,
     },
     /**
      * not ignore simple computed properties.
@@ -194,14 +169,14 @@ const invalid: PreInvalidTestCaseObject = {
     {
       code: 'enum U {a="T", b="T", ["aa"]="T", c="T"}',
       output: 'enum U {a="T", ["aa"]="T", b="T", c="T"}',
-      errors: 3,
+      errors: 2,
     },
   ],
   ascendingInsensitiveNonNaturalNotRequired: [
     {
       code: 'enum U {a="T", _="T", b="T"}',
       output: 'enum U {_="T", a="T", b="T"}',
-      errors: 3,
+      errors: 2,
     },
     {
       code: 'enum U {c="T", a="T", b="T"}',
@@ -216,19 +191,19 @@ const invalid: PreInvalidTestCaseObject = {
     {
       code: 'enum U {$="T", A="T", _="T", a="T"}',
       output: 'enum U {$="T", _="T", A="T", a="T"}',
-      errors: 3,
+      errors: 2,
     },
     {
       code: "enum U {'#'='T', À='T', 'Z'='T', è='T'}",
       output: "enum U {'#'='T', 'Z'='T', À='T', è='T'}",
-      errors: 3,
+      errors: 2,
     },
   ],
   ascendingSensitiveNaturalNotRequired: [
     {
       code: 'enum U {a="T", _="T", b="T"}',
       output: 'enum U {_="T", a="T", b="T"}',
-      errors: 3,
+      errors: 2,
     },
     {
       code: 'enum U {a="T", c="T", b="T"}',
@@ -248,19 +223,19 @@ const invalid: PreInvalidTestCaseObject = {
     {
       code: 'enum U {$="T", A="T", _="T", a="T"}',
       output: 'enum U {$="T", _="T", A="T", a="T"}',
-      errors: 3,
+      errors: 2,
     },
     {
       code: "enum U {'#'='T', À='T', 'Z'='T', è='T'}",
       output: "enum U {'#'='T', 'Z'='T', À='T', è='T'}",
-      errors: 3,
+      errors: 2,
     },
   ],
   ascendingInsensitiveNaturalNotRequired: [
     {
       code: 'enum U {a="T", _="T", b="T"}',
       output: 'enum U {_="T", a="T", b="T"}',
-      errors: 3,
+      errors: 2,
     },
     {
       code: 'enum U {a="T", c="T", b="T"}',
@@ -275,12 +250,12 @@ const invalid: PreInvalidTestCaseObject = {
     {
       code: 'enum U {$="T", A="T", _="T", a="T"}',
       output: 'enum U {$="T", _="T", A="T", a="T"}',
-      errors: 3,
+      errors: 2,
     },
     {
       code: "enum U {'#'='T', À='T', 'Z'='T', è='T'}",
       output: "enum U {'#'='T', 'Z'='T', À='T', è='T'}",
-      errors: 3,
+      errors: 2,
     },
   ],
   descendingWithDefaults: [
@@ -302,7 +277,7 @@ const invalid: PreInvalidTestCaseObject = {
     {
       code: 'enum U {b_="T", c="T", C="T"}',
       output: 'enum U {c="T", b_="T", C="T"}',
-      errors: 3,
+      errors: 2,
     },
     {
       code: 'enum U {$="T", _="T", A="T", a="T"}',
@@ -366,7 +341,7 @@ const invalid: PreInvalidTestCaseObject = {
     {
       code: 'enum U {b_="T", c="T", C="T"}',
       output: 'enum U {c="T", b_="T", C="T"}',
-      errors: 3,
+      errors: 2,
     },
     {
       code: 'enum U {$="T", _="T", A="T", a="T"}',

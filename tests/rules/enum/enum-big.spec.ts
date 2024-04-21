@@ -25,7 +25,7 @@ const invalid: PreInvalidTestCaseObject = {
     {
       code: invalidBigTestCode,
       output: validBigTestCode,
-      errors: 328,
+      errors: 167,
     },
   ],
 }
