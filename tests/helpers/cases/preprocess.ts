@@ -37,23 +37,21 @@ function processErrorArgs(
   }
 
   if (!omitInferredErrorCount)
-    errorMessages.push(getCountErrorString(category, errorArgs.length))
+    errorMessages.push(getCountErrorString(category, optionsSetsKey, errorArgs.length))
 
   for (const args of errorArgs) {
     // At this point args is number or string[]
     if (Array.isArray(args)) {
       switch (args.length) {
         case 1:
-          errorMessages.push(getEndErrorString(category, optionsSetsKey, args[0]))
+          errorMessages.push(getEndErrorString(category, args[0]))
           break
         case 2:
-          errorMessages.push(
-            getSwapErrorString(category, optionsSetsKey, args[0], args[1]),
-          )
+          errorMessages.push(getSwapErrorString(category, args[0], args[1]))
           break
       }
     } else {
-      errorMessages.push(getCountErrorString(category, args))
+      errorMessages.push(getCountErrorString(category, optionsSetsKey, args))
     }
   }
   return errorMessages

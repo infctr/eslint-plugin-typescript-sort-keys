@@ -80,13 +80,18 @@ export function createReporter(
     )
 
     if (unsortedCount > 0) {
-      const fixerFunctionMemoKey = `fixerFunction_${baseMemoKey}`
-      const fixerFunction = memoize(fixerFunctionMemoKey, () =>
+      const fixerFunction = memoize(`fixerFunction_${baseMemoKey}`, () =>
         getFixerFunction(baseMemoKey, createReporterArgs, body, sortedBody),
       )
 
       reportParentNode(createReporterArgs, bodyParent.loc, unsortedCount, fixerFunction)
-      reportBodyNodes(createReporterArgs, nodePositions, sortedBody, finalIndicesToReport)
+      reportBodyNodes(
+        createReporterArgs,
+        nodePositions,
+        sortedBody,
+        finalIndicesToReport,
+        fixerFunction,
+      )
     }
   }
 }

@@ -28,10 +28,10 @@ export enum CaseCategory {
 function getCategoryErrorString(category: CaseCategory) {
   switch (category) {
     case CaseCategory.Interface:
-      return 'interface keys'
+      return 'Property'
     case CaseCategory.Enum:
     default:
-      return 'enum members'
+      return 'Member'
   }
 }
 
@@ -45,27 +45,18 @@ function getCategoryParentErrorString(category: CaseCategory) {
   }
 }
 
-export const getSwapErrorString = (
-  category: CaseCategory,
-  order: OptionsSetsKey,
-  a: string,
-  b: string,
-) => {
-  return `Expected ${getCategoryErrorString(category)} to be in ${
-    orderStrings[order]
-  } order. '${a}' should be before '${b}'. Run autofix to sort entire body.`
+export const getSwapErrorString = (category: CaseCategory, a: string, b: string) => {
+  return `${getCategoryErrorString(category)} '${a}' should be before '${b}'.`
 }
 
-export const getEndErrorString = (
+export const getEndErrorString = (category: CaseCategory, a: string) =>
+  `${getCategoryErrorString(category)} '${a}' should be at the end.`
+
+export const getCountErrorString = (
   category: CaseCategory,
   order: OptionsSetsKey,
-  a: string,
+  count: number,
 ) =>
-  `Expected ${getCategoryErrorString(category)} to be in ${
-    orderStrings[order]
-  } order. '${a}' should be at the end. Run autofix to sort entire body.`
-
-export const getCountErrorString = (category: CaseCategory, count: number) =>
   `Found ${count} ${getCategoryParentErrorString(category)}${
     count > 1 ? 's' : ''
-  } out of order.`
+  } out of ${orderStrings[order]} order.`

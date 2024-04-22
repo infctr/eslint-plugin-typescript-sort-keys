@@ -27,6 +27,20 @@ export function reportParentNode(
 ) {
   const { context, createReportParentObject } = createReporterArgs
   const { loc, messageId } = createReportParentObject(_loc)
+
+  const { isInsensitive, isNatural, isRequiredFirst, order } = getOptions(
+    createReporterArgs.context,
+  )
+
+  let optionsString = [
+    isRequiredFirst && 'required-first',
+    isInsensitive && 'insensitive',
+    isNatural && 'natural',
+  ]
+    .filter(Boolean)
+    .join(', ')
+  if (optionsString) optionsString += ' '
+
   context.report({
     loc,
     messageId,
@@ -34,6 +48,8 @@ export function reportParentNode(
       plural: unsortedCount > 1 ? 's' : '',
       unsortedCount,
       notice: getDeprecationMessage(context.id.split('/').at(-1)!),
+      order,
+      options: optionsString,
     },
     fix: fixerFunction,
   })
@@ -50,11 +66,9 @@ export function reportBodyNodes(
   nodePositions: Map<NodeOrToken, NodePositionInfo>,
   sortedBody: NodeOrToken[],
   finalIndicesToReport: boolean[],
+  fixerFunction: ReportFixFunction,
 ) {
   const { context, createReportPropertiesObject } = createReporterArgs
-  const { isInsensitive, isNatural, isRequiredFirst, order } = getOptions(
-    createReporterArgs.context,
-  )
 
   for (const [node, { finalIndex }] of nodePositions.entries()) {
     // If the node is not in the correct position, report it
@@ -64,15 +78,6 @@ export function reportBodyNodes(
       // Sanity check
       assert(loc, 'createReportObject return value must include a node location')
       assert(messageId, 'createReportObject return value must include a problem message')
-
-      let optionsString = [
-        isRequiredFirst && 'required-first',
-        isInsensitive && 'insensitive',
-        isNatural && 'natural',
-      ]
-        .filter(Boolean)
-        .join(', ')
-      if (optionsString) optionsString += ' '
 
       context.report({
         loc,
@@ -84,10 +89,8 @@ export function reportBodyNodes(
             finalIndex + 1 < sortedBody.length
               ? `before '${getPropertyName(sortedBody[finalIndex + 1])}'`
               : 'at the end',
-          order,
-          options: optionsString,
-          notice: getDeprecationMessage(context.id),
         },
+        fix: fixerFunction,
       })
     }
   }
