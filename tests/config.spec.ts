@@ -28,7 +28,7 @@ describe('recommended config', () => {
   })
 })
 
-describe('recommended plugin', () => {
+describe('plugin configs', () => {
   const ruleFiles: readonly string[] = readdirSync('./src/rules').filter(
     file => file !== 'index.ts' && file.endsWith('.ts'),
   )
@@ -38,8 +38,8 @@ describe('recommended plugin', () => {
     expect(Object.keys(plugin.rules)).toHaveLength(ruleFiles.length)
   })
 
-  it('should have the recommended config', () => {
+  it('should have the recommended & requiredFirst configs', () => {
     expect(plugin).toHaveProperty('configs')
-    expect(Object.keys(plugin.configs)).toHaveLength(1)
+    expect(Object.keys(plugin.configs)).toHaveLength(2)
   })
 })
