@@ -2,15 +2,11 @@
 
 # eslint-plugin-typescript-sort-keys
 
-Sort interface and enum keys
-
-Inspired by and sourced from [eslint/sort-keys](<[https://github.com/eslint/eslint/blob/master/docs/rules/sort-keys.md](https://github.com/eslint/eslint/blob/main/docs/src/rules/sort-keys.md)>)
+Sort interface and enum keys. Inspired by and sourced from [eslint/sort-keys](<[https://github.com/eslint/eslint/blob/master/docs/rules/sort-keys.md](https://github.com/eslint/eslint/blob/main/docs/src/rules/sort-keys.md)>)
 
 ## Installation
 
-Supported on Node 18+
-
-You'll first need to install
+This plugin is supported on **Node 18+**. You'll first need to install:
 
 - [eslint](http://eslint.org)
 - [typescript](http://www.typescriptlang.org/)
@@ -57,7 +53,7 @@ Then configure the rules you want to use under the rules section.
 }
 ```
 
-Or enable all rules with defaults:
+Or alternatively to the individual rules, enable all rules with defaults:
 
 ```json
 {
