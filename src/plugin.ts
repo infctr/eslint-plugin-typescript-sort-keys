@@ -85,13 +85,7 @@ export function createReporter(
       )
 
       reportParentNode(createReporterArgs, bodyParent.loc, unsortedCount, fixerFunction)
-      reportBodyNodes(
-        createReporterArgs,
-        nodePositions,
-        sortedBody,
-        finalIndicesToReport,
-        fixerFunction,
-      )
+      reportBodyNodes(createReporterArgs, nodePositions, sortedBody, finalIndicesToReport)
     }
   }
 }

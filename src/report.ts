@@ -66,7 +66,6 @@ export function reportBodyNodes(
   nodePositions: Map<NodeOrToken, NodePositionInfo>,
   sortedBody: NodeOrToken[],
   finalIndicesToReport: boolean[],
-  fixerFunction: ReportFixFunction,
 ) {
   const { context, createReportPropertiesObject } = createReporterArgs
 
@@ -90,7 +89,6 @@ export function reportBodyNodes(
               ? `before '${getPropertyName(sortedBody[finalIndex + 1])}'`
               : 'at the end',
         },
-        fix: fixerFunction,
       })
     }
   }
