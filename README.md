@@ -4,7 +4,7 @@
 
 Sort interface and enum keys
 
-Inspired by and sourced from [eslint/sort-keys]([https://github.com/eslint/eslint/blob/master/docs/rules/sort-keys.md](https://github.com/eslint/eslint/blob/main/docs/src/rules/sort-keys.md))
+Inspired by and sourced from [eslint/sort-keys](<[https://github.com/eslint/eslint/blob/master/docs/rules/sort-keys.md](https://github.com/eslint/eslint/blob/main/docs/src/rules/sort-keys.md)>)
 
 ## Installation
 
@@ -57,11 +57,19 @@ Then configure the rules you want to use under the rules section.
 }
 ```
 
-Or enable all rules with defaults
+Or enable all rules with defaults:
 
 ```json
 {
   "extends": ["plugin:typescript-sort-keys/recommended"]
+}
+```
+
+If you'd like to enable the recommended config with interface required keys first:
+
+```json
+{
+  "extends": ["plugin:typescript-sort-keys/requiredFirst"]
 }
 ```
 
