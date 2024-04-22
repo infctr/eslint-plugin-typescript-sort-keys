@@ -1,0 +1,12 @@
+{
+  // Config for eslint test runner
+  "compilerOptions": {
+    "lib": ["ESNext"],
+    "module": "NodeNext",
+    "moduleResolution": "NodeNext",
+    "skipLibCheck": true,
+    "target": "ESNext"
+  },
+  // Corresponds to filename in ./configs.ts
+  "files": ["file.ts"]
+}

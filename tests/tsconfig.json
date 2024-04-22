@@ -1,8 +1,12 @@
 {
-  "extends": "../tsconfig.json",
   "compilerOptions": {
-    "module": "commonjs",
-    "outDir": "../build",
+    "baseUrl": ".",
+    "esModuleInterop": true,
+    "lib": ["ESNext"],
+    "module": "NodeNext",
+    "moduleResolution": "NodeNext",
+    "noEmit": true,
+    "target": "ESNext",
     // Turn off checks to make debugging nicer.
     "noFallthroughCasesInSwitch": false,
     "noImplicitAny": false,
@@ -12,6 +16,6 @@
     "noUnusedParameters": false,
     "strictNullChecks": false
   },
-  "include": ["**/*.ts"],
+  "include": ["./**/*"],
   "exclude": ["fixtures"]
 }

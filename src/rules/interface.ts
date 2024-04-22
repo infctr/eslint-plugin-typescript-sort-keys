@@ -1,29 +1,27 @@
-import { JSONSchema4 } from 'json-schema'
+import { TSESTree } from '@typescript-eslint/utils'
+import { JSONSchema4 } from '@typescript-eslint/utils/json-schema'
 
-import { getObjectBody } from 'utils/ast'
-import { createReporter } from 'utils/plugin'
-import { createRule, RuleMetaData } from 'utils/rule'
+import { RuleNames } from '../config/constants'
+import { createReporter } from '../plugin'
 import {
-  sortingOrderOptionSchema,
-  SortingOrder,
   ErrorMessage,
-  SortingOrderOption,
-  SortingParamsOptions,
-} from 'common/options'
+  RuleOptionsGeneric,
+  SortingOrder,
+  sortingOrderOptionSchema,
+  SortingParams,
+} from '../types'
+import { getObjectBody } from '../utils/ast'
+import { createRule, RuleMetaData } from '../utils/rule'
 
 /**
  * The name of this rule.
  */
-export const name = 'interface' as const
-
-type SortingParams = SortingParamsOptions['caseSensitive'] &
-  SortingParamsOptions['natural'] &
-  SortingParamsOptions['requiredFirst']
+export const name = RuleNames.Interface as const
 
 /**
  * The options this rule can take.
  */
-export type Options = [SortingOrderOption] | [SortingOrderOption, Partial<SortingParams>]
+export type RuleOptions = RuleOptionsGeneric<SortingParams>
 
 const sortingParamsOptionSchema: JSONSchema4 = {
   type: 'object',
@@ -44,12 +42,15 @@ const sortingParamsOptionSchema: JSONSchema4 = {
 /**
  * The schema for the rule options.
  */
-const schema: JSONSchema4[] = [sortingOrderOptionSchema, sortingParamsOptionSchema]
+const schema: readonly JSONSchema4[] = [
+  sortingOrderOptionSchema,
+  sortingParamsOptionSchema,
+]
 
 /**
  * The default options for the rule.
  */
-const defaultOptions: Options = [
+const defaultOptions: RuleOptions = [
   SortingOrder.Ascending,
   { caseSensitive: true, natural: false, requiredFirst: false },
 ]
@@ -58,17 +59,19 @@ const defaultOptions: Options = [
  * The possible error messages.
  */
 const errorMessages = {
-  invalidOrder: ErrorMessage.InterfaceInvalidOrder,
+  invalidOrderBody: ErrorMessage.InterfaceInvalidOrder,
+  invalidOrderParent: ErrorMessage.InterfaceParentInvalidOrder,
 } as const
+type errorMessageKeys = keyof typeof errorMessages
 
 /**
  * The meta data for this rule.
  */
-const meta: RuleMetaData<keyof typeof errorMessages> = {
+const meta: RuleMetaData<errorMessageKeys> = {
   type: 'suggestion',
   docs: {
     description: 'require interface keys to be sorted',
-    recommended: 'warn',
+    recommended: 'stylistic',
   },
   messages: errorMessages,
   fixable: 'code',
@@ -78,28 +81,33 @@ const meta: RuleMetaData<keyof typeof errorMessages> = {
 /**
  * Create the rule.
  */
-export const rule = createRule<keyof typeof errorMessages, Options>({
+export const rule = createRule<errorMessageKeys, RuleOptions>({
   name,
   meta,
   defaultOptions,
 
   create(context) {
-    const compareNodeListAndReport = createReporter(context, ({ loc }) => ({
-      loc,
-      messageId: 'invalidOrder',
-    }))
+    const compareNodeListAndReport = createReporter({
+      context,
+      createReportPropertiesObject: (loc: TSESTree.SourceLocation) => ({
+        loc,
+        messageId: 'invalidOrderBody' as any,
+      }),
+      createReportParentObject: (loc: TSESTree.SourceLocation) => ({
+        loc,
+        messageId: 'invalidOrderParent' as any,
+      }),
+    })
 
     return {
-      TSInterfaceDeclaration(node) {
+      TSInterfaceDeclaration(node: TSESTree.TSInterfaceDeclaration) {
         const body = getObjectBody(node)
-
-        return compareNodeListAndReport(body)
+        return compareNodeListAndReport(node, body)
       },
 
-      TSTypeLiteral(node) {
+      TSTypeLiteral(node: TSESTree.TSTypeLiteral) {
         const body = getObjectBody(node)
-
-        return compareNodeListAndReport(body)
+        return compareNodeListAndReport(node, body)
       },
     }
   },

@@ -2,13 +2,11 @@
 
 # eslint-plugin-typescript-sort-keys
 
-Sort interface and string enum keys
-
-Inspired by and sourced from [eslint/sort-keys]([https://github.com/eslint/eslint/blob/master/docs/rules/sort-keys.md](https://github.com/eslint/eslint/blob/main/docs/src/rules/sort-keys.md))
+Sort interface and enum keys. Inspired by and sourced from [eslint/sort-keys](<[https://github.com/eslint/eslint/blob/master/docs/rules/sort-keys.md](https://github.com/eslint/eslint/blob/main/docs/src/rules/sort-keys.md)>)
 
 ## Installation
 
-You'll first need to install
+This plugin is supported on **Node 18+**. You'll first need to install:
 
 - [eslint](http://eslint.org)
 - [typescript](http://www.typescriptlang.org/)
@@ -50,12 +48,12 @@ Then configure the rules you want to use under the rules section.
 {
   "rules": {
     "typescript-sort-keys/interface": "error",
-    "typescript-sort-keys/string-enum": "error"
+    "typescript-sort-keys/enum": "error"
   }
 }
 ```
 
-Or enable all rules with defaults
+Or alternatively to the individual rules, enable all rules with defaults:
 
 ```json
 {
@@ -63,16 +61,25 @@ Or enable all rules with defaults
 }
 ```
 
+If you'd like to enable the recommended config with interface required keys first:
+
+```json
+{
+  "extends": ["plugin:typescript-sort-keys/requiredFirst"]
+}
+```
+
 ## Supported Rules
 
 <!-- begin rule list -->
 
-**Key**: :heavy_check_mark: = recommended, :wrench: = fixable
+**Key**: :heavy_check_mark: = recommended, :wrench: = fixable, :warning: = deprecated
 
 <!-- prettier-ignore -->
-| Name | Description | :heavy_check_mark: | :wrench: |
+| Name | Description |  |  |
 | ---- | ----------- | ------------------ | -------- |
 | [`typescript-sort-keys/interface`](./docs/rules/interface.md) | require interface keys to be sorted | :heavy_check_mark: | :wrench: |
-| [`typescript-sort-keys/string-enum`](./docs/rules/string-enum.md) | require string enum members to be sorted | :heavy_check_mark: | :wrench: |
+| [`typescript-sort-keys/enum`](./docs/rules/enum.md) | require enum members to be sorted | :heavy_check_mark: | :wrench: |
+| [`typescript-sort-keys/string-enum`](./docs/rules/string-enum.md) | (**DEPRECATED**) require string enum members to be sorted | :warning: | :wrench: |
 
 <!-- end rule list -->

@@ -1,5 +1,4 @@
 module.exports = {
-  root: true,
   parser: '@typescript-eslint/parser',
   plugins: ['@typescript-eslint', 'eslint-plugin', 'import', 'jest', 'prettier'],
   env: {
@@ -8,13 +7,12 @@ module.exports = {
   },
   extends: [
     'eslint:recommended',
-    'plugin:import/errors',
-    'plugin:import/warnings',
+    'plugin:import/recommended',
     'plugin:eslint-plugin/all',
     'plugin:prettier/recommended',
   ],
   parserOptions: {
-    ecmaVersion: 10,
+    ecmaVersion: '2024',
     sourceType: 'module',
   },
   rules: {
@@ -28,7 +26,7 @@ module.exports = {
       rules: {
         '@typescript-eslint/explicit-function-return-type': 'off',
         '@typescript-eslint/explicit-module-boundary-types': 'off',
-        '@typescript-eslint/ban-ts-ignore': 'off',
+        '@typescript-eslint/ban-ts-comment': 'off',
         '@typescript-eslint/no-explicit-any': 'off',
       },
 
@@ -52,7 +50,7 @@ module.exports = {
             'jest/prefer-to-have-length': 'warn',
             'jest/prefer-spy-on': 'error',
             'jest/valid-expect': 'error',
-            'jest/no-test-callback': 'off',
+            'jest/no-done-callback': 'off',
           },
         },
       ],
@@ -60,9 +58,7 @@ module.exports = {
   ],
   settings: {
     'import/resolver': {
-      node: {
-        moduleDirectory: ['node_modules', 'src'],
-      },
+      typescript: true,
     },
   },
 }
